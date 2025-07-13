@@ -110,6 +110,7 @@ logs
 *.log
 
 # Firebase
+.src/firebase.js
 .firebase/
 firebase-debug.log
 firestore-debug.log
