@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom mobile-first utilities for your app */
+@layer components {
+  .mobile-container {
+    @apply max-w-sm mx-auto min-h-screen bg-white;
+  }
+  
+  .mobile-header {
+    @apply flex items-center justify-between p-4 bg-white;
+  }
+  
+  .profile-icon {
+    @apply w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center;
+  }
+}
