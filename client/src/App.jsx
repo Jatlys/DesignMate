@@ -1,4 +1,4 @@
-import LandingPage from './components/OnboardingPage'
+import LandingPage from './components/Homepage'
 import './index.css'
 
 function App() {
