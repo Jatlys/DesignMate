@@ -1,25 +1,16 @@
 import React from 'react';
-import { Code, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
   const handleBeginClick = () => {
-    // Handle navigation to next page
-    console.log('Begin button clicked');
+    navigate('/login');
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto border-2 border-blue-400 rounded-lg">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-white">
-        <div className="flex items-center gap-2">
-          <Code className="w-5 h-5 text-gray-600" />
-          <span className="text-gray-700 font-medium">User Startup</span>
-        </div>
-        <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-          <User className="w-6 h-6 text-gray-600" />
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg">
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center px-8">
         <div className="text-center mb-12">
