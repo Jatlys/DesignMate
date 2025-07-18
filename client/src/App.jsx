@@ -1,16 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import OnboardingPage from './components/OnboardingPage';
-import LoginPage from './components/LoginPage';
-import SignUpPage from './components/SignUpPage';
-import UsernamePage from './components/UsernamePage';
-import RoleSelectionPage from './components/RoleSelectionPage';
-import JoinorCreatePage from './components/JoinorCreatePage';
-import JoinTeamPage from './components/JoinTeamPage';
-import JoinedTeamPage from './components/JoinedTeamPage';
-import CreateTeamPage from './components/CreateTeamPage';
-import TeamCreatedPage from './components/TeamCreatedPage';
-import UserProfilePage from './components/UserProfilePage';
-import './index.css';
+import LandingPage from './components/OnboardingPage'
+import './index.css'
 
 function App() {
   return (
