@@ -58,7 +58,20 @@ function App() {
           <Route path="/create-team" element={<CreateTeamPage />} />
           <Route path="/team-created/:teamCode" element={<TeamCreatedPage />} />
           <Route path="/profile" element={<UserProfilePage />} />
+{/* Icebreaker Routes */}
+<Route path="/icebreaker/start" element={<IceBreakerStart />} />
+<Route path="/icebreaker/question/1" element={<IceBreakerQuestion1 />} />
+<Route path="/icebreaker/question/2" element={<IceBreakerQuestion2 />} />
+<Route path="/icebreaker/question/3" element={<IceBreakerQuestion3 />} />
+<Route path="/icebreaker/complete" element={<IceBreakerComplete />} />
 
+{/* Setup Routes */}
+<Route path="/problem-identification" element={<ProblemIdentification />} />
+<Route path="/timeline/1" element={<Timeline1 />} />
+<Route path="/timeline/2" element={<Timeline2 />} />
+<Route path="/timeline/3" element={<Timeline3 />} />
+<Route path="/skillsets" element={<Skillsets />} />
+<Route path="/project-overview" element={<ProjectOverview />} />
           {/* Define Phase Routes */}
           <Route path="/define" element={<Define />} />
           <Route path="/define/dashboard" element={<DefineDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
@@ -67,6 +80,7 @@ function App() {
           <Route path="/define/affinity-analysis" element={<AffinityAnalysisLesson onComplete={handleCompleteLesson} />} />
           <Route path="/define/5-whys" element={<FiveWhysLesson onComplete={handleCompleteLesson} />} />
           <Route path="/define/methods" element={<Methods completedLessons={completedLessons} />} />
+          
         </Routes>
       </div>
     </Router>
