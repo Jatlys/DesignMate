@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Chatbot from './DevelopChatbot';
 import { useNavigate } from 'react-router-dom';
 
 const lessons = [
@@ -15,12 +16,13 @@ const MethodCard = ({ lesson }) => {
             onClick={() => navigate(lesson.path)}
             className="border border-gray-300 rounded-lg p-4 mb-4 w-full text-left hover:bg-gray-50 transition-colors"
         >
-            <h3 className="font-bold text-lg">{lesson.title}</h3>
+            {lesson.title}
         </button>
     );
 };
 
 const DevelopMethods = ({ completedLessons }) => {
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
     const navigate = useNavigate();
     const completionPercentage = (completedLessons.size / lessons.length) * 100;
 
@@ -31,7 +33,7 @@ const DevelopMethods = ({ completedLessons }) => {
                 <button onClick={() => navigate('/')} className="p-2">
                     <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
                 </button>
-                <button className="p-2">
+                <button onClick={() => setIsChatbotOpen(true)} className="p-2">
                     <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
                 </button>
             </header>
@@ -52,6 +54,7 @@ const DevelopMethods = ({ completedLessons }) => {
                     <MethodCard key={lesson.id} lesson={lesson} />
                 ))}
             </main>
+            {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
 };

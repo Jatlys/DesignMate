@@ -23,7 +23,7 @@ const Chatbot = ({ onClose }) => {
             <p className="text-sm">Hi! I'm here to guide your team through the design innovation process.</p>
           </div>
           <div className="bg-red-100 border-l-4 border-red-500 p-3 rounded-lg self-start max-w-xs">
-            <p className="font-bold text-sm">Current Phase: Discover</p>
+            <p className="font-bold text-sm">Current Phase: Define</p>
             <p className="text-sm">Focus on understanding your target demographic and empathise with their needs, actions, reactions and emotions.</p>
           </div>
           <div className="bg-yellow-100 p-3 rounded-lg self-start max-w-xs">
