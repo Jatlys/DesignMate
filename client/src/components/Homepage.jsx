@@ -12,6 +12,12 @@ const Homepage = () => {
     if (step === 'DEFINE') {
       navigate('/define');
     }
+    if (step === 'DEVELOP') {
+      navigate('/develop');
+    }
+    if (step === 'DELIVER') {
+      navigate('/deliver');
+    }
   };
 
   const handleProjectAction = (action) => {

@@ -33,7 +33,7 @@ const Methods = ({ completedLessons }) => {
                 <button onClick={() => navigate('/')} className="p-2">
                     <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
                 </button>
-                <button onClick={() => setIsChatbotOpen(true)} className="p-2">
+                <button onClick={() => navigate('/define/chatbot')} className="p-2">
                     <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
                 </button>
             </header>
