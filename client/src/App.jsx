@@ -12,6 +12,11 @@ import CreateTeamPage from './components/CreateTeamPage';
 import TeamCreatedPage from './components/TeamCreatedPage';
 import UserProfilePage from './components/UserProfilePage';
 
+// Quiz Imports
+import QuizContainer from './components/Quiz/QuizContainer';
+import SuccessfullyCompleted from './components/Quiz/SuccessfullyCompleted';
+import './components/Quiz/QuizNew.css';
+
 // Define Phase Imports
 import Define from './components/Define/Define';
 import DefineDashboard from './components/Define/DefineDashboard';
@@ -92,6 +97,10 @@ function App() {
           <Route path="/deliver/wireframing" element={<WireframingLesson onComplete={handleCompleteLesson} />} />
           <Route path="/deliver/physical-model" element={<PhysicalModelLesson onComplete={handleCompleteLesson} />} />
           <Route path="/deliver/mockups" element={<MockupsLesson onComplete={handleCompleteLesson} />} />
+
+          {/* Quiz Routes */}
+          <Route path="/quiz" element={<QuizContainer />} />
+          <Route path="/quiz/completed" element={<SuccessfullyCompleted />} />
         </Routes>
       </div>
     </Router>
