@@ -1,13 +1,26 @@
-import React from 'react';
-import { Code, User, Plus, Eye, Home, UserCircle, FileText } from 'lucide-react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { User, Plus, Eye, Home, UserCircle } from 'lucide-react';
+import Chatbot from './Chatbot'; // Import the Chatbot component
 
 const Homepage = () => {
+  const navigate = useNavigate();
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+
   const handleGetStartedClick = (step) => {
     console.log(`${step} step clicked`);
+    if (step === 'DEFINE') {
+      navigate('/define');
+    }
   };
 
   const handleProjectAction = (action) => {
     console.log(`${action} clicked`);
+    if (action === 'CREATE_JOIN') {
+      navigate('/joinorcreate-team');
+    } else if (action === 'VIEW_ALL') {
+      navigate('/view-all-projects');
+    }
   };
 
   return (
@@ -46,7 +59,7 @@ const Homepage = () => {
             <h2 className="text-4xl font-bold text-black mb-3" style={{ fontFamily: 'Abhaya Libre, serif' }}>Get Started</h2>
             
             {/* Process Steps Grid */}
-            <div className="grid grid-cols-2 gap-4 h-64">
+            <div className="grid grid-cols-2 gap-4 h-72">
               {/* Discover */}
               <button
                 onClick={() => handleGetStartedClick('DISCOVER')}
@@ -87,10 +100,10 @@ const Homepage = () => {
 
           {/* Your Projects Section */}
           <div className="flex-1">
-            <h2 className="text-4xl font-bold text-black mb-3" style={{ fontFamily: 'Abhaya Libre, serif' }}>Your Projects</h2>
+            <h2 className="text-4xl font-bold text-black mb-4" style={{ fontFamily: 'Abhaya Libre, serif' }}>Your Projects</h2>
             
             {/* Project Actions Grid */}
-            <div className="grid grid-cols-2 gap-4 h-54">
+            <div className="grid grid-cols-2 gap-4 h-52">
               {/* Create/Join Project */}
               <button
                 onClick={() => handleProjectAction('CREATE_JOIN')}
@@ -98,7 +111,7 @@ const Homepage = () => {
                 style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}
               >
                 {/* Plus icon in gray area */}
-                <div className="flex-1 flex items-center justify-center">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-3/4">
                   <Plus className="w-14 h-14 text-black" strokeWidth={3} />
                 </div>
                 
@@ -137,12 +150,14 @@ const Homepage = () => {
             <button className="p-3 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors duration-200">
               <Home className="w-6 h-6 text-gray-700" />
             </button>
-            <button className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
-              <FileText className="w-6 h-6 text-gray-700" />
+            <button onClick={() => setIsChatbotOpen(true)} className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
+              <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-6 h-6" />
             </button>
           </div>
         </div>
       </div>
+
+      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
     </>
   );
 };

@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SprintManual from './components/SprintManual';
+import Homepage from './components/Homepage';
+import ViewAllProjects from './components/ViewAllProjects';
 import OnboardingPage from './components/OnboardingPage';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
@@ -12,14 +15,13 @@ import CreateTeamPage from './components/CreateTeamPage';
 import TeamCreatedPage from './components/TeamCreatedPage';
 import UserProfilePage from './components/UserProfilePage';
 import Define from './components/Define/Define';
-import DefineDashboard from './components/define/DefineDashboard';
-import ActivityDiagramLesson from './components/define/ActivityDiagramLesson';
+import DefineDashboard from './components/Define/DefineDashboard';
+import ActivityDiagramLesson from './components/Define/ActivityDiagramLesson';
 import HowMightWeLesson from './components/Define/HowMightWeLesson';
 import AffinityAnalysisLesson from './components/Define/AffinityAnalysisLesson';
 import FiveWhysLesson from './components/Define/FiveWhysLesson';
-import Homepage from './components/Homepage';
-import Methods from './components/define/Methods';
-import './index.css';
+import Methods from './components/Define/Methods';
+import './index.css'
 
 function App() {
   const [completedLessons, setCompletedLessons] = useState(new Set());
@@ -51,6 +53,8 @@ function App() {
           <Route path="/define/affinity-analysis" element={<AffinityAnalysisLesson onComplete={handleCompleteLesson} />} />
           <Route path="/define/5-whys" element={<FiveWhysLesson onComplete={handleCompleteLesson} />} />
           <Route path="/define/methods" element={<Methods completedLessons={completedLessons} />} />
+          <Route path="/sprint-manual" element={<SprintManual />} />
+          <Route path="/view-all-projects" element={<ViewAllProjects />} />
         </Routes>
       </div>
     </Router>
