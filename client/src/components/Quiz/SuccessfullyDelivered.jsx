@@ -22,12 +22,12 @@ const SuccessfullyDelivered = () => {
       </div>
 
       <div className="center-content">
-        <h1 className="success-title">SUCCESSFULLY COMPLETED!</h1>
-        <img src="/assets/SuccessfullyCompleted.svg" alt="Successfully Completed" className="success-image" />
+        <h1 className="success-title">SUCCESSFULLY DELIVERED!</h1>
+        <img src="/assets/SuccessfullyDelivered.svg" alt="Successfully Delivered" className="success-image" />
       </div>
 
       <div className="bottom-bar">
-        <Link to="/quiz" className="quiz-me-link">
+        <Link to="/quiz/questions" className="quiz-me-link">
           <BsArrowRight size={24} />
         </Link>
       </div>

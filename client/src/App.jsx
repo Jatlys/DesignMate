@@ -13,6 +13,7 @@ import TeamCreatedPage from './components/TeamCreatedPage';
 import UserProfilePage from './components/UserProfilePage';
 
 // Quiz Imports
+import SuccessfullyDelivered from './components/Quiz/SuccessfullyDelivered';
 import QuizContainer from './components/Quiz/QuizContainer';
 import SuccessfullyCompleted from './components/Quiz/SuccessfullyCompleted';
 import './components/Quiz/QuizNew.css';
@@ -99,7 +100,8 @@ function App() {
           <Route path="/deliver/mockups" element={<MockupsLesson onComplete={handleCompleteLesson} />} />
 
           {/* Quiz Routes */}
-          <Route path="/quiz" element={<QuizContainer />} />
+          <Route path="/quiz" element={<SuccessfullyDelivered />} />
+          <Route path="/quiz/questions" element={<QuizContainer />} />
           <Route path="/quiz/completed" element={<SuccessfullyCompleted />} />
         </Routes>
       </div>
