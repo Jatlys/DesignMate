@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Home, MessageSquare, Edit2, Lock } from 'lucide-react';
-import Chatbot from './Chatbot';
+// import Chatbot from './Chatbot';
 
 const SprintManual = () => {
   const [projectName, setProjectName] = useState('Project 1');
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(projectName);
-  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [isChatbotOpen, setIsChatbotOpen] = useState(false); // eslint-disable-line no-unused-vars
   
   // Phase data with progress tracking
   const [phases, setPhases] = useState([

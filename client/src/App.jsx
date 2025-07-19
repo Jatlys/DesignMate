@@ -15,23 +15,33 @@ import CreateTeamPage from './components/CreateTeamPage';
 import TeamCreatedPage from './components/TeamCreatedPage';
 import UserProfilePage from './components/UserProfilePage';
 
-// Quiz Imports
-import SuccessfullyDelivered from './components/Quiz/SuccessfullyDelivered';
-import QuizContainer from './components/Quiz/QuizContainer';
-import SuccessfullyCompleted from './components/Quiz/SuccessfullyCompleted';
-import './components/Quiz/QuizNew.css';
-
 // Define Phase Imports
 import Define from './components/Define/Define';
-import DefineDashboard from './components/Define/DefineDashboard';
-import ActivityDiagramLesson from './components/Define/ActivityDiagramLesson';
 import DefineDashboard from './components/Define/DefineDashboard';
 import ActivityDiagramLesson from './components/Define/ActivityDiagramLesson';
 import HowMightWeLesson from './components/Define/HowMightWeLesson';
 import AffinityAnalysisLesson from './components/Define/AffinityAnalysisLesson';
 import FiveWhysLesson from './components/Define/FiveWhysLesson';
-import Homepage from './components/Homepage';
-import Methods from './components/Define/Methods';
+import Methods from './components/Define/DefineMethods';
+
+// Develop Phase Imports
+import Develop from './components/Develop/Develop';
+import DevelopDashboard from './components/Develop/DevelopDashboard';
+import DevelopMethods from './components/Develop/DevelopMethods';
+import CSketchingLesson from './components/Develop/CSketchingLesson';
+import RealWinWorthLesson from './components/Develop/RealWinWorthLesson';
+import MorphMatrixLesson from './components/Develop/MorphMatrixLesson';
+import MoodboardLesson from './components/Develop/MoodboardLesson';
+
+// Deliver Phase Imports
+import Deliver from './components/Deliver/Deliver';
+import DeliverDashboard from './components/Deliver/DeliverDashboard';
+import DeliverMethods from './components/Deliver/DeliverMethods';
+import StoryboardingLesson from './components/Deliver/StoryboardingLesson';
+import WireframingLesson from './components/Deliver/WireframingLesson';
+import PhysicalModelLesson from './components/Deliver/PhysicalModelLesson';
+import MockupsLesson from './components/Deliver/MockupsLesson';
+
 import './index.css';
 
 import IceBreakerStart from './components/IceBreaker/IceBreakerStart';
@@ -85,10 +95,7 @@ function App() {
           <Route path="/skillsets" element={<Skillsets />} />
           <Route path="/project-overview" element={<ProjectOverview />} />
           
-          {/* Quiz Routes */}
-          <Route path="/quiz" element={<SuccessfullyDelivered />} />
-          <Route path="/quiz/questions" element={<QuizContainer />} />
-          <Route path="/quiz/completed" element={<SuccessfullyCompleted />} />
+
           <Route path="/sprint-manual" element={<SprintManual />} />
           <Route path="/view-all-projects" element={<ViewAllProjects />} />
           
