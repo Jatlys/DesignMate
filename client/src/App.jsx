@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SprintManual from './components/SprintManual';
+import Homepage from './components/Homepage';
+import ViewAllProjects from './components/ViewAllProjects';
 import OnboardingPage from './components/OnboardingPage';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
@@ -14,6 +17,8 @@ import UserProfilePage from './components/UserProfilePage';
 
 // Define Phase Imports
 import Define from './components/Define/Define';
+import DefineDashboard from './components/Define/DefineDashboard';
+import ActivityDiagramLesson from './components/Define/ActivityDiagramLesson';
 import DefineDashboard from './components/Define/DefineDashboard';
 import ActivityDiagramLesson from './components/Define/ActivityDiagramLesson';
 import HowMightWeLesson from './components/Define/HowMightWeLesson';
@@ -80,7 +85,8 @@ function App() {
           <Route path="/define/affinity-analysis" element={<AffinityAnalysisLesson onComplete={handleCompleteLesson} />} />
           <Route path="/define/5-whys" element={<FiveWhysLesson onComplete={handleCompleteLesson} />} />
           <Route path="/define/methods" element={<Methods completedLessons={completedLessons} />} />
-          
+          <Route path="/sprint-manual" element={<SprintManual />} />
+          <Route path="/view-all-projects" element={<ViewAllProjects />} />
         </Routes>
       </div>
     </Router>
