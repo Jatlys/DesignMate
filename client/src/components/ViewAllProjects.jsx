@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { ArrowLeft, MessageSquare, Edit2 } from 'lucide-react';
-// import Chatbot from './Chatbot';
+import Chatbot from './Chatbot';
 import { useNavigate } from 'react-router-dom';
 
 const ViewAllProjects = () => {
   const [projectName, setProjectName] = useState('Your Projects');
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(projectName);
-    const [isChatbotOpen, setIsChatbotOpen] = useState(false); // eslint-disable-line no-unused-vars
+    const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   
   // Project data without progress tracking
   const [projects] = useState([
@@ -86,7 +86,7 @@ const ViewAllProjects = () => {
         </div>
         
         <button
-          onClick={() => alert('Chatbot not implemented yet')}
+          onClick={() => setIsChatbotOpen(true)}
           className="p-2 rounded-full hover:bg-gray-100 transition-colors"
         >
           {/* Chatbot icon using the actual SVG file */}

@@ -15,6 +15,12 @@ import CreateTeamPage from './components/CreateTeamPage';
 import TeamCreatedPage from './components/TeamCreatedPage';
 import UserProfilePage from './components/UserProfilePage';
 
+// Quiz Imports
+import SuccessfullyDelivered from './components/Quiz/SuccessfullyDelivered';
+import QuizContainer from './components/Quiz/QuizContainer';
+import SuccessfullyCompleted from './components/Quiz/SuccessfullyCompleted';
+import './components/Quiz/QuizNew.css';
+
 // Define Phase Imports
 import Define from './components/Define/Define';
 import DefineDashboard from './components/Define/DefineDashboard';
@@ -99,6 +105,11 @@ function App() {
           <Route path="/sprint-manual" element={<SprintManual />} />
           <Route path="/view-all-projects" element={<ViewAllProjects />} />
           
+          {/* Quiz Routes */}
+          <Route path="/quiz" element={<SuccessfullyDelivered />} />
+          <Route path="/quiz/questions" element={<QuizContainer />} />
+          <Route path="/quiz/completed" element={<SuccessfullyCompleted />} />
+
           {/* Define Phase Routes */}
           <Route path="/define" element={<Define />} />
           <Route path="/define/dashboard" element={<DefineDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
