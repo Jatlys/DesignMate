@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from './DefineChatbot';
+import Chatbot from './DeliverChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -13,13 +13,13 @@ const Section = ({ title, children, icon }) => (
   </div>
 );
 
-const HowMightWeLesson = ({ onComplete }) => {
+const StoryboardingLesson = ({ onComplete }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const handleComplete = () => {
-    onComplete('How Might We');
-    navigate('/define/dashboard');
+    onComplete('Storyboarding');
+    navigate('/deliver/dashboard');
   };
 
   return (
@@ -41,33 +41,49 @@ const HowMightWeLesson = ({ onComplete }) => {
 
       <div className="flex items-start mb-4">
         <div className="w-1 bg-black h-16 mr-3"></div>
-        <h1 className="text-4xl font-bold leading-tight">How Might<br/>We</h1>
+        <h1 className="text-4xl font-bold leading-tight">Storyboarding</h1>
       </div>
 
       <p className="text-gray-500 mb-6 text-sm ml-4">
-        A design thinking activity that helps you reframe your challenges into opportunities for innovation.
+        Storyboarding is used to display your idea and scenarios of use. You can use videos, sketching and texts to illustrate the story.
       </p>
 
       {/* Main Content */}
       <main className="flex-grow pb-16">
         <Section title="Why?">
-          <p>It helps to open up a wider range of possible solutions and encourages a more optimistic, solution-oriented mindset.</p>
+          <p>It allows you to effectively show your ideas and concepts without needing a developed prototype</p>
         </Section>
 
         <Section title="Materials">
-          <p>Sticky notes, Markers, Whiteboard or wall space.</p>
+          <p>Video recording device or Computer with drawing software</p>
         </Section>
 
         <Section title="Procedure">
-          <p>Start with a point-of-view (POV) or a problem statement. Break it down and rephrase it as a "How Might We..." question to explore new ideas.</p>
-          <ol className="list-decimal list-inside ml-4 mt-2">
-            <li><strong>Brainstorm solutions:</strong> Brainstorm as many solutions as possible for each HMW question.</li>
-            <li><strong>Group and theme:</strong> Group similar ideas together and identify common themes.</li>
+          <ol className="list-decimal list-inside space-y-2">
+            <li>
+              <strong>Identify Target User</strong>
+            </li>
+            <li>
+              <strong>Identify key focus of the story</strong>
+              <p>Important details to convey</p>
+            </li>
+            <li>
+              <strong>Identify story context</strong>
+              <p>when, where does it take place?</p>
+            </li>
+            <li>
+              <strong>Identify key actors</strong>
+              <p>Who and what are involved in your story</p>
+            </li>
+            <li>
+              <strong>Establish flow of events</strong>
+              <p>Determine the flow of events and start drawing</p>
+            </li>
           </ol>
         </Section>
 
         <Section title="Tips" icon="/assets/TipsBulb.png">
-          <p>Encourage wild and crazy ideas. There are no bad ideas at this stage. The goal is to generate as many ideas as possible.</p>
+          <p>Your storyboard should help you carry your point across to your audience</p>
         </Section>
 
         <button 
@@ -83,4 +99,4 @@ const HowMightWeLesson = ({ onComplete }) => {
   );
 }
 
-export default HowMightWeLesson;
+export default StoryboardingLesson;

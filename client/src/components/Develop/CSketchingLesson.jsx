@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from './DefineChatbot';
+import Chatbot from './DevelopChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -13,13 +13,13 @@ const Section = ({ title, children, icon }) => (
   </div>
 );
 
-const HowMightWeLesson = ({ onComplete }) => {
+const CSketchingLesson = ({ onComplete }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const handleComplete = () => {
-    onComplete('How Might We');
-    navigate('/define/dashboard');
+    onComplete('C-Sketching');
+    navigate('/develop/dashboard');
   };
 
   return (
@@ -41,33 +41,31 @@ const HowMightWeLesson = ({ onComplete }) => {
 
       <div className="flex items-start mb-4">
         <div className="w-1 bg-black h-16 mr-3"></div>
-        <h1 className="text-4xl font-bold leading-tight">How Might<br/>We</h1>
+        <h1 className="text-4xl font-bold leading-tight">C-Sketching<br/>(6-3-5)</h1>
       </div>
 
       <p className="text-gray-500 mb-6 text-sm ml-4">
-        A design thinking activity that helps you reframe your challenges into opportunities for innovation.
+        Collaborative idea-generation method where six participants each sketch three design ideas in five minutes.
       </p>
 
       {/* Main Content */}
       <main className="flex-grow pb-16">
-        <Section title="Why?">
-          <p>It helps to open up a wider range of possible solutions and encourages a more optimistic, solution-oriented mindset.</p>
-        </Section>
-
-        <Section title="Materials">
-          <p>Sticky notes, Markers, Whiteboard or wall space.</p>
-        </Section>
-
-        <Section title="Procedure">
-          <p>Start with a point-of-view (POV) or a problem statement. Break it down and rephrase it as a "How Might We..." question to explore new ideas.</p>
-          <ol className="list-decimal list-inside ml-4 mt-2">
-            <li><strong>Brainstorm solutions:</strong> Brainstorm as many solutions as possible for each HMW question.</li>
-            <li><strong>Group and theme:</strong> Group similar ideas together and identify common themes.</li>
+        <Section title="How It Works">
+          <ol className="list-decimal list-inside space-y-2">
+            <li>Each participant receives a sheet divided into three sections.</li>
+            <li>In the first round, every team member silently sketches three ideas (one per section) in about 15 minutes.</li>
+            <li>The sheets are then passed to the next person, who builds upon, modifies, or adds new ideas to the sketches in another round.</li>
+            <li>This process repeats for five rounds, so each sheet is iteratively developed by all team members.</li>
+            <li>After all rounds, the group discusses and refines the best ideas.</li>
           </ol>
         </Section>
 
-        <Section title="Tips" icon="/assets/TipsBulb.png">
-          <p>Encourage wild and crazy ideas. There are no bad ideas at this stage. The goal is to generate as many ideas as possible.</p>
+        <Section title="Best Practices">
+          <ul className="list-disc list-inside space-y-2">
+            <li>Silence is maintained during sketching to avoid groupthink and encourage independent creativity.</li>
+            <li>Feedback and discussion occur only after all rounds are complete.</li>
+            <li>Encourages diverse perspectives and rapid concept evolution.</li>
+          </ul>
         </Section>
 
         <button 
@@ -83,4 +81,4 @@ const HowMightWeLesson = ({ onComplete }) => {
   );
 }
 
-export default HowMightWeLesson;
+export default CSketchingLesson;

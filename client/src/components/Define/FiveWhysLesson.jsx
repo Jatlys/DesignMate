@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from '../Chatbot';
+import Chatbot from './DefineChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">

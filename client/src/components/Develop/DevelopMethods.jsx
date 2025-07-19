@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Chatbot from './DevelopChatbot';
 import { useNavigate } from 'react-router-dom';
 
 const lessons = [
-    { id: 'Activity Diagram', title: 'Activity Diagram', path: '/define/activity-diagram' },
-    { id: 'How Might We', title: 'How Might We', path: '/define/how-might-we' },
-    { id: 'Affinity Analysis', title: 'Affinity Analysis', path: '/define/affinity-analysis' },
-    { id: '5 Whys', title: '5 Whys', path: '/define/5-whys' }
+    { id: 'C-Sketching', title: 'C-Sketching (6-3-5)', path: '/develop/c-sketching' },
+    { id: 'Real-Win-Worth', title: 'Real-Win-Worth', path: '/develop/real-win-worth' },
+    { id: 'Morph Matrix', title: 'Morph Matrix', path: '/develop/morph-matrix' },
+    { id: 'Moodboard', title: 'Moodboard', path: '/develop/moodboard' }
 ];
 
 const MethodCard = ({ lesson }) => {
@@ -15,12 +16,13 @@ const MethodCard = ({ lesson }) => {
             onClick={() => navigate(lesson.path)}
             className="border border-gray-300 rounded-lg p-4 mb-4 w-full text-left hover:bg-gray-50 transition-colors"
         >
-            <h3 className="font-bold text-lg">{lesson.title}</h3>
+            {lesson.title}
         </button>
     );
 };
 
-const Methods = ({ completedLessons }) => {
+const DevelopMethods = ({ completedLessons }) => {
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
     const navigate = useNavigate();
     const completionPercentage = (completedLessons.size / lessons.length) * 100;
 
@@ -31,7 +33,7 @@ const Methods = ({ completedLessons }) => {
                 <button onClick={() => navigate('/')} className="p-2">
                     <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
                 </button>
-                <button className="p-2">
+                <button onClick={() => setIsChatbotOpen(true)} className="p-2">
                     <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
                 </button>
             </header>
@@ -52,8 +54,9 @@ const Methods = ({ completedLessons }) => {
                     <MethodCard key={lesson.id} lesson={lesson} />
                 ))}
             </main>
+            {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
 };
 
-export default Methods;
+export default DevelopMethods;

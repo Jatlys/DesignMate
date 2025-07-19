@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from './DefineChatbot';
+import Chatbot from './DevelopChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -13,13 +13,13 @@ const Section = ({ title, children, icon }) => (
   </div>
 );
 
-const HowMightWeLesson = ({ onComplete }) => {
+const MorphMatrixLesson = ({ onComplete }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const handleComplete = () => {
-    onComplete('How Might We');
-    navigate('/define/dashboard');
+    onComplete('Morph Matrix');
+    navigate('/develop/dashboard');
   };
 
   return (
@@ -41,33 +41,29 @@ const HowMightWeLesson = ({ onComplete }) => {
 
       <div className="flex items-start mb-4">
         <div className="w-1 bg-black h-16 mr-3"></div>
-        <h1 className="text-4xl font-bold leading-tight">How Might<br/>We</h1>
+        <h1 className="text-4xl font-bold leading-tight">Morph<br/>Matrix</h1>
       </div>
 
       <p className="text-gray-500 mb-6 text-sm ml-4">
-        A design thinking activity that helps you reframe your challenges into opportunities for innovation.
+        Combines all possible ideas to systematically generate novel concepts
       </p>
 
       {/* Main Content */}
       <main className="flex-grow pb-16">
-        <Section title="Why?">
-          <p>It helps to open up a wider range of possible solutions and encourages a more optimistic, solution-oriented mindset.</p>
+        <Section title="How It Works">
+          <ul className="list-disc list-inside space-y-2">
+            <li>Identify key functions or features required for the product, service, or system.</li>
+            <li>List these functions in the rows of a matrix.</li>
+            <li>For each function, brainstorm multiple alternative solutions and list them in the columns.</li>
+            <li>By selecting one idea from each row, teams can create a wide range of concept permutations.</li>
+          </ul>
         </Section>
 
-        <Section title="Materials">
-          <p>Sticky notes, Markers, Whiteboard or wall space.</p>
-        </Section>
-
-        <Section title="Procedure">
-          <p>Start with a point-of-view (POV) or a problem statement. Break it down and rephrase it as a "How Might We..." question to explore new ideas.</p>
-          <ol className="list-decimal list-inside ml-4 mt-2">
-            <li><strong>Brainstorm solutions:</strong> Brainstorm as many solutions as possible for each HMW question.</li>
-            <li><strong>Group and theme:</strong> Group similar ideas together and identify common themes.</li>
-          </ol>
-        </Section>
-
-        <Section title="Tips" icon="/assets/TipsBulb.png">
-          <p>Encourage wild and crazy ideas. There are no bad ideas at this stage. The goal is to generate as many ideas as possible.</p>
+        <Section title="Benefits">
+          <ul className="list-disc list-inside space-y-2">
+            <li>Ensures broad exploration of the solution space.</li>
+            <li>Helps in discovering unconventional or high-potential combinations that might be missed through unstructured brainstorming.</li>
+          </ul>
         </Section>
 
         <button 
@@ -83,4 +79,4 @@ const HowMightWeLesson = ({ onComplete }) => {
   );
 }
 
-export default HowMightWeLesson;
+export default MorphMatrixLesson;

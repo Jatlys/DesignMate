@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from './DefineChatbot';
+import Chatbot from './DeliverChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -13,13 +13,13 @@ const Section = ({ title, children, icon }) => (
   </div>
 );
 
-const HowMightWeLesson = ({ onComplete }) => {
+const WireframingLesson = ({ onComplete }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const handleComplete = () => {
-    onComplete('How Might We');
-    navigate('/define/dashboard');
+    onComplete('Wireframing');
+    navigate('/deliver/dashboard');
   };
 
   return (
@@ -41,33 +41,38 @@ const HowMightWeLesson = ({ onComplete }) => {
 
       <div className="flex items-start mb-4">
         <div className="w-1 bg-black h-16 mr-3"></div>
-        <h1 className="text-4xl font-bold leading-tight">How Might<br/>We</h1>
+        <h1 className="text-4xl font-bold leading-tight">Wireframing</h1>
       </div>
 
       <p className="text-gray-500 mb-6 text-sm ml-4">
-        A design thinking activity that helps you reframe your challenges into opportunities for innovation.
+        A wireframe is a static representation of the layout of your website or app.
       </p>
 
       {/* Main Content */}
       <main className="flex-grow pb-16">
         <Section title="Why?">
-          <p>It helps to open up a wider range of possible solutions and encourages a more optimistic, solution-oriented mindset.</p>
+          <p>Wireframes are used to communicate content on the page as well as the functionality of the elements in your design, taking into account the user experience.</p>
         </Section>
 
         <Section title="Materials">
-          <p>Sticky notes, Markers, Whiteboard or wall space.</p>
+          <p>Figma and wireframing template</p>
         </Section>
 
         <Section title="Procedure">
-          <p>Start with a point-of-view (POV) or a problem statement. Break it down and rephrase it as a "How Might We..." question to explore new ideas.</p>
-          <ol className="list-decimal list-inside ml-4 mt-2">
-            <li><strong>Brainstorm solutions:</strong> Brainstorm as many solutions as possible for each HMW question.</li>
-            <li><strong>Group and theme:</strong> Group similar ideas together and identify common themes.</li>
+          <ol className="list-decimal list-inside space-y-2">
+            <li><strong>Consolidate previous user research</strong></li>
+            <li><strong>Finalise elements on the page</strong></li>
+            <li><strong>Sketch initial draft of the layout</strong></li>
+            <li><strong>Connect elements to the pages by drawing arrows to where each element directs to</strong></li>
           </ol>
         </Section>
 
-        <Section title="Tips" icon="/assets/TipsBulb.png">
-          <p>Encourage wild and crazy ideas. There are no bad ideas at this stage. The goal is to generate as many ideas as possible.</p>
+        <Section title="Fun Fact" icon="/assets/TipsBulb.png">
+          <ul className="list-disc list-inside space-y-2">
+            <li>Low fidelity refers to a sketch with just the basic structures of the site to determine layout and concept</li>
+            <li>Medium fidelity has placeholder icons, images and texts to show a more accurate description of the layout</li>
+            <li>High fidelity uses real images content and colours to show how the final UI looks like. If it is clickable it is called a “Prototype”</li>
+          </ul>
         </Section>
 
         <button 
@@ -83,4 +88,4 @@ const HowMightWeLesson = ({ onComplete }) => {
   );
 }
 
-export default HowMightWeLesson;
+export default WireframingLesson;

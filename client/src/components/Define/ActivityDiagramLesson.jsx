@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from '../Chatbot';
+import Chatbot from './DefineChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -79,7 +79,7 @@ const ActivityDiagramLesson = ({ onComplete }) => {
           </ol>
         </Section>
 
-        <Section title="Tips" icon="/assets/TipsBulb.svg">
+        <Section title="Tips" icon="/assets/TipsBulb.png">
           <p>You should use this method to identify pain points!</p>
         </Section>
 

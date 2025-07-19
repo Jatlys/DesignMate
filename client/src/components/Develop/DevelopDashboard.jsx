@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import Chatbot from './DefineChatbot';
+import Chatbot from './DevelopChatbot';
 
 const lessons = [
   {
-    id: 'Activity Diagram',
-    title: 'Activity Diagram',
+    id: 'C-Sketching',
+    title: 'C-Sketching (6-3-5)',
     description: '...explanation of Activity Diagram',
-    path: '/define/activity-diagram'
+    path: '/Develop/c-sketching'
   },
   {
-    id: 'How Might We',
-    title: 'How might we',
+    id: 'Real-Win-Worth',
+    title: 'Real-Win-Worth',
     description: '...explanation of HMW',
-    path: '/define/how-might-we'
+    path: '/Develop/real-win-worth'
   },
   {
-    id: 'Affinity Analysis',
-    title: 'Affinity Analysis',
+    id: 'Morph Matrix',
+    title: 'Morph Matrix',
     description: '...explanation of Affinity Analysis',
-    path: '/define/affinity-analysis'
+    path: '/Develop/morph-matrix'
   },
   {
-    id: '5 Whys',
-    title: '5 Whys',
+    id: 'Moodboard',
+    title: 'Moodboard',
     description: '...explanation of 5 whys',
-    path: '/define/5-whys'
+    path: '/Develop/moodboard'
   }
 ];
 
@@ -58,7 +58,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
               Review Lessons
             </button>
             <button 
-              onClick={() => navigate('/define/methods')}
+              onClick={() => navigate('/develop/methods')}
               className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
             >
               Review Methods
@@ -80,7 +80,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
   );
 };
 
-const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
+const DevelopDashboard = ({ completedLessons, setCompletedLessons }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
@@ -112,9 +112,9 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
       </div>
 
       <div className="flex items-center mb-4">
-        <img src="/assets/DefineSmall.svg" alt="Define phase icon" className="w-12 h-12 mr-2" />
+        <img src="/assets/DevelopSmall.svg" alt="Define phase icon" className="w-12 h-12 mr-2" />
         <div>
-          <h1 className="text-2xl font-serif">Define</h1>
+          <h1 className="text-2xl font-serif">Develop</h1>
           <p className="text-sm text-gray-600">Interpret and reframe needs and map them into activities, functions and representations</p>
         </div>
       </div>
@@ -131,7 +131,7 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
       </main>
 
       <footer className="absolute bottom-4 left-4">
-        <button onClick={() => navigate('/define')}>
+        <button onClick={() => navigate('/develop')}>
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
@@ -140,4 +140,4 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
   );
 };
 
-export default DefineDashboard;
+export default DevelopDashboard;

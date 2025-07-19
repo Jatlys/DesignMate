@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from './DefineChatbot';
+import Chatbot from './DevelopChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -13,13 +13,13 @@ const Section = ({ title, children, icon }) => (
   </div>
 );
 
-const HowMightWeLesson = ({ onComplete }) => {
+const MoodboardLesson = ({ onComplete }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const handleComplete = () => {
-    onComplete('How Might We');
-    navigate('/define/dashboard');
+    onComplete('Moodboard');
+    navigate('/develop/dashboard');
   };
 
   return (
@@ -41,33 +41,28 @@ const HowMightWeLesson = ({ onComplete }) => {
 
       <div className="flex items-start mb-4">
         <div className="w-1 bg-black h-16 mr-3"></div>
-        <h1 className="text-4xl font-bold leading-tight">How Might<br/>We</h1>
+        <h1 className="text-4xl font-bold leading-tight">Moodboard</h1>
       </div>
 
       <p className="text-gray-500 mb-6 text-sm ml-4">
-        A design thinking activity that helps you reframe your challenges into opportunities for innovation.
+        Having an idea of the style and theme of the given idea. Futuristic, old fashion and simple could be some of the ideas of categories you are trying to capture and portray to the team.
       </p>
 
       {/* Main Content */}
       <main className="flex-grow pb-16">
-        <Section title="Why?">
-          <p>It helps to open up a wider range of possible solutions and encourages a more optimistic, solution-oriented mindset.</p>
+        <Section title="How It Works">
+          <ul className="list-disc list-inside space-y-2">
+            <li>Teams gather images from magazines, the internet, or photographs that relate (directly or indirectly) to the design challenge.</li>
+            <li>These images are "ripped" out and "rapped" together on a blank canvas to form a collage.</li>
+            <li>The collage serves as a mood board or visual prompt, helping teams articulate ideas that might be hard to express in words.</li>
+          </ul>
         </Section>
 
-        <Section title="Materials">
-          <p>Sticky notes, Markers, Whiteboard or wall space.</p>
-        </Section>
-
-        <Section title="Procedure">
-          <p>Start with a point-of-view (POV) or a problem statement. Break it down and rephrase it as a "How Might We..." question to explore new ideas.</p>
-          <ol className="list-decimal list-inside ml-4 mt-2">
-            <li><strong>Brainstorm solutions:</strong> Brainstorm as many solutions as possible for each HMW question.</li>
-            <li><strong>Group and theme:</strong> Group similar ideas together and identify common themes.</li>
-          </ol>
-        </Section>
-
-        <Section title="Tips" icon="/assets/TipsBulb.png">
-          <p>Encourage wild and crazy ideas. There are no bad ideas at this stage. The goal is to generate as many ideas as possible.</p>
+        <Section title="Best Practices">
+          <ul className="list-disc list-inside space-y-2">
+            <li>Include images from unrelated domains to encourage unconventional thinking.</li>
+            <li>Present and explain the collage to others to gather feedback and surface new interpretations.</li>
+          </ul>
         </Section>
 
         <button 
@@ -83,4 +78,4 @@ const HowMightWeLesson = ({ onComplete }) => {
   );
 }
 
-export default HowMightWeLesson;
+export default MoodboardLesson;

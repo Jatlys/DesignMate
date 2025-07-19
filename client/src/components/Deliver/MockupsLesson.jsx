@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from './DefineChatbot';
+import Chatbot from './DeliverChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -13,13 +13,13 @@ const Section = ({ title, children, icon }) => (
   </div>
 );
 
-const HowMightWeLesson = ({ onComplete }) => {
+const MockupsLesson = ({ onComplete }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const handleComplete = () => {
-    onComplete('How Might We');
-    navigate('/define/dashboard');
+    onComplete('Mockups');
+    navigate('/deliver/dashboard');
   };
 
   return (
@@ -41,33 +41,34 @@ const HowMightWeLesson = ({ onComplete }) => {
 
       <div className="flex items-start mb-4">
         <div className="w-1 bg-black h-16 mr-3"></div>
-        <h1 className="text-4xl font-bold leading-tight">How Might<br/>We</h1>
+        <h1 className="text-4xl font-bold leading-tight">Mockups<br/>(Paper Prototypes)</h1>
       </div>
 
       <p className="text-gray-500 mb-6 text-sm ml-4">
-        A design thinking activity that helps you reframe your challenges into opportunities for innovation.
+        Mockups are used to create a rough resemblance of Products, Services and Systems. It is low cost that is easy and quick to construct and modify.
       </p>
 
       {/* Main Content */}
       <main className="flex-grow pb-16">
         <Section title="Why?">
-          <p>It helps to open up a wider range of possible solutions and encourages a more optimistic, solution-oriented mindset.</p>
-        </Section>
-
-        <Section title="Materials">
-          <p>Sticky notes, Markers, Whiteboard or wall space.</p>
+          <p>Mockups can be used to identify hidden needs of users and show ideas in an early and quick to construct and modify.</p>
         </Section>
 
         <Section title="Procedure">
-          <p>Start with a point-of-view (POV) or a problem statement. Break it down and rephrase it as a "How Might We..." question to explore new ideas.</p>
-          <ol className="list-decimal list-inside ml-4 mt-2">
-            <li><strong>Brainstorm solutions:</strong> Brainstorm as many solutions as possible for each HMW question.</li>
-            <li><strong>Group and theme:</strong> Group similar ideas together and identify common themes.</li>
+          <ol className="list-decimal list-inside space-y-2">
+            <li><strong>Identify key assumptions and questions</strong></li>
+            <li><strong>Construct the Mockup</strong></li>
+            <li><strong>Identify key areas to work on for further higher-fidelity prototyping</strong></li>
           </ol>
         </Section>
 
-        <Section title="Tips" icon="/assets/TipsBulb.png">
-          <p>Encourage wild and crazy ideas. There are no bad ideas at this stage. The goal is to generate as many ideas as possible.</p>
+        <Section title="Best Practices" icon="/assets/TipsBulb.png">
+          <ul className="list-disc list-inside space-y-2">
+            <li>Be creative with the resources available</li>
+            <li>Make the solution fast with minimal details</li>
+            <li>Create your mockups to closely resemble the Product, Service or System that are crucial to your solution</li>
+            <li>Be clear in explaining any limit of your mockup to your audience to prevent confusion</li>
+          </ul>
         </Section>
 
         <button 
@@ -83,4 +84,4 @@ const HowMightWeLesson = ({ onComplete }) => {
   );
 }
 
-export default HowMightWeLesson;
+export default MockupsLesson;

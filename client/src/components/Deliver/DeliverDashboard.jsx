@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import Chatbot from './DefineChatbot';
+import Chatbot from './DeliverChatbot';
 
 const lessons = [
   {
-    id: 'Activity Diagram',
-    title: 'Activity Diagram',
-    description: '...explanation of Activity Diagram',
-    path: '/define/activity-diagram'
+    id: 'Storyboarding',
+    title: 'Storyboarding',
+    description: '...explanation of Storyboarding',
+    path: '/deliver/storyboarding'
   },
   {
-    id: 'How Might We',
-    title: 'How might we',
-    description: '...explanation of HMW',
-    path: '/define/how-might-we'
+    id: 'Wireframing',
+    title: 'Wireframing',
+    description: '...explanation of wireframing',
+    path: '/deliver/wireframing'
   },
   {
-    id: 'Affinity Analysis',
-    title: 'Affinity Analysis',
-    description: '...explanation of Affinity Analysis',
-    path: '/define/affinity-analysis'
+    id: 'Physical Model',
+    title: 'Physical Model',
+    description: '...explanation of Physical Model',
+    path: '/deliver/physical-model'
   },
   {
-    id: '5 Whys',
-    title: '5 Whys',
-    description: '...explanation of 5 whys',
-    path: '/define/5-whys'
+    id: 'Mockups',
+    title: 'Mockups',
+    description: '...explanation of Mockups',
+    path: '/deliver/mockups'
   }
 ];
 
@@ -58,7 +58,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
               Review Lessons
             </button>
             <button 
-              onClick={() => navigate('/define/methods')}
+              onClick={() => navigate('/deliver/methods')}
               className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
             >
               Review Methods
@@ -80,7 +80,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
   );
 };
 
-const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
+const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
@@ -112,10 +112,10 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
       </div>
 
       <div className="flex items-center mb-4">
-        <img src="/assets/DefineSmall.svg" alt="Define phase icon" className="w-12 h-12 mr-2" />
+        <img src="/assets/DeliverSmall.svg" alt="Deliver phase icon" className="w-12 h-12 mr-2" />
         <div>
-          <h1 className="text-2xl font-serif">Define</h1>
-          <p className="text-sm text-gray-600">Interpret and reframe needs and map them into activities, functions and representations</p>
+          <h1 className="text-2xl font-serif">Deliver</h1>
+          <p className="text-sm text-gray-600">Iteratively prototype and test concepts and models with users</p>
         </div>
       </div>
 
@@ -131,7 +131,7 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
       </main>
 
       <footer className="absolute bottom-4 left-4">
-        <button onClick={() => navigate('/define')}>
+        <button onClick={() => navigate('/deliver')}>
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
@@ -140,4 +140,4 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
   );
 };
 
-export default DefineDashboard;
+export default DeliverDashboard;
