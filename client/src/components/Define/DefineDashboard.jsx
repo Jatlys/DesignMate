@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import Chatbot from '../Chatbot';
+import Chatbot from './DefineChatbot';
 
 const lessons = [
   {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from '../Chatbot';
+import Chatbot from './DefineChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -73,7 +73,7 @@ const AffinityAnalysisLesson = ({ onComplete }) => {
           </ol>
         </Section>
 
-        <Section title="Tips" icon="/assets/TipsBulb.svg">
+        <Section title="Tips" icon="/assets/TipsBulb.png">
           <ul class="list-disc list-outside ml-4 space-y-2">
             <li>Do not agonise over perfectly clustering the needs as themes will emerge organically.</li>
             <li>Define and name themes based on content of ideas.</li>

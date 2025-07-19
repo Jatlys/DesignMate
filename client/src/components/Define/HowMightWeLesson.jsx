@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from '../Chatbot';
+import Chatbot from './DefineChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -66,7 +66,7 @@ const HowMightWeLesson = ({ onComplete }) => {
           </ol>
         </Section>
 
-        <Section title="Tips" icon="/assets/TipsBulb.svg">
+        <Section title="Tips" icon="/assets/TipsBulb.png">
           <p>Encourage wild and crazy ideas. There are no bad ideas at this stage. The goal is to generate as many ideas as possible.</p>
         </Section>
 

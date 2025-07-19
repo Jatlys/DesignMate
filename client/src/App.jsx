@@ -12,13 +12,13 @@ import CreateTeamPage from './components/CreateTeamPage';
 import TeamCreatedPage from './components/TeamCreatedPage';
 import UserProfilePage from './components/UserProfilePage';
 import Define from './components/Define/Define';
-import DefineDashboard from './components/define/DefineDashboard';
-import ActivityDiagramLesson from './components/define/ActivityDiagramLesson';
+import DefineDashboard from './components/Define/DefineDashboard';
+import ActivityDiagramLesson from './components/Define/ActivityDiagramLesson';
 import HowMightWeLesson from './components/Define/HowMightWeLesson';
 import AffinityAnalysisLesson from './components/Define/AffinityAnalysisLesson';
 import FiveWhysLesson from './components/Define/FiveWhysLesson';
 import Homepage from './components/Homepage';
-import Methods from './components/define/Methods';
+import Methods from './components/Define/Methods';
 import './index.css';
 
 function App() {
