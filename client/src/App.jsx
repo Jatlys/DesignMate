@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import SprintManual from './components/SprintManual';
 import Homepage from './components/Homepage';
 import ViewAllProjects from './components/ViewAllProjects';
@@ -28,7 +28,7 @@ import ActivityDiagramLesson from './components/Define/ActivityDiagramLesson';
 import HowMightWeLesson from './components/Define/HowMightWeLesson';
 import AffinityAnalysisLesson from './components/Define/AffinityAnalysisLesson';
 import FiveWhysLesson from './components/Define/FiveWhysLesson';
-import Methods from './components/Define/DefineMethods';
+import DefineMethods from './components/Define/DefineMethods';
 
 // Develop Phase Imports
 import Develop from './components/Develop/Develop';
@@ -62,34 +62,6 @@ import Timeline3 from './components/Setup/Timeline3';
 import Skillsets from './components/Setup/Skillsets';
 import ProjectOverview from './components/Setup/ProjectOverview'; 
 
-// Define Phase Imports
-import Define from './components/Define/Define';
-import DefineDashboard from './components/Define/DefineDashboard';
-import ActivityDiagramLesson from './components/Define/ActivityDiagramLesson';
-import HowMightWeLesson from './components/Define/HowMightWeLesson';
-import AffinityAnalysisLesson from './components/Define/AffinityAnalysisLesson';
-import FiveWhysLesson from './components/Define/FiveWhysLesson';
-import DefineMethods from './components/Define/DefineMethods';
-import './index.css';
-
-// Develop Phase Imports
-import Develop from './components/Develop/Develop';
-import DevelopDashboard from './components/Develop/DevelopDashboard';
-import CSketchingLesson from './components/Develop/CSketchingLesson';
-import DevelopMethods from './components/Develop/DevelopMethods';
-import MoodBoardLesson from './components/Develop/MoodBoardLesson';
-import MorphMatrixLesson from './components/Develop/MorphMatrixLesson';
-import RealWinWorthLesson from './components/Develop/RealWinWorthLesson';
-
-
-// Deliver Phase Imports
-import Deliver from './components/Deliver/Deliver';
-import DeliverDashboard from './components/Deliver/DeliverDashboard';
-import DeliverMethods from './components/Deliver/DeliverMethods';
-import MockupsLesson from './components/Deliver/MockupsLesson';
-import PhysicalModelLesson from './components/Deliver/PhysicalModelLesson';
-import StoryboardingLesson from './components/Deliver/StoryboardingLesson';
-import WireframingLesson from './components/Deliver/WireframingLesson';
 
 
 // Chatbot Imports
@@ -97,10 +69,16 @@ import DefineChatbot from './components/Define/DefineChatbot';
 import DevelopChatbot from './components/Develop/DevelopChatbot';
 import DeliverChatbot from './components/Deliver/DeliverChatbot';
 
+const AppRoutes = () => {
+  const navigate = useNavigate();
+    const [completedLessons, setCompletedLessons] = useState(() => {
+    const savedLessons = localStorage.getItem('completedLessons');
+    return savedLessons ? new Set(JSON.parse(savedLessons)) : new Set();
+  });
 
-function App() {
-  const [completedLessons, setCompletedLessons] = useState(new Set());
-
+    useEffect(() => {
+    localStorage.setItem('completedLessons', JSON.stringify(Array.from(completedLessons)));
+  }, [completedLessons]);
 
   const handleCompleteLesson = (lessonId) => {
     setCompletedLessons(prev => new Set(prev).add(lessonId));
@@ -119,83 +97,86 @@ function App() {
   };
 
   return (
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/onboarding" element={<OnboardingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/username" element={<UsernamePage />} />
+        <Route path="/role-selection" element={<RoleSelectionPage />} />
+        <Route path="/joinorcreate-team" element={<JoinorCreatePage />} />
+        <Route path="/join-team" element={<JoinTeamPage />} />
+        <Route path="/joined-team/:teamCode" element={<JoinedTeamPage />} />
+        <Route path="/create-team" element={<CreateTeamPage />} />
+        <Route path="/team-created/:teamCode" element={<TeamCreatedPage />} />
+        <Route path="/profile" element={<UserProfilePage />} />
+        
+        {/* Icebreaker Routes */}
+        <Route path="/icebreaker/start" element={<IceBreakerStart />} />
+        <Route path="/icebreaker/question/1" element={<IceBreakerQuestion1 />} />
+        <Route path="/icebreaker/question/2" element={<IceBreakerQuestion2 />} />
+        <Route path="/icebreaker/question/3" element={<IceBreakerQuestion3 />} />
+        <Route path="/icebreaker/complete" element={<IceBreakerComplete />} />
+
+        {/* Setup Routes */}
+        <Route path="/problem-identification" element={<ProblemIdentification />} />
+        <Route path="/timeline/1" element={<Timeline1 />} />
+        <Route path="/timeline/2" element={<Timeline2 />} />
+        <Route path="/timeline/3" element={<Timeline3 />} />
+        <Route path="/skillsets" element={<Skillsets />} />
+        <Route path="/project-overview" element={<ProjectOverview />} />
+        <Route path="/sprint-manual" element={<SprintManual completedLessons={completedLessons} />} />
+        <Route path="/view-all-projects" element={<ViewAllProjects />} />
+
+        <Route path="/sprint-manual" element={<SprintManual completedLessons={completedLessons} />} />
+        <Route path="/view-all-projects" element={<ViewAllProjects />} />
+        
+        {/* Quiz Routes */}
+        <Route path="/quiz" element={<SuccessfullyDelivered />} />
+        <Route path="/quiz/questions" element={<QuizContainer />} />
+        <Route path="/quiz/completed" element={<SuccessfullyCompleted />} />
+
+        {/* Define Phase Routes */}
+        <Route path="/define" element={<Define />} />
+        <Route path="/define/dashboard" element={<DefineDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
+        <Route path="/define/activity-diagram" element={<ActivityDiagramLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/define/how-might-we" element={<HowMightWeLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/define/affinity-analysis" element={<AffinityAnalysisLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/define/5-whys" element={<FiveWhysLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/define/define-methods" element={<DefineMethods completedLessons={completedLessons} />} />
+        
+        {/* Develop Phase routes*/}
+        <Route path="/develop" element={<Develop />} />
+        <Route path="/develop/dashboard" element={<DevelopDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
+        <Route path="/develop/c-sketching" element={<CSketchingLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/develop/develop-methods" element={<DevelopMethods completedLessons={completedLessons} />} />
+        <Route path="/develop/moodboard" element={<MoodboardLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/develop/morph-matrix" element={<MorphMatrixLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/develop/real-win-worth" element={<RealWinWorthLesson onComplete={handleCompleteLesson} />} />
+
+        {/* Deliver Phase routes*/}
+        <Route path="/deliver" element={<Deliver />} />
+        <Route path="/deliver/dashboard" element={<DeliverDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
+        <Route path="/deliver/mockups" element={<MockupsLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/deliver/physical-model" element={<PhysicalModelLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/deliver/storyboarding" element={<StoryboardingLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/deliver/wireframing" element={<WireframingLesson onComplete={handleCompleteLesson} />} />
+        <Route path="/deliver/deliver-methods" element={<DeliverMethods completedLessons={completedLessons} />} />
+
+        {/* Chatbot Routes*/}
+        <Route path="/define/chatbot" element={<DefineChatbot onClose={handleCloseDefineChatbot} />} />
+        <Route path="/develop/chatbot" element={<DevelopChatbot onClose={handleCloseDevelopChatbot} />} />
+        <Route path="/deliver/chatbot" element={<DeliverChatbot onClose={handleCloseDeliverChatbot} />} />
+      </Routes>
+    </div>
+  );
+};
+
+function App() {
+  return (
     <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/onboarding" element={<OnboardingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/username" element={<UsernamePage />} />
-          <Route path="/role-selection" element={<RoleSelectionPage />} />
-          <Route path="/joinorcreate-team" element={<JoinorCreatePage />} />
-          <Route path="/join-team" element={<JoinTeamPage />} />
-          <Route path="/joined-team/:teamCode" element={<JoinedTeamPage />} />
-          <Route path="/create-team" element={<CreateTeamPage />} />
-          <Route path="/team-created/:teamCode" element={<TeamCreatedPage />} />
-          <Route path="/profile" element={<UserProfilePage />} />
-          
-          {/* Icebreaker Routes */}
-          <Route path="/icebreaker/start" element={<IceBreakerStart />} />
-          <Route path="/icebreaker/question/1" element={<IceBreakerQuestion1 />} />
-          <Route path="/icebreaker/question/2" element={<IceBreakerQuestion2 />} />
-          <Route path="/icebreaker/question/3" element={<IceBreakerQuestion3 />} />
-          <Route path="/icebreaker/complete" element={<IceBreakerComplete />} />
-
-          {/* Setup Routes */}
-          <Route path="/problem-identification" element={<ProblemIdentification />} />
-          <Route path="/timeline/1" element={<Timeline1 />} />
-          <Route path="/timeline/2" element={<Timeline2 />} />
-          <Route path="/timeline/3" element={<Timeline3 />} />
-          <Route path="/skillsets" element={<Skillsets />} />
-          <Route path="/project-overview" element={<ProjectOverview />} />
-          <Route path="/sprint-manual" element={<SprintManual />} />
-          <Route path="/view-all-projects" element={<ViewAllProjects />} />
-
-
-          
-
-          <Route path="/sprint-manual" element={<SprintManual />} />
-          <Route path="/view-all-projects" element={<ViewAllProjects />} />
-          
-          {/* Quiz Routes */}
-          <Route path="/quiz" element={<SuccessfullyDelivered />} />
-          <Route path="/quiz/questions" element={<QuizContainer />} />
-          <Route path="/quiz/completed" element={<SuccessfullyCompleted />} />
-
-          {/* Define Phase Routes */}
-          <Route path="/define" element={<Define />} />
-          <Route path="/define/dashboard" element={<DefineDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
-          <Route path="/define/activity-diagram" element={<ActivityDiagramLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/define/how-might-we" element={<HowMightWeLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/define/affinity-analysis" element={<AffinityAnalysisLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/define/5-whys" element={<FiveWhysLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/define/define-methods" element={<DefineMethods completedLessons={completedLessons} />} />
-          
-          {/* Develop Phase routes*/}
-          <Route path="/develop" element={<Develop />} />
-          <Route path="/develop/dashboard" element={<DevelopDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
-          <Route path="/develop/c-sketching" element={<CSketchingLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/develop/develop-methods" element={<DevelopMethods completedLessons={completedLessons} />} />
-          <Route path="/develop/mood-board" element={<MoodBoardLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/develop/morph-matrix" element={<MorphMatrixLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/develop/real-win-worth" element={<RealWinWorthLesson onComplete={handleCompleteLesson} />} />
-
-          {/* Deliver Phase routes*/}
-          <Route path="/deliver" element={<Deliver />} />
-          <Route path="/deliver/dashboard" element={<DeliverDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
-          <Route path="/deliver/mockups" element={<MockupsLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/deliver/physical-model" element={<PhysicalModelLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/deliver/storyboarding" element={<StoryboardingLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/deliver/wireframing" element={<WireframingLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/deliver/deliver-methods" element={<DeliverMethods completedLessons={completedLessons} />} />
-
-          {/* Chatbot Routes*/}
-          <Route path="/define/chatbot" element={<DefineChatbot onClose={handleCloseDefineChatbot} />} />
-          <Route path="/develop/chatbot" element={<DevelopChatbot onClose={handleCloseDevelopChatbot} />} />
-          <Route path="/deliver/chatbot" element={<DeliverChatbot onClose={handleCloseDeliverChatbot} />} />
-        </Routes>
-      </div>
+      <AppRoutes />
     </Router>
   );
 }

@@ -94,7 +94,9 @@ const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
     setCompletedLessons(newSet);
   };
 
-  const completionPercentage = (completedLessons.size / lessons.length) * 100;
+    const deliverLessonIds = new Set(lessons.map(l => l.id));
+  const completedDeliverLessons = [...completedLessons].filter(id => deliverLessonIds.has(id));
+  const completionPercentage = lessons.length > 0 ? (completedDeliverLessons.length / lessons.length) * 100 : 0;
 
   return (
     <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
@@ -131,7 +133,7 @@ const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
       </main>
 
       <footer className="absolute bottom-4 left-4">
-        <button onClick={() => navigate('/deliver')}>
+        <button onClick={() => navigate('/sprint-manual')}>
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
