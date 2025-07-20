@@ -5,3 +5,4 @@ langchain-community
 ollama
 chromadb
 pypdf
+python-multipart
