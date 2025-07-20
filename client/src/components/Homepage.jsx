@@ -11,6 +11,8 @@ const Homepage = () => {
     console.log(`${step} step clicked`);
     if (step === 'DEFINE') {
       navigate('/define');
+    } else if (step === 'DISCOVER') {
+      navigate('/discover');
     }
   };
 

@@ -19,14 +19,19 @@ import UserProfilePage from './components/UserProfilePage';
 import Define from './components/Define/Define';
 import DefineDashboard from './components/Define/DefineDashboard';
 import ActivityDiagramLesson from './components/Define/ActivityDiagramLesson';
-import DefineDashboard from './components/Define/DefineDashboard';
-import ActivityDiagramLesson from './components/Define/ActivityDiagramLesson';
 import HowMightWeLesson from './components/Define/HowMightWeLesson';
 import AffinityAnalysisLesson from './components/Define/AffinityAnalysisLesson';
 import FiveWhysLesson from './components/Define/FiveWhysLesson';
-import Homepage from './components/Homepage';
-import Methods from './components/Define/Methods';
-import './index.css';
+import DefineMethods from './components/Define/DefineMethods';
+
+// Discover Phase Imports
+import Discover from './components/Discover/Discover';
+import DiscoverDashboard from './components/Discover/DiscoverDashboard';
+import StakeholderMappingLesson from './components/Discover/StakeholderMappingLesson';
+import PersonasLesson from './components/Discover/PersonasLesson';
+import ScenariosLesson from './components/Discover/ScenariosLesson';
+import UserJourneyMappingLesson from './components/Discover/UserJourneyMappingLesson';
+import DiscoverMethods from './components/Discover/DiscoverMethods';
 
 import IceBreakerStart from './components/IceBreaker/IceBreakerStart';
 import IceBreakerQuestion1 from './components/IceBreaker/IceBreakerQuestion1';
@@ -39,6 +44,8 @@ import Timeline2 from './components/Setup/Timeline2';
 import Timeline3 from './components/Setup/Timeline3';
 import Skillsets from './components/Setup/Skillsets';
 import ProjectOverview from './components/Setup/ProjectOverview'; 
+
+import './index.css';
 
 function App() {
   const [completedLessons, setCompletedLessons] = useState(new Set());
@@ -84,7 +91,17 @@ function App() {
           <Route path="/define/how-might-we" element={<HowMightWeLesson onComplete={handleCompleteLesson} />} />
           <Route path="/define/affinity-analysis" element={<AffinityAnalysisLesson onComplete={handleCompleteLesson} />} />
           <Route path="/define/5-whys" element={<FiveWhysLesson onComplete={handleCompleteLesson} />} />
-          <Route path="/define/methods" element={<Methods completedLessons={completedLessons} />} />
+          <Route path="/define/methods" element={<DefineMethods completedLessons={completedLessons} />} />
+
+          {/* Discover Phase Routes */}
+          <Route path="/discover" element={<Discover />} />
+          <Route path="/discover/dashboard" element={<DiscoverDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
+          <Route path="/discover/stakeholder-mapping" element={<StakeholderMappingLesson onComplete={handleCompleteLesson} />} />
+          <Route path="/discover/personas" element={<PersonasLesson onComplete={handleCompleteLesson} />} />
+          <Route path="/discover/scenarios" element={<ScenariosLesson onComplete={handleCompleteLesson} />} />
+          <Route path="/discover/user-journey-mapping" element={<UserJourneyMappingLesson onComplete={handleCompleteLesson} />} />
+          <Route path="/discover/methods" element={<DiscoverMethods completedLessons={completedLessons} />} />
+
           <Route path="/sprint-manual" element={<SprintManual />} />
           <Route path="/view-all-projects" element={<ViewAllProjects />} />
         </Routes>
