@@ -7,7 +7,7 @@ const ViewAllProjects = () => {
   const [projectName, setProjectName] = useState('Your Projects');
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(projectName);
-  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   
   // Project data without progress tracking
   const [projects] = useState([

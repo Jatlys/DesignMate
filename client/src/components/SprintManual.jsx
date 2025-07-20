@@ -6,7 +6,7 @@ const SprintManual = () => {
   const [projectName, setProjectName] = useState('Project 1');
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(projectName);
-  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   
   // Phase data with progress tracking
   const [phases, setPhases] = useState([

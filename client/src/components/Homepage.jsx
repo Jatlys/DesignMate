@@ -5,7 +5,7 @@ import Chatbot from './Chatbot'; // Import the Chatbot component
 
 const Homepage = () => {
   const navigate = useNavigate();
-  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [isChatbotOpen, setIsChatbotOpen] = useState(false); // eslint-disable-line no-unused-vars
 
   const handleGetStartedClick = (step) => {
     console.log(`${step} step clicked`);

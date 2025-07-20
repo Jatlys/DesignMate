@@ -2,7 +2,7 @@ import React from 'react';
 import { X, Send } from 'lucide-react';
 
 const Chatbot = ({ onClose, initialMessages, phase }) => {
-  const [messages, setMessages] = React.useState(initialMessages);
+  const [messages, setMessages] = React.useState(initialMessages || []);
   const [input, setInput] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
 
