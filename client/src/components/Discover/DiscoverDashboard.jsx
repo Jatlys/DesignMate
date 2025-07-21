@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import Chatbot from './DiscoverChatbot';
+import DiscoverChatbot from './DiscoverChatbot';
 
 const lessons = [
   {
@@ -58,7 +58,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
               Review Lessons
             </button>
             <button 
-              onClick={() => navigate('/discover/methods')}
+              onClick={() => navigate('/discover/discover-methods')}
               className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
             >
               Review Methods
@@ -84,7 +84,7 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
-    const handleToggleComplete = (lessonId) => {
+  const handleToggleComplete = (lessonId) => {
     const newSet = new Set(completedLessons);
     if (newSet.has(lessonId)) {
       newSet.delete(lessonId);
@@ -94,7 +94,9 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
     setCompletedLessons(newSet);
   };
 
-  const completionPercentage = (completedLessons.size / lessons.length) * 100;
+  const discoverLessonIds = new Set(lessons.map(l => l.id));
+  const completedDiscoverLessons = [...completedLessons].filter(id => discoverLessonIds.has(id));
+  const completionPercentage = lessons.length > 0 ? (completedDiscoverLessons.length / lessons.length) * 100 : 0;
 
   return (
     <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
@@ -131,11 +133,11 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
       </main>
 
       <footer className="absolute bottom-4 left-4">
-        <button onClick={() => navigate('/discover')}>
+        <button onClick={() => navigate('/sprint-manual')}>
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <DiscoverChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 };
