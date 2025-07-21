@@ -58,7 +58,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
               Review Lessons
             </button>
             <button 
-              onClick={() => navigate('/define/methods')}
+              onClick={() => navigate('/define/define-methods')}
               className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
             >
               Review Methods
@@ -94,7 +94,9 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
     setCompletedLessons(newSet);
   };
 
-  const completionPercentage = (completedLessons.size / lessons.length) * 100;
+    const defineLessonIds = new Set(lessons.map(l => l.id));
+  const completedDefineLessons = [...completedLessons].filter(id => defineLessonIds.has(id));
+  const completionPercentage = lessons.length > 0 ? (completedDefineLessons.length / lessons.length) * 100 : 0;
 
   return (
     <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
@@ -102,7 +104,7 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
         <button onClick={() => navigate('/')}>
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
-        <button onClick={() => setIsChatbotOpen(true)} className="p-2">
+        <button onClick={() => navigate('/define/chatbot')} className="p-2">
           <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
         </button>
       </header>
@@ -131,7 +133,7 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
       </main>
 
       <footer className="absolute bottom-4 left-4">
-        <button onClick={() => navigate('/define')}>
+        <button onClick={() => navigate('/sprint-manual')}>
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>

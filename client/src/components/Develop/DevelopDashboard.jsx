@@ -5,28 +5,28 @@ import Chatbot from './DevelopChatbot';
 
 const lessons = [
   {
-    id: 'C-Sketching',
+    id: 'C-Sketching (6-3-5)',
     title: 'C-Sketching (6-3-5)',
-    description: '...explanation of Activity Diagram',
-    path: '/Develop/c-sketching'
+    description: '...explanation of C-Sketching',
+    path: '/develop/c-sketching'
   },
   {
-    id: 'Real-Win-Worth',
+    id: 'Real, Win, Worth',
     title: 'Real-Win-Worth',
-    description: '...explanation of HMW',
-    path: '/Develop/real-win-worth'
+    description: '...explanation of RWW',
+    path: '/develop/real-win-worth'
   },
   {
-    id: 'Morph Matrix',
+    id: 'Morphological Matrix',
     title: 'Morph Matrix',
-    description: '...explanation of Affinity Analysis',
-    path: '/Develop/morph-matrix'
+    description: '...explanation of Morphological Matrix',
+    path: '/develop/morph-matrix'
   },
   {
     id: 'Moodboard',
     title: 'Moodboard',
-    description: '...explanation of 5 whys',
-    path: '/Develop/moodboard'
+    description: '...explanation of Moodboard',
+    path: '/develop/moodboard'
   }
 ];
 
@@ -58,7 +58,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
               Review Lessons
             </button>
             <button 
-              onClick={() => navigate('/develop/methods')}
+              onClick={() => navigate('/develop/develop-methods')}
               className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
             >
               Review Methods
@@ -94,7 +94,9 @@ const DevelopDashboard = ({ completedLessons, setCompletedLessons }) => {
     setCompletedLessons(newSet);
   };
 
-  const completionPercentage = (completedLessons.size / lessons.length) * 100;
+    const developLessonIds = new Set(lessons.map(l => l.id));
+  const completedDevelopLessons = [...completedLessons].filter(id => developLessonIds.has(id));
+  const completionPercentage = lessons.length > 0 ? (completedDevelopLessons.length / lessons.length) * 100 : 0;
 
   return (
     <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
@@ -131,7 +133,7 @@ const DevelopDashboard = ({ completedLessons, setCompletedLessons }) => {
       </main>
 
       <footer className="absolute bottom-4 left-4">
-        <button onClick={() => navigate('/develop')}>
+        <button onClick={() => navigate('/sprint-manual')}>
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>

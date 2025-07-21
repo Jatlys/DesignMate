@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import Chatbot from './DeliverChatbot';
+import Chatbot from './DiscoverChatbot';
 
 const lessons = [
   {
-    id: 'Storyboarding',
-    title: 'Storyboarding',
-    description: '...explanation of Storyboarding',
-    path: '/deliver/storyboarding'
+    id: 'Stakeholder Mapping',
+    title: 'Stakeholder Mapping',
+    description: '...explanation of stakeholder mapping',
+    path: '/discover/stakeholder-mapping'
   },
   {
-    id: 'Wireframing',
-    title: 'Wireframing',
-    description: '...explanation of wireframing',
-    path: '/deliver/wireframing'
+    id: 'Personas',
+    title: 'Personas',
+    description: '...explanation of personas',
+    path: '/discover/personas'
   },
   {
-    id: 'Physical Model',
-    title: 'Physical Model',
-    description: '...explanation of Physical Model',
-    path: '/deliver/physical-model'
+    id: 'Scenarios',
+    title: 'Scenarios',
+    description: '...explanation of scenarios',
+    path: '/discover/scenarios'
   },
   {
-    id: 'Mockups',
-    title: 'Mockups',
-    description: '...explanation of Mockups',
-    path: '/deliver/mockups'
+    id: 'User Journey Mapping',
+    title: 'User Journey Mapping',
+    description: '...explanation of user journey mapping',
+    path: '/discover/user-journey-mapping'
   }
 ];
 
@@ -58,7 +58,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
               Review Lessons
             </button>
             <button 
-              onClick={() => navigate('/deliver/methods')}
+              onClick={() => navigate('/discover/methods')}
               className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
             >
               Review Methods
@@ -80,7 +80,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
   );
 };
 
-const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
+const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
@@ -94,9 +94,7 @@ const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
     setCompletedLessons(newSet);
   };
 
-    const deliverLessonIds = new Set(lessons.map(l => l.id));
-  const completedDeliverLessons = [...completedLessons].filter(id => deliverLessonIds.has(id));
-  const completionPercentage = lessons.length > 0 ? (completedDeliverLessons.length / lessons.length) * 100 : 0;
+  const completionPercentage = (completedLessons.size / lessons.length) * 100;
 
   return (
     <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
@@ -114,10 +112,10 @@ const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
       </div>
 
       <div className="flex items-center mb-4">
-        <img src="/assets/DeliverSmall.svg" alt="Deliver phase icon" className="w-12 h-12 mr-2" />
+        <img src="/assets/DiscoverSmall.svg" alt="Discover phase icon" className="w-12 h-12 mr-2" />
         <div>
-          <h1 className="text-2xl font-serif">Deliver</h1>
-          <p className="text-sm text-gray-600">Iteratively prototype and test concepts and models with users</p>
+          <h1 className="text-2xl font-serif">Discover</h1>
+          <p className="text-sm text-gray-600">Understanding users and empathising with their needs</p>
         </div>
       </div>
 
@@ -133,7 +131,7 @@ const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
       </main>
 
       <footer className="absolute bottom-4 left-4">
-        <button onClick={() => navigate('/sprint-manual')}>
+        <button onClick={() => navigate('/discover')}>
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
@@ -142,4 +140,4 @@ const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
   );
 };
 
-export default DeliverDashboard;
+export default DiscoverDashboard;

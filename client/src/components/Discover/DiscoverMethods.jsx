@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Chatbot from './DefineChatbot';
+import Chatbot from './DiscoverChatbot';
 import { useNavigate } from 'react-router-dom';
 
 const lessons = [
-    { id: 'Activity Diagram', title: 'Activity Diagram', path: '/define/activity-diagram' },
-    { id: 'How Might We', title: 'How Might We', path: '/define/how-might-we' },
-    { id: 'Affinity Analysis', title: 'Affinity Analysis', path: '/define/affinity-analysis' },
-    { id: '5 Whys', title: '5 Whys', path: '/define/5-whys' }
+    { id: 'Stakeholder Mapping', title: 'Stakeholder Mapping', path: '/discover/stakeholder-mapping' },
+    { id: 'Personas', title: 'Personas', path: '/discover/personas' },
+    { id: 'Scenarios', title: 'Scenarios', path: '/discover/scenarios' },
+    { id: 'User Journey Mapping', title: 'User Journey Mapping', path: '/discover/user-journey-mapping' }
 ];
 
 const MethodCard = ({ lesson }) => {
@@ -33,7 +33,7 @@ const Methods = ({ completedLessons }) => {
                 <button onClick={() => navigate('/')} className="p-2">
                     <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
                 </button>
-                <button onClick={() => navigate('/define/chatbot')} className="p-2">
+                <button onClick={() => setIsChatbotOpen(true)} className="p-2">
                     <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
                 </button>
             </header>

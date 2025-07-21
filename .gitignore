@@ -135,3 +135,11 @@ client/.vite/
 # Production builds
 build/
 dist/
+
+# DesignMate RAG Data
+server/llm_server/knowledge_bases/
+server/llm_server/vector_stores/
+
+# Python virtual environment
+/server/llm_server/venv/
+/venv/

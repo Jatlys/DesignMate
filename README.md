@@ -33,6 +33,85 @@ Real-time data - Firebase integration for live updates
 Prerequisites
 
 Node.js (v16 or higher)
+Python (v3.8 or higher)
+Ollama (for running local LLMs)
+
+### 1. Frontend Setup
+
+```bash
+# Navigate to the client directory
+cd client
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+```
+
+### 2. Backend LLM & RAG Setup
+
+These instructions are for the Python server that powers the chatbot's AI capabilities.
+
+**A. Install Ollama and Models**
+
+1.  **Install Ollama:** Download and install Ollama from the [official website](https://ollama.com/). After installation, ensure the Ollama application is running.
+2.  **Pull Required Models:** Open a terminal and run the following commands to download the necessary LLM and embedding models:
+    ```bash
+    ollama pull llama2
+    ollama pull nomic-embed-text
+    ```
+
+**B. Setup Python Environment**
+
+```bash
+# Navigate to the LLM server directory
+cd server/llm_server
+
+# (Recommended) Create and activate a virtual environment
+python -m venv venv
+# On Windows
+.\venv\Scripts\activate
+# On macOS/Linux
+# source venv/bin/activate
+
+# Install Python dependencies
+pip install -r requirements.txt
+```
+
+**C. Start the LLM Server**
+
+Once the environment is set up, start the FastAPI server:
+
+```bash
+# From the server/llm_server directory
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+### 3. Populating the RAG Knowledge Base
+
+To give the chatbots knowledge, you need to upload PDF documents to their respective knowledge bases. This is done via a `curl` command.
+
+1.  Open a new terminal.
+2.  Navigate to the directory containing the PDF you want to upload.
+3.  Run the appropriate `curl` command below, replacing `your-file.pdf` with your actual file name.
+
+**Upload to Define Chatbot:**
+```bash
+cURL -X POST -F "file=@your-file.pdf" http://localhost:8000/api/define/upload
+```
+
+**Upload to Develop Chatbot:**
+```bash
+cURL -X POST -F "file=@your-file.pdf" http://localhost:8000/api/develop/upload
+```
+
+**Upload to Deliver Chatbot:**
+```bash
+cURL -X POST -F "file=@your-file.pdf" http://localhost:8000/api/deliver/upload
+```
+
+**Note on Data Transfer:** The uploaded documents and their processed vector data are stored in `server/llm_server/knowledge_bases` and `server/llm_server/vector_stores` respectively. To move your setup to another machine, simply copy these two folders to the same location in the new project directory.
 npm or yarn
 Firebase account
 
