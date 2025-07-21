@@ -130,6 +130,14 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
             onToggleComplete={handleToggleComplete}
           />
         ))}
+        {completionPercentage === 100 && (
+          <button
+            onClick={() => navigate('/sprint-manual')}
+            className="w-full mt-4 bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg text-lg"
+          >
+            Complete
+          </button>
+        )}
       </main>
 
       <footer className="absolute bottom-4 left-4">

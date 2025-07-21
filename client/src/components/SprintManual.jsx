@@ -268,6 +268,18 @@ const SprintManual = ({ completedLessons = new Set() }) => {
         })}
       </div>
 
+      {/* Complete Sprint Button Section */}
+      {sprintProgress === 100 && (
+        <div className="p-6 bg-gray-50">
+          <button
+            onClick={() => navigate('/quiz')}
+            className="w-full bg-green-600 text-white font-semibold py-3 px-4 rounded-lg text-lg hover:bg-green-700 transition-colors"
+          >
+            Complete Sprint & Start Quiz
+          </button>
+        </div>
+      )}
+
       {/* Footer */}
       <div className="p-6 bg-gray-50 text-center">
         <p className="text-sm text-gray-500">
