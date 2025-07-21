@@ -11,6 +11,7 @@ const SprintManual = ({ completedLessons = new Set() }) => {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const phaseLessons = {
+    discover: ['Stakeholder Mapping', 'Personas', 'Scenarios', 'User Journey Mapping'],
     define: ['Activity Diagram', 'How Might We', 'Affinity Analysis', '5 Whys'],
     develop: ['C-Sketching (6-3-5)', 'Real, Win, Worth', 'Morphological Matrix', 'Moodboard'],
     deliver: ['Storyboarding', 'Wireframing', 'Physical Model', 'Mockups'],
@@ -28,8 +29,8 @@ const SprintManual = ({ completedLessons = new Set() }) => {
       id: 'discover',
       name: 'Discover',
       subtitle: 'With Empathy',
-      progress: 100, // Assuming discover is always complete
-      icon: '/assets/DefineSmall.svg',
+      progress: calculateProgress('discover'),
+      icon: '/assets/DiscoverSmall.svg',
       color: 'text-purple-600',
     },
     {
@@ -97,8 +98,7 @@ const SprintManual = ({ completedLessons = new Set() }) => {
       // Navigate to the appropriate phase page
       switch(phase.id) {
         case 'discover':
-          // Placeholder for Discover phase
-          alert('Discover phase - Coming soon! Your friend is working on this.');
+          navigate('/discover');
           break;
         case 'define':
           navigate('/define');
