@@ -1,5 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+import os
 import shutil
 import os
 from langchain_community.vectorstores import Chroma
@@ -20,11 +22,16 @@ app = FastAPI(
 # --- CORS Configuration ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Adjust if your React app runs on a different port
+    allow_origins=["*"],  # Allow all origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# --- Static Files Mount ---
+# This must be after all API routes if you want your routes to take precedence
+# However, for a single-page application, it's common to mount it before.
+app.mount("/", StaticFiles(directory="dist", html=True), name="static")
 
 # --- Knowledge Base and Vector Store Configuration ---
 KB_BASE_PATH = "knowledge_bases"

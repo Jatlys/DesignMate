@@ -150,7 +150,7 @@ const AppRoutes = () => {
       <Route path="/discover/personas" element={<PersonasLesson onComplete={handleCompleteLesson} />} />
       <Route path="/discover/scenarios" element={<ScenariosLesson onComplete={handleCompleteLesson} />} />
       <Route path="/discover/user-journey-mapping" element={<UserJourneyMappingLesson onComplete={handleCompleteLesson} />} />
-      <Route path="/discover/methods" element={<DiscoverMethods completedLessons={completedLessons} />} />
+      <Route path="/discover/DiscoverMethods" element={<DiscoverMethods completedLessons={completedLessons} />} />
 
       {/* Define Phase Routes */}
       <Route path="/define" element={<Define />} />
