@@ -54,7 +54,6 @@ const QuizContainer = () => {
   const [explanationText, setExplanationText] = useState('');
   const [showChatbot, setShowChatbot] = useState(false);
   const [allAnswers, setAllAnswers] = useState({});
-  const [isRedoing, setIsRedoing] = useState(false);
 
   const currentPhaseData = quizData[currentPhaseIndex];
 
@@ -95,29 +94,30 @@ const QuizContainer = () => {
         navigate('/quiz/completed', { state: { score: finalScore, totalQuestions: quizData.length } });
       }
     } else {
-      let firstErrorExplanation = '';
+      let feedbackText = '';
       const incorrectSelection = [...selectedAnswers].find(answer => !correctAnswers.has(answer));
+
       if (incorrectSelection) {
-        firstErrorExplanation = currentPhaseData.explanations[incorrectSelection];
+        const explanation = currentPhaseData.explanations[incorrectSelection];
+        feedbackText = `"${incorrectSelection}" is incorrect. ${explanation || 'This is not a correct option for this phase.'}`;
       } else {
         const missedAnswer = currentPhaseData.correctAnswers.find(ans => !selectedAnswers.has(ans));
         if (missedAnswer) {
-          firstErrorExplanation = currentPhaseData.explanations[missedAnswer];
+            const explanation = currentPhaseData.explanations[missedAnswer];
+            feedbackText = `You missed "${missedAnswer}". ${explanation || 'This is a required option.'}`;
         }
       }
-      setExplanationText(firstErrorExplanation || 'Please select all the correct answers to proceed.');
+      setExplanationText(feedbackText || 'Please select all the correct answers to proceed.');
       setShowExplanation(true);
     }
   };
   
   const handleRedo = () => {
     setShowExplanation(false);
-    setIsRedoing(true);
     setTimeout(() => {
       setSubmitted(false);
       setSelectedAnswers(new Set());
-      setIsRedoing(false);
-    }, 500); // 500ms delay
+    }, 1000); // 1-second delay to show feedback
   };
 
   const getButtonClass = (option) => {
@@ -147,7 +147,7 @@ const QuizContainer = () => {
         <p className="quiz-phase-title">{currentPhaseData.phase}</p>
         <p className="quiz-question">{currentPhaseData.question}</p>
         <div className="options-container">
-          {!isRedoing && currentPhaseData.options.map((option) => (
+          {currentPhaseData.options.map((option) => (
             <button
               key={option}
               className={`option-button ${getButtonClass(option)}`}
@@ -169,7 +169,7 @@ const QuizContainer = () => {
         <div className="modal-overlay">
           <div className="modal-content explanation-modal">
             <button className="close-modal-button" onClick={handleRedo}><VscClose /></button>
-            <h3>Why?</h3>
+            <h3>Wrong Choice!</h3>
             <p>{explanationText}</p>
             <button className="redo-button" onClick={handleRedo}>Redo</button>
           </div>
