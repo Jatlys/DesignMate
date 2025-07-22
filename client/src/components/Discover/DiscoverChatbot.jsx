@@ -1,14 +1,14 @@
 import React from 'react';
 import Chatbot from '../Chatbot';
 
-const DevelopChatbot = ({ onClose }) => {
+const DiscoverChatbot = ({ onClose }) => {
   const initialMessages = [
     {
       text: "Hi! I'm here to guide your team through the design innovation process.",
       sender: 'ai',
     },
     {
-      text: 'Current Phase: Develop. Focus on developing a diverse range of ideas and potential solutions.',
+      text: 'Current Phase: Discover. Focus on learning more about your users and empathising with their needs.',
       sender: 'ai-phase',
     },
     {
@@ -17,7 +17,7 @@ const DevelopChatbot = ({ onClose }) => {
     },
   ];
 
-  return <Chatbot onClose={onClose} initialMessages={initialMessages} phase="develop" />;
+  return <Chatbot onClose={onClose} initialMessages={initialMessages} phase="discover" />;
 };
 
-export default DevelopChatbot;
+export default DiscoverChatbot;

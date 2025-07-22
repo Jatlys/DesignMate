@@ -5,12 +5,20 @@ import Chatbot from './Chatbot'; // Import the Chatbot component
 
 const Homepage = () => {
   const navigate = useNavigate();
-  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [isChatbotOpen, setIsChatbotOpen] = useState(false); // eslint-disable-line no-unused-vars
 
   const handleGetStartedClick = (step) => {
     console.log(`${step} step clicked`);
     if (step === 'DEFINE') {
       navigate('/define');
+    } else if (step === 'DISCOVER') {
+      navigate('/discover');
+    }
+    if (step === 'DEVELOP') {
+      navigate('/develop');
+    }
+    if (step === 'DELIVER') {
+      navigate('/deliver');
     }
   };
 
@@ -28,7 +36,7 @@ const Homepage = () => {
       {/* Google Fonts Link */}
       <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       
-      <div className="h-screen bg-white flex flex-col max-w-sm mx-auto border-2 border-blue-400 rounded-lg relative">
+      <div className="h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative">
         {/* Header */}
         <div className="flex items-center justify-between p-4 bg-white border-b border-gray-100">
           {/* Search Bar */}

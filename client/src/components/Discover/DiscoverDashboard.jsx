@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import Chatbot from './DefineChatbot';
+import DiscoverChatbot from './DiscoverChatbot';
 
 const lessons = [
   {
-    id: 'Activity Diagram',
-    title: 'Activity Diagram',
-    description: '...explanation of Activity Diagram',
-    path: '/define/activity-diagram'
+    id: 'Stakeholder Mapping',
+    title: 'Stakeholder Mapping',
+    description: '...explanation of stakeholder mapping',
+    path: '/discover/stakeholder-mapping'
   },
   {
-    id: 'How Might We',
-    title: 'How might we',
-    description: '...explanation of HMW',
-    path: '/define/how-might-we'
+    id: 'Personas',
+    title: 'Personas',
+    description: '...explanation of personas',
+    path: '/discover/personas'
   },
   {
-    id: 'Affinity Analysis',
-    title: 'Affinity Analysis',
-    description: '...explanation of Affinity Analysis',
-    path: '/define/affinity-analysis'
+    id: 'Scenarios',
+    title: 'Scenarios',
+    description: '...explanation of scenarios',
+    path: '/discover/scenarios'
   },
   {
-    id: '5 Whys',
-    title: '5 Whys',
-    description: '...explanation of 5 whys',
-    path: '/define/5-whys'
+    id: 'User Journey Mapping',
+    title: 'User Journey Mapping',
+    description: '...explanation of user journey mapping',
+    path: '/discover/user-journey-mapping'
   }
 ];
 
@@ -58,7 +58,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
               Review Lessons
             </button>
             <button 
-              onClick={() => navigate('/define/define-methods')}
+              onClick={() => navigate('/discover/DiscoverMethods')}
               className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
             >
               Review Methods
@@ -80,11 +80,11 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
   );
 };
 
-const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
+const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
-    const handleToggleComplete = (lessonId) => {
+  const handleToggleComplete = (lessonId) => {
     const newSet = new Set(completedLessons);
     if (newSet.has(lessonId)) {
       newSet.delete(lessonId);
@@ -94,9 +94,9 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
     setCompletedLessons(newSet);
   };
 
-    const defineLessonIds = new Set(lessons.map(l => l.id));
-  const completedDefineLessons = [...completedLessons].filter(id => defineLessonIds.has(id));
-  const completionPercentage = lessons.length > 0 ? (completedDefineLessons.length / lessons.length) * 100 : 0;
+  const discoverLessonIds = new Set(lessons.map(l => l.id));
+  const completedDiscoverLessons = [...completedLessons].filter(id => discoverLessonIds.has(id));
+  const completionPercentage = lessons.length > 0 ? (completedDiscoverLessons.length / lessons.length) * 100 : 0;
 
   return (
     <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
@@ -104,7 +104,7 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
         <button onClick={() => navigate('/')}>
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
-        <button onClick={() => navigate('/define/chatbot')} className="p-2">
+        <button onClick={() => setIsChatbotOpen(true)} className="p-2">
           <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
         </button>
       </header>
@@ -114,10 +114,10 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
       </div>
 
       <div className="flex items-center mb-4">
-        <img src="/assets/DefineSmall.svg" alt="Define phase icon" className="w-12 h-12 mr-2" />
+        <img src="/assets/DiscoverSmall.svg" alt="Discover phase icon" className="w-12 h-12 mr-2" />
         <div>
-          <h1 className="text-2xl font-serif">Define</h1>
-          <p className="text-sm text-gray-600">Interpret and reframe needs and map them into activities, functions and representations</p>
+          <h1 className="text-2xl font-serif">Discover</h1>
+          <p className="text-sm text-gray-600">Understanding users and empathising with their needs</p>
         </div>
       </div>
 
@@ -145,9 +145,9 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <DiscoverChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 };
 
-export default DefineDashboard;
+export default DiscoverDashboard;

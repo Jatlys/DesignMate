@@ -1,48 +1,63 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Home, MessageSquare, Edit2, Lock } from 'lucide-react';
 import Chatbot from './Chatbot';
 
-const SprintManual = () => {
+const SprintManual = ({ completedLessons = new Set() }) => {
+  const navigate = useNavigate();
   const [projectName, setProjectName] = useState('Project 1');
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(projectName);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
-  
-  // Phase data with progress tracking
-  const [phases, setPhases] = useState([
+
+  const phaseLessons = {
+    discover: ['Stakeholder Mapping', 'Personas', 'Scenarios', 'User Journey Mapping'],
+    define: ['Activity Diagram', 'How Might We', 'Affinity Analysis', '5 Whys'],
+    develop: ['C-Sketching (6-3-5)', 'Real, Win, Worth', 'Morphological Matrix', 'Moodboard'],
+    deliver: ['Storyboarding', 'Wireframing', 'Physical Model', 'Mockups'],
+  };
+
+  const calculateProgress = (phaseId) => {
+    if (!phaseLessons[phaseId]) return 0;
+    const lessonsForPhase = phaseLessons[phaseId];
+    const completedCount = lessonsForPhase.filter(lesson => completedLessons.has(lesson)).length;
+    return Math.round((completedCount / lessonsForPhase.length) * 100);
+  };
+
+  const phases = [
     {
       id: 'discover',
       name: 'Discover',
       subtitle: 'With Empathy',
-      progress: 100,
-      icon: '/assets/DefineSmall.svg', // Placeholder, DiscoverSmall.svg is missing
-      color: 'text-purple-600'
+      progress: calculateProgress('discover'),
+      icon: '/assets/DiscoverSmall.svg',
+      color: 'text-purple-600',
     },
     {
       id: 'define',
       name: 'Define',
       subtitle: 'With Mindfulness',
-      progress: 0,
-      icon: '/assets/DefineSmall.svg', // Using actual asset
-      color: 'text-blue-600'
+      progress: calculateProgress('define'),
+      icon: '/assets/DefineSmall.svg',
+      color: 'text-blue-600',
     },
     {
       id: 'develop',
       name: 'Develop',
       subtitle: 'With Joyfulness',
-      progress: 0,
-      icon: '/assets/DevelopSmall.svg', // Using actual asset
-      color: 'text-green-600'
+      progress: calculateProgress('develop'),
+      icon: '/assets/DevelopSmall.svg',
+      color: 'text-green-600',
     },
     {
       id: 'deliver',
       name: 'Deliver',
       subtitle: 'With Non-attachment',
-      progress: 0,
-      icon: '/assets/DevelopSmall.svg', // Placeholder, DeliverSmall.svg is missing // Using actual asset
-      color: 'text-orange-600'
-    }
-  ]);
+      progress: calculateProgress('deliver'),
+      icon: '/assets/DeliverSmall.svg',
+      color: 'text-orange-600',
+    },
+  ];
 
   // Calculate overall sprint progress
   const sprintProgress = Math.round(
@@ -83,20 +98,16 @@ const SprintManual = () => {
       // Navigate to the appropriate phase page
       switch(phase.id) {
         case 'discover':
-          // Placeholder for Discover phase
-          alert('Discover phase - Coming soon! Your friend is working on this.');
+          navigate('/discover');
           break;
         case 'define':
-          // Navigate to Define phase (implemented by your friend)
-          window.location.href = '/define';
+          navigate('/define');
           break;
         case 'develop':
-          // Placeholder for Develop phase
-          alert('Develop phase - Coming soon! Your friend is working on this.');
+          navigate('/develop');
           break;
         case 'deliver':
-          // Placeholder for Deliver phase
-          alert('Deliver phase - Coming soon! Your friend is working on this.');
+          navigate('/deliver');
           break;
         default:
           break;
@@ -106,7 +117,7 @@ const SprintManual = () => {
 
   const handleHomeClick = () => {
     // Navigate to homepage using window.location
-    window.location.href = '/';
+    navigate('/');
   };
 
   const handleChatbotClick = () => {
@@ -256,6 +267,18 @@ const SprintManual = () => {
           );
         })}
       </div>
+
+      {/* Complete Sprint Button Section */}
+      {sprintProgress === 100 && (
+        <div className="p-6 bg-gray-50">
+          <button
+            onClick={() => navigate('/quiz')}
+            className="w-full bg-green-600 text-white font-semibold py-3 px-4 rounded-lg text-lg hover:bg-green-700 transition-colors"
+          >
+            Complete Sprint & Start Quiz
+          </button>
+        </div>
+      )}
 
       {/* Footer */}
       <div className="p-6 bg-gray-50 text-center">
