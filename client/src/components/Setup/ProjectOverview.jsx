@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { ArrowLeft, X, Calendar, Lightbulb, ArrowUp, ChevronDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectOverview = () => {
+  const navigate = useNavigate();
   const [chatInput, setChatInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);

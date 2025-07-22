@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, X, ChevronLeft, ChevronRight, Calendar, ArrowLeft } from 'lucide-react';
 
 const Timeline2 = () => {
+  const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date(2024, 11, 15)); // December 2024
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -9,9 +11,7 @@ const Timeline2 = () => {
   const [endMonth, setEndMonth] = useState(null);
 
   const handleBack = () => {
-    console.log('Timeline2 back button clicked - going to /timeline/1');
-    // In your actual app, replace this with: navigate('/timeline/1');
-    window.location.href = '/timeline/1';
+    navigate(-1);
   };
 
   const handleClose = () => {

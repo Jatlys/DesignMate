@@ -38,7 +38,7 @@ const ScenariosLesson = ({ onComplete }) => {
 
   const handleBack = () => {
     if (currentStep === 1) {
-      navigate('/discover/dashboard');
+      navigate(-1);
     } else {
       setCurrentStep(prev => prev - 1);
     }
@@ -63,8 +63,8 @@ const ScenariosLesson = ({ onComplete }) => {
     <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
       {/* Header */}
       <header className="flex items-center justify-between mb-4">
-        <button onClick={() => navigate('/discover/dashboard')} className="p-2">
-          <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
+        <button onClick={() => navigate(-1)} className="p-2">
+          <img src="/assets/Home.svg" alt="Back" className="w-8 h-8" />
         </button>
         <button onClick={() => setIsChatbotOpen(true)} className="p-2">
           <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
