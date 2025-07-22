@@ -1,32 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import Chatbot from './DiscoverChatbot';
+import { ArrowLeft, ArrowRight, Home, MessageCircle } from 'lucide-react';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
     <div className="flex items-center mb-2">
       <div className="w-1 bg-black h-6 mr-3"></div>
       <h3 className="font-bold text-lg">{title}</h3>
-      {icon && <img src={icon} alt="icon" className="ml-2 w-5 h-5" />}
+      {icon && <span className="ml-2 text-yellow-500">💡</span>}
     </div>
     <div className="text-gray-700 text-sm ml-4">{children}</div>
   </div>
 );
 
 const PersonasLesson = ({ onComplete }) => {
-  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [isFirstTime, setIsFirstTime] = useState(false);
-
-  useEffect(() => {
-    const hasCompleted = localStorage.getItem('personasLessonCompleted');
-    if (!hasCompleted) {
-      setIsFirstTime(true);
-    }
-  }, []);
+  const [isFirstTime, setIsFirstTime] = useState(true);
 
   const handleNext = () => {
     if (currentStep === 2 && isFirstTime) {
@@ -38,7 +28,8 @@ const PersonasLesson = ({ onComplete }) => {
 
   const handleBack = () => {
     if (currentStep === 1) {
-      navigate('/discover/dashboard');
+      // navigate('/discover/dashboard');
+      alert('Would navigate to dashboard');
     } else {
       setCurrentStep(prev => prev - 1);
     }
@@ -51,10 +42,10 @@ const PersonasLesson = ({ onComplete }) => {
 
   const handleComplete = () => {
     if (isFirstTime) {
-      localStorage.setItem('personasLessonCompleted', 'true');
+      // localStorage.setItem('personasLessonCompleted', 'true');
     }
-    onComplete('Personas');
-    navigate('/discover/dashboard');
+    if (onComplete) onComplete('Personas');
+    alert('Lesson completed! Would navigate to dashboard.');
   };
 
   const progressPercentage = (currentStep / 3) * 100;
@@ -63,17 +54,27 @@ const PersonasLesson = ({ onComplete }) => {
     <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
       {/* Header */}
       <header className="flex items-center justify-between mb-4">
-        <button onClick={() => navigate('/discover/dashboard')} className="p-2">
+        <button onClick={handleBack} className="p-2">
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
-        <button onClick={() => setIsChatbotOpen(true)} className="p-2">
+        <button 
+          onClick={() => setIsChatbotOpen(true)} 
+          className={`p-2 relative ${showPopup ? 'z-50' : ''}`}
+        >
           <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+          {/* Pulsing circle highlight when popup is shown */}
+          {showPopup && (
+            <div className="absolute inset-0 rounded-full border-4 border-blue-500 animate-pulse"></div>
+          )}
+          {showPopup && (
+            <div className="absolute inset-0 rounded-full border-8 border-blue-300 opacity-50 animate-ping"></div>
+          )}
         </button>
       </header>
 
       {/* Progress Bar */}
       <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
-        <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progressPercentage}%` }}></div>
+        <div className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style={{ width: `${progressPercentage}%` }}></div>
       </div>
 
       {/* Main Content */}
@@ -107,7 +108,7 @@ const PersonasLesson = ({ onComplete }) => {
               <div className="w-1 bg-black h-16 mr-3"></div>
               <h1 className="text-4xl font-bold leading-tight">Personas</h1>
             </div>
-            <Section title="Tips" icon="/assets/TipsBulb.png">
+            <Section title="Tips" icon="💡">
                 <ul className="list-disc list-inside space-y-2">
                     <li>Personas represent idealised versions of your target user groups rather than specific individuals.</li>
                     <li>Combine personas that share similar concepts, and separate those that are distinctly different.</li>
@@ -128,9 +129,9 @@ const PersonasLesson = ({ onComplete }) => {
                     <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
                 </div>
                 <div className="space-y-4">
-                    <div className="bg-gray-100 p-4 rounded-lg">Method 1</div>
-                    <div className="bg-gray-100 p-4 rounded-lg">Method 2</div>
-                    <div className="bg-gray-100 p-4 rounded-lg">Method 3</div>
+                    <div className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">Method 1</div>
+                    <div className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">Method 2</div>
+                    <div className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">Method 3</div>
                 </div>
             </>
         )}
@@ -146,7 +147,7 @@ const PersonasLesson = ({ onComplete }) => {
           {currentStep === 3 && (
             <button 
                 onClick={handleComplete}
-                className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-full"
+                className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-full hover:bg-gray-300 transition-colors"
             >
                 Complete Lesson
             </button>
@@ -162,13 +163,28 @@ const PersonasLesson = ({ onComplete }) => {
         {currentStep === 3 && <div className="w-12"></div>} 
       </footer>
 
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {/* Mock Chatbot */}
+      {isChatbotOpen && (
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-sm mx-4">
+            <h3 className="font-bold mb-4">AI Mentor Chatbot</h3>
+            <p className="mb-4">How can I help you with Personas?</p>
+            <button 
+              onClick={() => setIsChatbotOpen(false)}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
+      {/* Popup with highlighted chatbot */}
       {showPopup && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
           <div className="bg-white p-8 rounded-lg text-center max-w-sm mx-4">
             <p className="mb-4">If you have any questions after the end of the lesson, you may ask AI Mentor located here!</p>
-            <button onClick={handlePopupOk} className="bg-gray-200 text-black font-semibold py-2 px-6 rounded-full">
+            <button onClick={handlePopupOk} className="bg-gray-200 text-black font-semibold py-2 px-6 rounded-full hover:bg-gray-300 transition-colors">
               Ok!
             </button>
           </div>
