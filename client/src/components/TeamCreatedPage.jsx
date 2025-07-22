@@ -1,9 +1,10 @@
 import React from 'react';
 import { User, ArrowLeft, ArrowRight, Upload, Copy } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 const TeamCreatedPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { teamCode } = useParams();
 
   const handleProfileClick = () => {
@@ -24,10 +25,12 @@ const TeamCreatedPage = () => {
     alert('Team code copied to clipboard!');
   };
 
-  const handleSubmit = () => {
-    console.log('Submit from team created page');
-    // Navigate to the main dashboard or home page
-    // navigate('/dashboard');
+    const handleSubmit = () => {
+    // Get the iceBreaker state from the previous page (CreateTeamPage)
+    const { iceBreaker } = location.state || { iceBreaker: false };
+    // Navigate to the joined team page, passing the iceBreaker state along.
+    // This assumes the route is '/joined-team/:teamCode'.
+    navigate(`/joined-team/${teamCode}`, { state: { iceBreaker } });
   };
 
   return (
