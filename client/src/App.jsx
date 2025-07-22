@@ -61,7 +61,7 @@ import DeliverMethods from './components/Deliver/DeliverMethods';
 import IceBreakerStart from './components/IceBreaker/IceBreakerStart';
 import IceBreakerQuestion1 from './components/IceBreaker/IceBreakerQuestion1';
 import IceBreakerQuestion2 from './components/IceBreaker/IceBreakerQuestion2';
-import IceBreakerQuestion3 from './components/IceBreaker/IceBreakerQuestion3';
+import IceBreakerQuestion3 from './components/IceBreaker/IcebreakerQuestion3';
 import IceBreakerComplete from './components/IceBreaker/IceBreakerComplete';
 
 // Setup Imports
