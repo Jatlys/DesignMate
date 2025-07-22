@@ -13,6 +13,9 @@ const SuccessfullyDelivered = () => {
     navigate('/quiz/questions');
   };
 
+  // just to force a re-render
+  console.log("SuccessfullyDelivered");  
+
   return (
     <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
       <header className="w-full flex justify-start">
