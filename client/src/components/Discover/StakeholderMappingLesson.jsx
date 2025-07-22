@@ -31,7 +31,7 @@ const StakeholderMappingLesson = ({ onComplete }) => {
   const handleNext = () => {
     if (currentStep === 2 && isFirstTime) {
       setShowPopup(true);
-    } else if (currentStep < 4) {
+    } else if (currentStep < 3) {
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -57,7 +57,7 @@ const StakeholderMappingLesson = ({ onComplete }) => {
     navigate('/discover/dashboard');
   };
 
-  const progressPercentage = (currentStep / 4) * 100;
+  const progressPercentage = (currentStep / 3) * 100;
 
   return (
     <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
@@ -66,8 +66,18 @@ const StakeholderMappingLesson = ({ onComplete }) => {
         <button onClick={() => navigate('/discover/dashboard')} className="p-2">
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
-        <button onClick={() => setIsChatbotOpen(true)} className="p-2">
+        <button 
+          onClick={() => setIsChatbotOpen(true)} 
+          className={`p-2 relative ${showPopup ? 'z-50' : ''}`}
+        >
           <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+          {/* Pulsing circle highlight when popup is shown */}
+          {showPopup && (
+            <div className="absolute inset-0 rounded-full border-4 border-blue-500 animate-pulse"></div>
+          )}
+          {showPopup && (
+            <div className="absolute inset-0 rounded-full border-8 border-blue-300 opacity-50 animate-ping"></div>
+          )}
         </button>
       </header>
 
@@ -123,9 +133,9 @@ const StakeholderMappingLesson = ({ onComplete }) => {
                     <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
                 </div>
                 <div className="space-y-4">
-                    <div className="bg-gray-100 p-4 rounded-lg">User Interviews</div>
-                    <div className="bg-gray-100 p-4 rounded-lg">Personas</div>
-                    <div className="bg-gray-100 p-4 rounded-lg">Scenarios</div>
+                    <div className="bg-gray-100 p-4 rounded-lg">Method 1</div>
+                    <div className="bg-gray-100 p-4 rounded-lg">Method 2</div>
+                    <div className="bg-gray-100 p-4 rounded-lg">Method 3</div>
                 </div>
             </>
         )}
@@ -160,7 +170,7 @@ const StakeholderMappingLesson = ({ onComplete }) => {
       {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
 
       {showPopup && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
           <div className="bg-white p-8 rounded-lg text-center max-w-sm mx-4">
             <p className="mb-4">If you have any questions after the end of the lesson, you may ask AI Mentor located here!</p>
             <button onClick={handlePopupOk} className="bg-gray-200 text-black font-semibold py-2 px-6 rounded-full">
