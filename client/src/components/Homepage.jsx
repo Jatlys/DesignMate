@@ -64,7 +64,7 @@ const Homepage = () => {
           
           {/* Get Started Section */}
           <div className="flex-1">
-            <h2 className="text-4xl font-bold text-black mb-3" style={{ fontFamily: 'Abhaya Libre, serif' }}>Get Started</h2>
+            <h2 className="text-2xl font-serif text-black mb-3">Get Started</h2>
             
             {/* Process Steps Grid */}
             <div className="grid grid-cols-2 gap-4 h-72">
@@ -108,7 +108,7 @@ const Homepage = () => {
 
           {/* Your Projects Section */}
           <div className="flex-1">
-            <h2 className="text-4xl font-bold text-black mb-4" style={{ fontFamily: 'Abhaya Libre, serif' }}>Your Projects</h2>
+            <h2 className="text-2xl font-serif text-black mb-4">Your Projects</h2>
             
             {/* Project Actions Grid */}
             <div className="grid grid-cols-2 gap-4 h-52">
@@ -150,7 +150,7 @@ const Homepage = () => {
         </div>
 
         {/* Bottom Navigation */}
-        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center py-6 bg-white border-t border-gray-100">
+        <div className="fixed bottom-0 max-w-sm mx-auto flex items-center justify-center py-6 bg-white border-t border-gray-100 w-full">
           <div className="flex gap-8">
             <button className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
               <UserCircle className="w-6 h-6 text-gray-700" />
