@@ -63,7 +63,7 @@ const ViewAllProjects = () => {
 
   const handleBackClick = () => {
     // Navigate back to homepage
-    window.location.href = '/';
+    navigate(-1);
   };
 
   const handleChatbotClick = () => {

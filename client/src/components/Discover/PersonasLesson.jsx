@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Home, MessageCircle } from 'lucide-react';
 
 const Section = ({ title, children, icon }) => (
@@ -13,6 +14,7 @@ const Section = ({ title, children, icon }) => (
 );
 
 const PersonasLesson = ({ onComplete }) => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -28,8 +30,7 @@ const PersonasLesson = ({ onComplete }) => {
 
   const handleBack = () => {
     if (currentStep === 1) {
-      // navigate('/discover/dashboard');
-      alert('Would navigate to dashboard');
+      navigate(-1);
     } else {
       setCurrentStep(prev => prev - 1);
     }
@@ -55,7 +56,7 @@ const PersonasLesson = ({ onComplete }) => {
       {/* Header */}
       <header className="flex items-center justify-between mb-4">
         <button onClick={handleBack} className="p-2">
-          <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
+          <img src="/assets/Home.svg" alt="Back" className="w-8 h-8" />
         </button>
         <button 
           onClick={() => setIsChatbotOpen(true)} 

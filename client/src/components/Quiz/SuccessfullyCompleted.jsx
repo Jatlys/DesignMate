@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 
 import { BsArrowRight } from 'react-icons/bs';
 import QuizChatbot from './QuizChatbot';
@@ -7,9 +7,10 @@ import './QuizNew.css';
 
 const SuccessfullyCompleted = () => {
     const navigate = useNavigate();
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   
     const toggleChatbot = () => {
-      setShowChatbot(!showChatbot);
+      setIsChatbotOpen(!isChatbotOpen);
     };
   
     const handleNext = () => {
@@ -20,9 +21,7 @@ const SuccessfullyCompleted = () => {
     return (
         <div className="successfully-delivered-container max-w-sm mx-auto">
             <div className="top-bar">
-                <Link to="/">
-                    <img src="/assets/Home.svg" alt="Home" className="icon" />
-                </Link>
+                <img src="/assets/Home.svg" alt="Back" className="icon" onClick={() => navigate(-1)} />
                 <img src="/assets/Chatbot.svg" alt="Chatbot" className="icon" onClick={toggleChatbot} />
             </div>
 
