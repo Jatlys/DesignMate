@@ -29,9 +29,26 @@ app.add_middleware(
 )
 
 # --- Static Files Mount ---
-# This must be after all API routes if you want your routes to take precedence
-# However, for a single-page application, it's common to mount it before.
-app.mount("/", StaticFiles(directory="dist", html=True), name="static")
+# This logic handles finding the 'dist' folder for both local dev and Docker.
+# It also prevents the server from crashing if the frontend hasn't been built.
+
+# Path for Docker environment
+dist_path_docker = os.path.join(os.path.dirname(__file__), 'dist')
+
+# Path for local development environment
+dist_path_local = os.path.join(os.path.dirname(__file__), '..', '..', 'client', 'dist')
+
+# Determine which path exists
+if os.path.exists(dist_path_docker):
+    static_dir = dist_path_docker
+elif os.path.exists(dist_path_local):
+    static_dir = dist_path_local
+else:
+    static_dir = None
+
+# Mount the static directory only if it was found
+if static_dir:
+    app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
 
 # --- Knowledge Base and Vector Store Configuration ---
 KB_BASE_PATH = "knowledge_bases"
@@ -55,7 +72,7 @@ load_dotenv()
 # Initialize Google Gemini embeddings and chat model.
 # This requires the GOOGLE_API_KEY environment variable to be set.
 gemini_embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-gemini_llm = ChatGoogleGenerativeAI(model="gemini-pro", convert_system_message_to_human=True)
+gemini_llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
 
 
 # --- RAG Helper Functions ---
@@ -86,8 +103,13 @@ def get_rag_chain(persist_dir: str):
     
     prompt_template = """
     ### [INST] 
-    You are a helpful design thinking assistant. Use the following context to answer the question. Provide a concise answer of 50 words or less, summarizing the key points.
-    If you don't know the answer, just say that you don't know. Don't try to make up an answer. Your tone should be friendly and helpful.
+    You are a friendly and helpful Design Thinking Assistant. Use the provided context to answer the user's question.
+    Do not use any markdown formatting (such as asterisks, bullet points, or code blocks). Write in plain, readable text only.
+    Keep your answers concise and focused on key ideas.
+    When relevant, apply design thinking principles such as empathy, defining the problem, ideation, prototyping, and testing.
+    If you do not know the answer, say so clearly and do not try to make one up.
+    Your tone should be approachable, encouraging, and solution-oriented.
+    Do not mention the words "context" or "question" in your response.
     
     Context: {context}
     Question: {question}
