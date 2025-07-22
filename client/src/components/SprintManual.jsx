@@ -150,7 +150,7 @@ const SprintManual = ({ completedLessons = new Set() }) => {
                     autoFocus
                   />
                 ) : (
-                  <h1 className="text-2xl font-bold text-black">{projectName}</h1>
+                  <h1 className="text-2xl font-serif text-black">{projectName}</h1>
                 )}
                 <button
                   onClick={handleProjectNameEdit}
@@ -177,7 +177,7 @@ const SprintManual = ({ completedLessons = new Set() }) => {
       <div className="p-6 bg-gray-50">
         <div className="bg-white rounded-2xl p-6 shadow-lg">
           <div className="mb-4">
-            <h2 className="text-xl font-bold text-gray-900 mb-1">Sprint Progress</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-1">Sprint Progress</h2>
             <p className="text-gray-500 text-sm">Overall Completion</p>
           </div>
           
@@ -221,7 +221,7 @@ const SprintManual = ({ completedLessons = new Set() }) => {
                       />
                     </div>
                     <div className="text-left">
-                      <h3 className={`text-xl font-bold ${
+                      <h3 className={`text-lg font-bold ${
                         isUnlocked ? 'text-gray-900' : 'text-gray-400'
                       }`}>
                         {phase.name}
