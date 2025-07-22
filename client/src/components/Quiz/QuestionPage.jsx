@@ -78,9 +78,7 @@ const QuestionPage = () => {
   };
 
   return (
-    // Main container for the quiz page with a white background, flex column layout, and padding.
-    <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
-      {/* Modal for displaying feedback on wrong answers. It only shows when `showModal` is true. */}
+    <div className="quiz-page max-w-sm mx-auto">
       {showModal && <WrongAnswerModal explanation={modalExplanation} onRedo={handleRedo} />}
 
       {/* Header section with a close button and a chat icon. */}
