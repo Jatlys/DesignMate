@@ -17,7 +17,7 @@ const Chatbot = ({ onClose, initialMessages, phase }) => {
         const formData = new FormData();
         formData.append('query', input);
 
-        const response = await fetch(`http://localhost:8000/api/${phase}/chat`, {
+                const response = await fetch(`/api/${phase}/chat`, {
           method: 'POST',
           body: formData,
         });
