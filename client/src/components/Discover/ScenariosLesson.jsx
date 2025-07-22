@@ -124,9 +124,10 @@ const ScenariosLesson = ({ onComplete }) => {
                     <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
                 </div>
                 <div className="space-y-4">
-                    <div className="bg-gray-100 p-4 rounded-lg">Method 1</div>
-                    <div className="bg-gray-100 p-4 rounded-lg">Method 2</div>
-                    <div className="bg-gray-100 p-4 rounded-lg">Method 3</div>
+                    <div className="bg-gray-100 p-4 rounded-lg">User Interviews</div>
+                    <div className="bg-gray-100 p-4 rounded-lg">Stakeholder Mapping</div>
+                    <div className="bg-gray-100 p-4 rounded-lg">Personas</div>
+                    <div className="bg-gray-100 p-4 rounded-lg">User Journey Map</div>
                 </div>
             </>
         )}
