@@ -4,6 +4,7 @@ import SprintManual from './components/SprintManual';
 import Homepage from './components/Homepage';
 import ViewAllProjects from './components/ViewAllProjects';
 import OnboardingPage from './components/OnboardingPage';
+import IceBreakerStart from './components/IceBreaker/IceBreakerStart';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
 import UsernamePage from './components/UsernamePage';
@@ -58,7 +59,6 @@ import WireframingLesson from './components/Deliver/WireframingLesson';
 import DeliverMethods from './components/Deliver/DeliverMethods';
 
 // Icebreaker Imports
-import IceBreakerStart from './components/IceBreaker/IceBreakerStart';
 import IceBreakerQuestion1 from './components/IceBreaker/IceBreakerQuestion1';
 import IceBreakerQuestion2 from './components/IceBreaker/IceBreakerQuestion2';
 import IceBreakerQuestion3 from './components/IceBreaker/IcebreakerQuestion3';
@@ -184,7 +184,8 @@ const AppRoutes = () => {
       <Route path="/define/chatbot" element={<DefineChatbot onClose={handleCloseDefineChatbot} />} />
       <Route path="/develop/chatbot" element={<DevelopChatbot onClose={handleCloseDevelopChatbot} />} />
       <Route path="/deliver/chatbot" element={<DeliverChatbot onClose={handleCloseDeliverChatbot} />} />
-    </Routes>
+              <Route path="/icebreaker/:teamCode" element={<IceBreakerStart />} />
+        </Routes>
   );
 };
 
