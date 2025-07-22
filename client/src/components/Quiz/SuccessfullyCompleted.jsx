@@ -6,14 +6,17 @@ import QuizChatbot from './QuizChatbot';
 import './QuizNew.css';
 
 const SuccessfullyCompleted = () => {
-    const location = useLocation();
-    const { score, totalQuestions } = location.state || { score: 0, totalQuestions: 0 };
-    const [isChatbotOpen, setIsChatbotOpen] = useState(false);
-
+    const navigate = useNavigate();
+  
     const toggleChatbot = () => {
-        setIsChatbotOpen(!isChatbotOpen);
+      setShowChatbot(!showChatbot);
     };
-
+  
+    const handleNext = () => {
+      navigate('/');
+    };
+  
+  
     return (
         <div className="successfully-delivered-container max-w-sm mx-auto">
             <div className="top-bar">
@@ -26,7 +29,10 @@ const SuccessfullyCompleted = () => {
             <div className="center-content">
                 <h1 className="success-title">QUIZ COMPLETED!</h1>
                 <img src="/assets/SuccessfullyCompleted.svg" alt="Quiz Completed" className="success-image" />
-            </div>
+                <p className="text-gray-600">
+                  Great job on finishing your design journey! 
+                </p>            
+                  </div>
 
             <div className="bottom-bar">
                 <Link to="/" className="quiz-me-link">
@@ -36,7 +42,10 @@ const SuccessfullyCompleted = () => {
 
             {isChatbotOpen && <QuizChatbot onClose={toggleChatbot} />}
         </div>
+      </div>
+      
+      
     );
-};
+  };
 
 export default SuccessfullyCompleted;

@@ -8,7 +8,7 @@ import Chatbot from './QuizChatbot';
 const quizData = [
   {
     phase: 'Discover',
-    question: 'Select ALL that is fulfilled at this stage',
+    question: 'Select ALL the methods that you carry out at this stage',
     options: ['Conducting user interviews', 'Develop high-fidelity prototypes', 'Create user personas', 'Create user journey maps'],
     correctAnswers: ['Conducting user interviews', 'Create user personas', 'Create user journey maps'],
     explanations: {
@@ -17,7 +17,7 @@ const quizData = [
   },
   {
     phase: 'Define',
-    question: 'Select ALL that is fulfilled at this stage',
+    question: 'Select ALL the methods that you carry out at this stage',
     options: ['Create clear problem statements', 'Develop wireframes for solution', 'Synthesize research insights', 'Create user personas'],
     correctAnswers: ['Create clear problem statements', 'Synthesize research insights'],
     explanations: {
@@ -27,7 +27,7 @@ const quizData = [
   },
   {
     phase: 'Develop',
-    question: 'Select ALL that is fulfilled at this stage',
+    question: 'Select ALL the methods that you carry out at this stage',
     options: ['Summarize research insights', 'Ideate solutions to identified problems', 'Create high-fidelity prototypes', 'Run usability testing on prototypes'],
     correctAnswers: ['Ideate solutions to identified problems', 'Create high-fidelity prototypes', 'Run usability testing on prototypes'],
      explanations: {
@@ -36,7 +36,7 @@ const quizData = [
   },
   {
     phase: 'Deliver',
-    question: 'Select ALL that is fulfilled at this stage',
+    question: 'Select ALL the methods that you carry out at this stage',
     options: ['Test early prototypes with users', 'Create physical prototypes', 'Storyboard user ideas', 'Create user personas'],
     correctAnswers: ['Test early prototypes with users', 'Create physical prototypes', 'Storyboard user ideas'],
     explanations: {

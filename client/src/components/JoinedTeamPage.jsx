@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { User, X, ArrowRight } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 const JoinedTeamPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { teamCode } = useParams();
 
   const handleProfileClick = () => {
@@ -14,10 +16,15 @@ const JoinedTeamPage = () => {
     navigate('/joinorcreate-team'); // Or to the main dashboard
   };
 
-  const handleSubmit = () => {
-    console.log('Submit from joined team page');
-    // Navigate to the main dashboard or home page
-    // navigate('/dashboard');
+            const handleSubmit = () => {
+    // Access the iceBreaker state passed from the previous page.
+    const { iceBreaker } = location.state || { iceBreaker: false };
+
+    if (iceBreaker) {
+      navigate(`/icebreaker/${teamCode}`);
+    } else {
+      navigate('/');
+    }
   };
 
   return (

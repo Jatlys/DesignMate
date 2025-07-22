@@ -21,7 +21,7 @@ const CreateTeamPage = () => {
     if (teamName.trim() !== '') {
       // Placeholder for team code generation
       const generatedTeamCode = '123456'; // Example team code
-      navigate(`/team-created/${generatedTeamCode}`);
+      navigate(`/team-created/${generatedTeamCode}`, { state: { iceBreaker: icebreaker } });
     } else {
       alert('Please enter a team name.');
     }
