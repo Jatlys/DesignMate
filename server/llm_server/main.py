@@ -5,8 +5,8 @@ import os
 import shutil
 import os
 from langchain_community.vectorstores import Chroma
-from langchain_community.chat_models import ChatOllama
-from langchain_community.embeddings import OllamaEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
+from dotenv import load_dotenv
 from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -48,10 +48,15 @@ for path in KB_PATHS.values():
 for path in DB_PATHS.values():
     os.makedirs(path, exist_ok=True)
 
-# --- LangChain and Ollama Setup ---
-# Initialize Ollama embeddings and chat model
-ollama_embeddings = OllamaEmbeddings(model="nomic-embed-text")
-ollama_llm = ChatOllama(model="llama2")
+# --- LangChain and Google Gemini Setup ---
+# Load environment variables from .env file for local development
+load_dotenv()
+
+# Initialize Google Gemini embeddings and chat model.
+# This requires the GOOGLE_API_KEY environment variable to be set.
+gemini_embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+gemini_llm = ChatGoogleGenerativeAI(model="gemini-pro", convert_system_message_to_human=True)
+
 
 # --- RAG Helper Functions ---
 def create_vector_db(source_dir: str, persist_dir: str):
@@ -67,7 +72,7 @@ def create_vector_db(source_dir: str, persist_dir: str):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     texts = text_splitter.split_documents(documents)
     
-    db = Chroma.from_documents(texts, ollama_embeddings, persist_directory=persist_dir)
+    db = Chroma.from_documents(texts, gemini_embeddings, persist_directory=persist_dir)
     db.persist()
     return db
 
@@ -76,13 +81,13 @@ def get_rag_chain(persist_dir: str):
     if not os.path.exists(persist_dir) or not os.listdir(persist_dir):
         return None
         
-    db = Chroma(persist_directory=persist_dir, embedding_function=ollama_embeddings)
+    db = Chroma(persist_directory=persist_dir, embedding_function=gemini_embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 2})
     
     prompt_template = """
     ### [INST] 
-    You are a helpful design thinking assistant. Use the following context to answer the question. Provide a concise answer, summarizing the key points.
-    If you don't know the answer, just say that you don't know. Don't try to make up an answer.
+    You are a helpful design thinking assistant. Use the following context to answer the question. Provide a concise answer of 50 words or less, summarizing the key points.
+    If you don't know the answer, just say that you don't know. Don't try to make up an answer. Your tone should be friendly and helpful.
     
     Context: {context}
     Question: {question}
@@ -93,7 +98,7 @@ def get_rag_chain(persist_dir: str):
     prompt = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
 
     qa_chain = RetrievalQA.from_chain_type(
-        llm=ollama_llm,
+                llm=gemini_llm,
         chain_type="stuff",
         retriever=retriever,
         return_source_documents=True,
