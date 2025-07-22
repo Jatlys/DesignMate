@@ -14,9 +14,7 @@ const JoinorCreatePage = () => {
   };
 
   const handleSkip = () => {
-    console.log('Skip clicked');
-    // Navigate to the main dashboard or home page
-    // navigate('/dashboard');
+    navigate('/');
   };
 
   const handleProfileClick = () => {
