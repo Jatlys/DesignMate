@@ -126,7 +126,7 @@ const SprintManual = ({ completedLessons = new Set() }) => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white max-w-sm mx-auto">
       {/* Project Header */}
       <div className="bg-white p-6 border-b border-gray-200">
         <div className="flex items-center justify-between">

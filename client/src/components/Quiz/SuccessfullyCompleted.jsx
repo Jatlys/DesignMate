@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { GoHome } from 'react-icons/go';
+
 import { BsArrowRight } from 'react-icons/bs';
 import QuizChatbot from './QuizChatbot';
 import './QuizNew.css';
@@ -15,10 +15,10 @@ const SuccessfullyCompleted = () => {
     };
 
     return (
-        <div className="successfully-delivered-container">
+        <div className="successfully-delivered-container max-w-sm mx-auto">
             <div className="top-bar">
                 <Link to="/">
-                    <GoHome className="icon" />
+                    <img src="/assets/Home.svg" alt="Home" className="icon" />
                 </Link>
                 <img src="/assets/Chatbot.svg" alt="Chatbot" className="icon" onClick={toggleChatbot} />
             </div>

@@ -54,6 +54,7 @@ const QuizContainer = () => {
   const [explanationText, setExplanationText] = useState('');
   const [showChatbot, setShowChatbot] = useState(false);
   const [allAnswers, setAllAnswers] = useState({});
+  const [isRedoing, setIsRedoing] = useState(false);
 
   const currentPhaseData = quizData[currentPhaseIndex];
 
@@ -68,75 +69,55 @@ const QuizContainer = () => {
     setSelectedAnswers(newSelectedAnswers);
   };
 
-  const handleSubmit = () => {
+  const handleSubmitAndProceed = () => {
     setSubmitted(true);
-    const correct = currentPhaseData.correctAnswers;
-    let isFullyCorrect = true;
-    let firstErrorExplanation = '';
 
-    // Check for incorrect selections
-    for (const answer of selectedAnswers) {
-      if (!correct.includes(answer)) {
-        isFullyCorrect = false;
-        firstErrorExplanation = currentPhaseData.explanations[answer];
-        break;
+    const correctAnswers = new Set(currentPhaseData.correctAnswers);
+    const isFullyCorrect = selectedAnswers.size === correctAnswers.size && [...selectedAnswers].every(answer => correctAnswers.has(answer));
+
+    if (isFullyCorrect) {
+      const newAnswers = { ...allAnswers, [currentPhaseIndex]: selectedAnswers };
+      setAllAnswers(newAnswers);
+
+      if (currentPhaseIndex < quizData.length - 1) {
+        setCurrentPhaseIndex(currentPhaseIndex + 1);
+        setSelectedAnswers(new Set());
+        setSubmitted(false);
+      } else {
+        let finalScore = 0;
+        quizData.forEach((phase, index) => {
+          const userAnswersForPhase = newAnswers[index] || new Set();
+          const correctAnswersForPhase = new Set(phase.correctAnswers);
+          if (userAnswersForPhase.size === correctAnswersForPhase.size && [...userAnswersForPhase].every(answer => correctAnswersForPhase.has(answer))) {
+            finalScore++;
+          }
+        });
+        navigate('/quiz/completed', { state: { score: finalScore, totalQuestions: quizData.length } });
       }
-    }
-    
-    // Check if all correct answers were selected
-    if (selectedAnswers.size !== correct.length) {
-        isFullyCorrect = false;
-        // If no specific error was found yet, find an explanation for a missed answer
-        if (!firstErrorExplanation) {
-            const missedAnswer = correct.find(ans => !selectedAnswers.has(ans));
-            if(missedAnswer && currentPhaseData.explanations[missedAnswer]) {
-                 firstErrorExplanation = currentPhaseData.explanations[missedAnswer];
-            }
+    } else {
+      let firstErrorExplanation = '';
+      const incorrectSelection = [...selectedAnswers].find(answer => !correctAnswers.has(answer));
+      if (incorrectSelection) {
+        firstErrorExplanation = currentPhaseData.explanations[incorrectSelection];
+      } else {
+        const missedAnswer = currentPhaseData.correctAnswers.find(ans => !selectedAnswers.has(ans));
+        if (missedAnswer) {
+          firstErrorExplanation = currentPhaseData.explanations[missedAnswer];
         }
-    }
-
-    if (!isFullyCorrect) {
+      }
       setExplanationText(firstErrorExplanation || 'Please select all the correct answers to proceed.');
       setShowExplanation(true);
-    }
-  };
-
-  const handleNextPhase = () => {
-    if (!submitted || showExplanation) return;
-
-    const correct = currentPhaseData.correctAnswers;
-    const isFullyCorrect = correct.every(ans => selectedAnswers.has(ans)) && selectedAnswers.size === correct.length;
-
-    if(!isFullyCorrect) {
-        handleSubmit(); // Re-run submit logic to show explanation if needed
-        return;
-    }
-
-    const newAnswers = { ...allAnswers, [currentPhaseIndex]: selectedAnswers };
-    setAllAnswers(newAnswers);
-
-    if (currentPhaseIndex < quizData.length - 1) {
-      setCurrentPhaseIndex(currentPhaseIndex + 1);
-      setSelectedAnswers(new Set());
-      setSubmitted(false);
-    } else {
-      // Calculate final score
-      let finalScore = 0;
-      quizData.forEach((phase, index) => {
-        const userAnswers = newAnswers[index];
-        const correctAnswers = new Set(phase.correctAnswers);
-        if (userAnswers && userAnswers.size === correctAnswers.size && [...userAnswers].every(answer => correctAnswers.has(answer))) {
-          finalScore++;
-        }
-      });
-      navigate('/quiz/completed', { state: { score: finalScore, totalQuestions: quizData.length } });
     }
   };
   
   const handleRedo = () => {
     setShowExplanation(false);
-    setSubmitted(false);
-    setSelectedAnswers(new Set());
+    setIsRedoing(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setSelectedAnswers(new Set());
+      setIsRedoing(false);
+    }, 500); // 500ms delay
   };
 
   const getButtonClass = (option) => {
@@ -153,7 +134,7 @@ const QuizContainer = () => {
   const progress = ((currentPhaseIndex + 1) / quizData.length) * 100;
 
   return (
-    <div className="quiz-container">
+    <div className="quiz-container max-w-sm mx-auto">
       <div className="quiz-header">
         <VscClose className="quiz-icon" onClick={() => navigate('/')} />
         <div className="progress-bar-container">
@@ -166,7 +147,7 @@ const QuizContainer = () => {
         <p className="quiz-phase-title">{currentPhaseData.phase}</p>
         <p className="quiz-question">{currentPhaseData.question}</p>
         <div className="options-container">
-          {currentPhaseData.options.map((option) => (
+          {!isRedoing && currentPhaseData.options.map((option) => (
             <button
               key={option}
               className={`option-button ${getButtonClass(option)}`}
@@ -179,7 +160,7 @@ const QuizContainer = () => {
       </div>
 
       <div className="quiz-footer">
-        <button className="next-button" onClick={submitted ? handleNextPhase : handleSubmit}>
+        <button className="next-button" onClick={handleSubmitAndProceed}>
             <BsArrowRight size={24} />
         </button>
       </div>

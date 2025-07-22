@@ -65,7 +65,7 @@ const QuestionPage = () => {
   };
 
   return (
-    <div className="quiz-page">
+    <div className="quiz-page max-w-sm mx-auto">
       {showModal && <WrongAnswerModal explanation={modalExplanation} onRedo={handleRedo} />}
       
       <div className="quiz-header">
