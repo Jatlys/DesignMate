@@ -41,10 +41,7 @@ const SuccessfullyCompleted = () => {
             </div>
 
             {isChatbotOpen && <QuizChatbot onClose={toggleChatbot} />}
-        </div>
       </div>
-      
-      
     );
   };
 
