@@ -17,7 +17,8 @@ const Chatbot = ({ onClose, initialMessages, phase }) => {
         const formData = new FormData();
         formData.append('query', input);
 
-        const response = await fetch(`http://localhost:8000/api/${phase}/chat`, {
+              console.log('Current phase:', phase); // Add this line to check the phase
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${phase}/chat`, {
           method: 'POST',
           body: formData,
         });
