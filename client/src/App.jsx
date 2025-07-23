@@ -150,7 +150,7 @@ const AppRoutes = () => {
       <Route path="/discover/personas" element={<PersonasLesson onComplete={handleCompleteLesson} />} />
       <Route path="/discover/scenarios" element={<ScenariosLesson onComplete={handleCompleteLesson} />} />
       <Route path="/discover/user-journey-mapping" element={<UserJourneyMappingLesson onComplete={handleCompleteLesson} />} />
-      <Route path="/discover/DiscoverMethods" element={<DiscoverMethods completedLessons={completedLessons} />} />
+      <Route path="/discover/methods" element={<DiscoverMethods completedLessons={completedLessons} />} />
 
       {/* Define Phase Routes */}
       <Route path="/define" element={<Define />} />
@@ -165,7 +165,7 @@ const AppRoutes = () => {
       <Route path="/develop" element={<Develop />} />
       <Route path="/develop/dashboard" element={<DevelopDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
       <Route path="/develop/c-sketching" element={<CSketchingLesson onComplete={handleCompleteLesson} />} />
-      <Route path="/develop/develop-methods" element={<DevelopMethods completedLessons={completedLessons} />} />
+      <Route path="/develop/methods" element={<DevelopMethods completedLessons={completedLessons} />} />
       <Route path="/develop/moodboard" element={<MoodboardLesson onComplete={handleCompleteLesson} />} />
       <Route path="/develop/morph-matrix" element={<MorphMatrixLesson onComplete={handleCompleteLesson} />} />
       <Route path="/develop/real-win-worth" element={<RealWinWorthLesson onComplete={handleCompleteLesson} />} />
