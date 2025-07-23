@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Chatbot from './DiscoverChatbot';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const lessons = [
     { id: 'Stakeholder Mapping', title: 'Stakeholder Mapping', path: '/discover/stakeholder-mapping' },
@@ -24,13 +25,14 @@ const MethodCard = ({ lesson }) => {
 const Methods = ({ completedLessons }) => {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
     const navigate = useNavigate();
-    const discoverLessonIds = new Set(lessons.map(l => l.id));
-    const completedDiscoverLessons = [...completedLessons].filter(id => discoverLessonIds.has(id));
-    const completionPercentage = lessons.length > 0 ? (completedDiscoverLessons.length / lessons.length) * 100 : 0;
+    const completionPercentage = (completedLessons.size / lessons.length) * 100;
+
+    const handleBack = () => {
+        navigate('/discover/dashboard');
+    };
 
     return (
-        <div className="min-h-screen bg-white flex items-center justify-center">
-            <div className="w-full max-w-sm p-4">
+        <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative overflow-hidden">
             {/* Header */}
             <header className="flex items-center justify-between mb-4">
                 <button onClick={() => navigate('/')} className="p-2">
@@ -41,23 +43,30 @@ const Methods = ({ completedLessons }) => {
                 </button>
             </header>
 
-                {/* Progress Bar */}
-                <div className="bg-gray-200 rounded-full h-2.5 mb-6">
-                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
-                </div>
-
-                <div className="flex items-start mb-4">
-                    <div className="w-1 bg-black h-16 mr-3"></div>
-                    <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
-                </div>
-
-                    {/* Main Content */}
-                    <main className="flex-grow pb-16">
-                    {lessons.map(lesson => (
-                        <MethodCard key={lesson.id} lesson={lesson} />
-                    ))}
-                </main>
+            {/* Progress Bar */}
+            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
             </div>
+
+            <div className="flex items-start mb-4">
+                <div className="w-1 bg-black h-16 mr-3"></div>
+                <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
+            </div>
+
+            {/* Main Content */}
+            <main className="flex-1 overflow-y-auto">
+                {lessons.map(lesson => (
+                    <MethodCard key={lesson.id} lesson={lesson} />
+                ))}
+            </main>
+
+            {/* Footer Navigation */}
+            <footer className="bg-white p-4 border-t border-gray-100">
+                <button onClick={handleBack} className="p-2">
+                    <ArrowLeft className="w-8 h-8 text-black" />
+                </button>
+            </footer>
+
             {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
