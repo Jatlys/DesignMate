@@ -30,8 +30,10 @@ venv/
 
 # Docker related files
 .dockerignore
-Dockerfile
+
 
 # IDE files
 .idea
 .vscode
+
+# forcing a restart
