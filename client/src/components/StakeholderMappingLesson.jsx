@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Chatbot from './DiscoverChatbot';
@@ -69,7 +68,7 @@ const StakeholderMappingLesson = ({ onComplete }) => {
         </button>
         <button 
           onClick={() => setIsChatbotOpen(true)} 
-          className={`p-2 relative`}
+          className={`p-2 relative ${showPopup ? 'z-50' : ''}`}
         >
           <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
           {/* Pulsing circle highlight when popup is shown */}
@@ -168,28 +167,7 @@ const StakeholderMappingLesson = ({ onComplete }) => {
         {currentStep === 3 && <div className="w-12"></div>} 
       </footer>
 
-                  <Modal
-        isOpen={isChatbotOpen}
-        onRequestClose={() => setIsChatbotOpen(false)}
-        style={{
-            content: {
-                top: '50%',
-                left: '50%',
-                right: 'auto',
-                bottom: 'auto',
-                marginRight: '-50%',
-                transform: 'translate(-50%, -50%)',
-                border: 'none',
-                background: 'none',
-                padding: '0'
-            },
-            overlay: {
-                backgroundColor: 'rgba(0, 0, 0, 0.75)'
-            }
-        }}
-      >
-        <Chatbot onClose={() => setIsChatbotOpen(false)} />
-      </Modal>
+      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
 
       {showPopup && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">

@@ -54,7 +54,7 @@ const Chatbot = ({ onClose, initialMessages, phase }) => {
         <hr className="mb-4" />
 
         {/* Messages */}
-        <div className="flex-grow space-y-3 mb-4 overflow-y-auto">
+        <div className="flex-grow flex flex-col space-y-3 mb-4 overflow-y-auto">
           {messages.map((msg, index) => (
             <div
               key={index}

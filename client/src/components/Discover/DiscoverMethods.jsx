@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Chatbot from './DiscoverChatbot';
+import DiscoverChatbot from './DiscoverChatbot';
 import { useNavigate } from 'react-router-dom';
 
 const lessons = [
@@ -21,42 +21,44 @@ const MethodCard = ({ lesson }) => {
     );
 };
 
-const Methods = ({ completedLessons }) => {
+const DiscoverMethods = ({ completedLessons, setCompletedLessons }) => {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
     const navigate = useNavigate();
-    const completionPercentage = (completedLessons.size / lessons.length) * 100;
+    const completionPercentage = completedLessons ? (completedLessons.size / lessons.length) * 100 : 0;
 
     return (
-        <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
-            {/* Header */}
-            <header className="flex items-center justify-between mb-4">
-                <button onClick={() => navigate('/')} className="p-2">
-                    <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
-                </button>
-                <button onClick={() => setIsChatbotOpen(true)} className="p-2">
-                    <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
-                </button>
-            </header>
+        <div className="min-h-screen bg-white flex justify-center">
+            <div className="w-full max-w-sm p-4 flex flex-col">
+                {/* Header */}
+                <header className="flex items-center justify-between mb-4">
+                    <button onClick={() => navigate(-1)} className="p-2">
+                        <img src="/assets/back-arrow.svg" alt="Back" className="w-8 h-8" />
+                    </button>
+                    <button onClick={() => setIsChatbotOpen(true)} className="p-2">
+                        <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+                    </button>
+                </header>
 
-            {/* Progress Bar */}
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
-                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
+                {/* Progress Bar */}
+                <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
+                </div>
+
+                <div className="flex items-start mb-4">
+                    <div className="w-1 bg-black h-16 mr-3"></div>
+                    <h1 className="text-4xl font-bold leading-tight flex-shrink">Relevant<br/>Methods</h1>
+                </div>
+
+                {/* Main Content */}
+                <main className="flex-grow pb-16">
+                    {lessons.map(lesson => (
+                        <MethodCard key={lesson.id} lesson={lesson} />
+                    ))}
+                </main>
+                {isChatbotOpen && <DiscoverChatbot onClose={() => setIsChatbotOpen(false)} />}
             </div>
-
-            <div className="flex items-start mb-4">
-                <div className="w-1 bg-black h-16 mr-3"></div>
-                <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
-            </div>
-
-            {/* Main Content */}
-            <main className="flex-grow pb-16">
-                {lessons.map(lesson => (
-                    <MethodCard key={lesson.id} lesson={lesson} />
-                ))}
-            </main>
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
 };
 
-export default Methods;
+export default DiscoverMethods;
