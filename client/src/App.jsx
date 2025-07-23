@@ -159,7 +159,7 @@ const AppRoutes = () => {
       <Route path="/define/how-might-we" element={<HowMightWeLesson onComplete={handleCompleteLesson} />} />
       <Route path="/define/affinity-analysis" element={<AffinityAnalysisLesson onComplete={handleCompleteLesson} />} />
       <Route path="/define/5-whys" element={<FiveWhysLesson onComplete={handleCompleteLesson} />} />
-      <Route path="/define/methods" element={<DefineMethods completedLessons={completedLessons} />} />
+      <Route path="/define/define-methods" element={<DefineMethods completedLessons={completedLessons} />} />
       
       {/* Develop Phase routes*/}
       <Route path="/develop" element={<Develop />} />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Chatbot from './DefineChatbot';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const lessons = [
     { id: 'Activity Diagram', title: 'Activity Diagram', path: '/define/activity-diagram' },
@@ -26,14 +27,18 @@ const Methods = ({ completedLessons }) => {
     const navigate = useNavigate();
     const completionPercentage = (completedLessons.size / lessons.length) * 100;
 
+    const handleBack = () => {
+        navigate('/define/dashboard');
+    };
+
     return (
-        <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
+        <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative overflow-hidden">
             {/* Header */}
             <header className="flex items-center justify-between mb-4">
-                <button onClick={() => navigate('/')} className="p-2">
-                    <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
+                <button onClick={handleBack} className="p-2">
+                    <ArrowLeft className="w-8 h-8 text-black" />
                 </button>
-                <button onClick={() => navigate('/define/chatbot')} className="p-2">
+                <button onClick={() => setIsChatbotOpen(true)} className="p-2">
                     <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
                 </button>
             </header>
@@ -49,12 +54,20 @@ const Methods = ({ completedLessons }) => {
             </div>
 
             {/* Main Content */}
-            <main className="flex-grow pb-16">
+            <main className="flex-1 overflow-y-auto">
                 {lessons.map(lesson => (
                     <MethodCard key={lesson.id} lesson={lesson} />
                 ))}
             </main>
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+
+            {/* Footer Navigation */}
+            <footer className="bg-white p-4 border-t border-gray-100">
+                <button onClick={handleBack} className="p-2">
+                    <ArrowLeft className="w-8 h-8 text-black" />
+                </button>
+            </footer>
+
+            {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
 };
