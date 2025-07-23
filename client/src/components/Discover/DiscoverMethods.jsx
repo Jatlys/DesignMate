@@ -24,10 +24,13 @@ const MethodCard = ({ lesson }) => {
 const Methods = ({ completedLessons }) => {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
     const navigate = useNavigate();
-    const completionPercentage = (completedLessons.size / lessons.length) * 100;
+    const discoverLessonIds = new Set(lessons.map(l => l.id));
+    const completedDiscoverLessons = [...completedLessons].filter(id => discoverLessonIds.has(id));
+    const completionPercentage = lessons.length > 0 ? (completedDiscoverLessons.length / lessons.length) * 100 : 0;
 
     return (
-        <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
+        <div className="min-h-screen bg-white flex items-center justify-center">
+            <div className="w-full max-w-sm p-4">
             {/* Header */}
             <header className="flex items-center justify-between mb-4">
                 <button onClick={() => navigate('/')} className="p-2">
@@ -38,23 +41,24 @@ const Methods = ({ completedLessons }) => {
                 </button>
             </header>
 
-            {/* Progress Bar */}
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
-                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
-            </div>
+                {/* Progress Bar */}
+                <div className="bg-gray-200 rounded-full h-2.5 mb-6">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
+                </div>
 
-            <div className="flex items-start mb-4">
-                <div className="w-1 bg-black h-16 mr-3"></div>
-                <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
-            </div>
+                <div className="flex items-start mb-4">
+                    <div className="w-1 bg-black h-16 mr-3"></div>
+                    <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
+                </div>
 
-            {/* Main Content */}
-            <main className="flex-grow pb-16">
-                {lessons.map(lesson => (
-                    <MethodCard key={lesson.id} lesson={lesson} />
-                ))}
-            </main>
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+                    {/* Main Content */}
+                    <main className="flex-grow pb-16">
+                    {lessons.map(lesson => (
+                        <MethodCard key={lesson.id} lesson={lesson} />
+                    ))}
+                </main>
+            </div>
+            {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
 };
