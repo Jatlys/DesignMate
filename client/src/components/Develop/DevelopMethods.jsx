@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Chatbot from './DevelopChatbot';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const lessons = [
     { id: 'C-Sketching', title: 'C-Sketching (6-3-5)', path: '/develop/c-sketching' },
@@ -26,8 +27,12 @@ const DevelopMethods = ({ completedLessons }) => {
     const navigate = useNavigate();
     const completionPercentage = (completedLessons.size / lessons.length) * 100;
 
+    const handleBack = () => {
+        navigate('/develop/dashboard');
+    };
+
     return (
-        <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
+        <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative overflow-hidden">
             {/* Header */}
             <header className="flex items-center justify-between mb-4">
                 <button onClick={() => navigate('/')} className="p-2">
@@ -49,11 +54,19 @@ const DevelopMethods = ({ completedLessons }) => {
             </div>
 
             {/* Main Content */}
-            <main className="flex-grow pb-16">
+            <main className="flex-1 overflow-y-auto">
                 {lessons.map(lesson => (
                     <MethodCard key={lesson.id} lesson={lesson} />
                 ))}
             </main>
+
+            {/* Footer Navigation */}
+            <footer className="bg-white p-4 border-t border-gray-100">
+                <button onClick={handleBack} className="p-2">
+                    <ArrowLeft className="w-8 h-8 text-black" />
+                </button>
+            </footer>
+
             {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );

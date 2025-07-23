@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DiscoverChatbot from './DiscoverChatbot';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const lessons = [
     { id: 'Stakeholder Mapping', title: 'Stakeholder Mapping', path: '/discover/stakeholder-mapping' },
@@ -24,20 +25,23 @@ const MethodCard = ({ lesson }) => {
 const DiscoverMethods = ({ completedLessons, setCompletedLessons }) => {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
     const navigate = useNavigate();
-    const completionPercentage = completedLessons ? (completedLessons.size / lessons.length) * 100 : 0;
+    const completionPercentage = (completedLessons.size / lessons.length) * 100;
+
+    const handleBack = () => {
+        navigate('/discover/dashboard');
+    };
 
     return (
-        <div className="min-h-screen bg-white flex justify-center">
-            <div className="w-full max-w-sm p-4 flex flex-col">
-                {/* Header */}
-                <header className="flex items-center justify-between mb-4">
-                    <button onClick={() => navigate(-1)} className="p-2">
-                        <img src="/assets/back-arrow.svg" alt="Back" className="w-8 h-8" />
-                    </button>
-                    <button onClick={() => setIsChatbotOpen(true)} className="p-2">
-                        <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
-                    </button>
-                </header>
+        <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative overflow-hidden">
+            {/* Header */}
+            <header className="flex items-center justify-between mb-4">
+                <button onClick={() => navigate('/')} className="p-2">
+                    <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
+                </button>
+                <button onClick={() => setIsChatbotOpen(true)} className="p-2">
+                    <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+                </button>
+            </header>
 
                 {/* Progress Bar */}
                 <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
@@ -49,16 +53,23 @@ const DiscoverMethods = ({ completedLessons, setCompletedLessons }) => {
                     <h1 className="text-4xl font-bold leading-tight flex-shrink">Relevant<br/>Methods</h1>
                 </div>
 
-                {/* Main Content */}
-                <main className="flex-grow pb-16">
-                    {lessons.map(lesson => (
-                        <MethodCard key={lesson.id} lesson={lesson} />
-                    ))}
-                </main>
-                {isChatbotOpen && <DiscoverChatbot onClose={() => setIsChatbotOpen(false)} />}
-            </div>
+            {/* Main Content */}
+            <main className="flex-1 overflow-y-auto">
+                {lessons.map(lesson => (
+                    <MethodCard key={lesson.id} lesson={lesson} />
+                ))}
+            </main>
+
+            {/* Footer Navigation */}
+            <footer className="bg-white p-4 border-t border-gray-100">
+                <button onClick={handleBack} className="p-2">
+                    <ArrowLeft className="w-8 h-8 text-black" />
+                </button>
+            </footer>
+
+            {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
 };
 
-export default DiscoverMethods;
+export default Methods;
