@@ -1,0 +1,37 @@
+# .gcloudignore
+
+# This file specifies files to not be uploaded to Google Cloud Build.
+# For more information, run:
+#   $ gcloud topic gcloudignore
+
+# The default gcloudignore file can be found at:
+#   $ gcloud info --format='value(config.paths.sdk_root)'/lib/gcloud/sdk/gcloudignore
+
+# If you would like to upload your .git directory, .gitignore file or
+# any other files that are otherwise ignored by default, edit the file
+# found at:
+#   gcloud info --format='value(config.paths.gcloudignore)'
+# and remove the relevant lines.
+
+# Node.js dependencies
+node_modules/
+
+# Python virtual environment
+venv/
+
+# Build output
+/client/dist
+/client/build
+
+# Don't ignore the package-lock.json file in the client directory
+!client/package-lock.json
+
+.DS_Store
+
+# Docker related files
+.dockerignore
+Dockerfile
+
+# IDE files
+.idea
+.vscode
