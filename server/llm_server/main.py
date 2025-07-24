@@ -11,12 +11,32 @@ from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.prompts import PromptTemplate
+from contextlib import asynccontextmanager
+
+# --- Lifespan Management ---
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Build vector stores on startup if they don't exist."""
+    print("Checking for vector stores...")
+    for phase in PHASES:
+        kb_path = KB_PATHS[phase]
+        persist_dir = DB_PATHS[phase]
+        # Check if the vector store is missing or empty
+        if not os.path.exists(persist_dir) or not os.listdir(persist_dir):
+            print(f"Vector store for '{phase}' not found. Building now...")
+            create_vector_db(kb_path, persist_dir)
+            print(f"Vector store for '{phase}' built successfully.")
+        else:
+            print(f"Vector store for '{phase}' already exists.")
+    yield
+    # Code to run on shutdown could be placed here
 
 # --- App Setup ---
 app = FastAPI(
     title="DesignMate LLM Server",
     description="Handles LLM and RAG operations for the DesignMate application.",
     version="0.1.0",
+    lifespan=lifespan
 )
 
 # forcing refresh
