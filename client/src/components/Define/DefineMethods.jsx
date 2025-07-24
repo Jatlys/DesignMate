@@ -1,33 +1,82 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chatbot from './DefineChatbot';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
-const lessons = [
-    { id: 'Activity Diagram', title: 'Activity Diagram', path: '/define/activity-diagram' },
-    { id: 'How Might We', title: 'How Might We', path: '/define/how-might-we' },
-    { id: 'Affinity Analysis', title: 'Affinity Analysis', path: '/define/affinity-analysis' },
-    { id: '5 Whys', title: '5 Whys', path: '/define/5-whys' }
-];
+// Define relevant methods for each lesson (non-clickable display items)
+const methodRecommendations = {
+    'activity-diagram': [
+        'User Interviews',
+        'Personas',
+        'Scenarios',
+        'User Journey Map'
+    ],
+    'how-might-we': [
+        'C-Sketching',
+        'Real Win Worth',
+        'Morph Matrix',
+        'Moodboard'
+    ],
+    'affinity-analysis': [
+        'User Interviews',
+        'Empathic Lead User',
+        'Persona',
+        'Scenarios'
+    ],
+    '5-whys': [
+        'User Interviews',
+        'How Might We'
+    ]
+};
 
-const MethodCard = ({ lesson }) => {
-    const navigate = useNavigate();
+// Method titles mapping for display
+const methodTitleMapping = {
+    'activity-diagram': 'Activity Diagram',
+    'how-might-we': 'How Might We',
+    'affinity-analysis': 'Affinity Analysis',
+    '5-whys': '5 Whys'
+};
+
+const MethodDisplayCard = ({ methodName }) => {
     return (
-        <button
-            onClick={() => navigate(lesson.path)}
-            className="border border-gray-300 rounded-lg p-4 mb-4 w-full text-left hover:bg-gray-50 transition-colors"
-        >
-            <h3 className="font-bold text-lg">{lesson.title}</h3>
-        </button>
+        <div className="bg-gray-100 p-4 rounded-lg mb-4 w-full">
+            <h3 className="font-medium text-lg text-gray-800">{methodName}</h3>
+        </div>
     );
 };
 
 const Methods = ({ completedLessons }) => {
-  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [currentMethod, setCurrentMethod] = useState('activity-diagram');
     const navigate = useNavigate();
-    const completionPercentage = (completedLessons.size / lessons.length) * 100;
+    const location = useLocation();
+    
+    useEffect(() => {
+        // Check if method is passed in location state
+        if (location.state?.currentMethod) {
+            setCurrentMethod(location.state.currentMethod);
+            return;
+        }
+        
+        // If no state, default to activity-diagram
+        setCurrentMethod('activity-diagram');
+    }, [location.state]);
+
+    const completionPercentage = (completedLessons?.size || 0) / 4 * 100; // Assuming 4 total lessons
+
+    // Get relevant methods for current lesson
+    const getRelevantMethods = () => {
+        if (methodRecommendations[currentMethod]) {
+            return methodRecommendations[currentMethod];
+        }
+        return methodRecommendations['activity-diagram']; // Default fallback
+    };
+
+    const relevantMethods = getRelevantMethods();
+    const currentMethodTitle = methodTitleMapping[currentMethod] || 'Current Method';
 
     const handleBack = () => {
+        // Go back to the dashboard
         navigate('/define/dashboard');
     };
 
@@ -49,15 +98,27 @@ const Methods = ({ completedLessons }) => {
             </div>
 
             <div className="flex items-start mb-4">
-                <div className="w-1 bg-black h-16 mr-3"></div>
-                <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
+                <div className="w-1 bg-blue-600 h-16 mr-3"></div>
+                <h1 className="text-4xl font-bold leading-tight">
+                    Relevant<br/>Methods
+                </h1>
             </div>
+
+            {/* Subtitle showing which method these recommendations are for */}
+            <p className="text-gray-600 mb-6 ml-4">
+                Methods relevant to <span className="font-semibold">{currentMethodTitle}</span>
+            </p>
 
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto">
-                {lessons.map(lesson => (
-                    <MethodCard key={lesson.id} lesson={lesson} />
-                ))}
+                <div className="space-y-4">
+                    {relevantMethods.map((methodName, index) => (
+                        <MethodDisplayCard 
+                            key={index}
+                            methodName={methodName}
+                        />
+                    ))}
+                </div>
             </main>
 
             {/* Footer Navigation */}

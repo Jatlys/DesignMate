@@ -1,38 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import Chatbot from './DefineChatbot';
+import DefineChatbot from './DefineChatbot';
 
 const lessons = [
   {
     id: 'Activity Diagram',
     title: 'Activity Diagram',
-    description: '...explanation of Activity Diagram',
-    path: '/define/activity-diagram'
+    description: '...explanation of activity diagram',
+    path: '/define/activity-diagram',
+    methodKey: 'activity-diagram'
   },
   {
     id: 'How Might We',
-    title: 'How might we',
-    description: '...explanation of HMW',
-    path: '/define/how-might-we'
+    title: 'How Might We',
+    description: '...explanation of how might we',
+    path: '/define/how-might-we',
+    methodKey: 'how-might-we'
   },
   {
     id: 'Affinity Analysis',
     title: 'Affinity Analysis',
-    description: '...explanation of Affinity Analysis',
-    path: '/define/affinity-analysis'
+    description: '...explanation of affinity analysis',
+    path: '/define/affinity-analysis',
+    methodKey: 'affinity-analysis'
   },
   {
     id: '5 Whys',
     title: '5 Whys',
     description: '...explanation of 5 whys',
-    path: '/define/5-whys'
+    path: '/define/5-whys',
+    methodKey: '5-whys'
   }
 ];
 
 const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
   const navigate = useNavigate();
-  const { title, description, path } = lesson;
+  const { title, description, path, methodKey } = lesson;
+
+  const handleReviewMethods = () => {
+    navigate('/define/methods', { 
+      state: { currentMethod: methodKey } 
+    });
+  };
 
   return (
     <div className="border border-gray-300 rounded-lg p-4 mb-4">
@@ -58,7 +68,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
               Review Lessons
             </button>
             <button 
-              onClick={() => navigate('/define/methods')}
+              onClick={handleReviewMethods}
               className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
             >
               Review Methods
@@ -84,7 +94,7 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
-    const handleToggleComplete = (lessonId) => {
+  const handleToggleComplete = (lessonId) => {
     const newSet = new Set(completedLessons);
     if (newSet.has(lessonId)) {
       newSet.delete(lessonId);
@@ -94,7 +104,7 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
     setCompletedLessons(newSet);
   };
 
-    const defineLessonIds = new Set(lessons.map(l => l.id));
+  const defineLessonIds = new Set(lessons.map(l => l.id));
   const completedDefineLessons = [...completedLessons].filter(id => defineLessonIds.has(id));
   const completionPercentage = lessons.length > 0 ? (completedDefineLessons.length / lessons.length) * 100 : 0;
 
@@ -104,7 +114,7 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
         <button onClick={() => navigate('/')}>
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
-        <button onClick={() => navigate('/define/chatbot')} className="p-2">
+        <button onClick={() => setIsChatbotOpen(true)} className="p-2">
           <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
         </button>
       </header>
@@ -117,7 +127,7 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
         <img src="/assets/DefineSmall.svg" alt="Define phase icon" className="w-12 h-12 mr-2" />
         <div>
           <h1 className="text-2xl font-serif">Define</h1>
-          <p className="text-sm text-gray-600">Interpret and reframe needs and map them into activities, functions and representations</p>
+          <p className="text-sm text-gray-600">Synthesising observations into problems</p>
         </div>
       </div>
 
@@ -145,7 +155,7 @@ const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <DefineChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 };
