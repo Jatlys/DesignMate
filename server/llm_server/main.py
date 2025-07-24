@@ -56,7 +56,7 @@ KB_BASE_PATH = "knowledge_bases"
 DB_BASE_PATH = "vector_stores"
 
 # Define paths for each phase
-PHASES = ["discover", "define", "deliver", "develop"]
+PHASES = ["discover", "define", "deliver", "develop","general"]
 KB_PATHS = {phase: os.path.join(KB_BASE_PATH, phase) for phase in PHASES}
 DB_PATHS = {phase: os.path.join(DB_BASE_PATH, phase) for phase in PHASES}
 

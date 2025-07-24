@@ -12,7 +12,7 @@ const DefineChatbot = ({ onClose }) => {
       sender: 'ai-phase',
     },
     {
-      text: "Pro Tip: Don't XXX YYY",
+      text: "Pro Tip: Make sure to ask open-ended questions to get a better understanding of your users.",
       sender: 'ai-tip',
     },
   ];
