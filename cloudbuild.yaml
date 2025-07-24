@@ -1,14 +1,24 @@
 # cloudbuild.yaml
 steps:
-  # Step 1: Build the Docker image
+  # Step 1: Install client dependencies
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+    dir: 'client'
+
+  # Step 2: Build the client application
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'build']
+    dir: 'client'
+
+  # Step 3: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '--no-cache', '-t', 'gcr.io/$PROJECT_ID/designmate-app:$BUILD_ID', './']
 
-  # Step 2: Push the Docker image to Google Container Registry
+  # Step 4: Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/designmate-app:$BUILD_ID']
 
-  # Step 3: Deploy to Cloud Run
+  # Step 5: Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
