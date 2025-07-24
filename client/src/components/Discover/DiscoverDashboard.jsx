@@ -8,31 +8,41 @@ const lessons = [
     id: 'Stakeholder Mapping',
     title: 'Stakeholder Mapping',
     description: '...explanation of stakeholder mapping',
-    path: '/discover/stakeholder-mapping'
+    path: '/discover/stakeholder-mapping',
+    methodKey: 'stakeholder-mapping'
   },
   {
     id: 'Personas',
     title: 'Personas',
     description: '...explanation of personas',
-    path: '/discover/personas'
+    path: '/discover/personas',
+    methodKey: 'personas'
   },
   {
     id: 'Scenarios',
     title: 'Scenarios',
     description: '...explanation of scenarios',
-    path: '/discover/scenarios'
+    path: '/discover/scenarios',
+    methodKey: 'scenarios'
   },
   {
     id: 'User Journey Mapping',
     title: 'User Journey Mapping',
     description: '...explanation of user journey mapping',
-    path: '/discover/user-journey-mapping'
+    path: '/discover/user-journey-mapping',
+    methodKey: 'user-journey-mapping'
   }
 ];
 
 const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
   const navigate = useNavigate();
-  const { title, description, path } = lesson;
+  const { title, description, path, methodKey } = lesson;
+
+  const handleReviewMethods = () => {
+    navigate('/discover/methods', { 
+      state: { currentMethod: methodKey } 
+    });
+  };
 
   return (
     <div className="border border-gray-300 rounded-lg p-4 mb-4">
@@ -58,7 +68,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
               Review Lessons
             </button>
             <button 
-              onClick={() => navigate('/discover/methods')}
+              onClick={handleReviewMethods}
               className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
             >
               Review Methods

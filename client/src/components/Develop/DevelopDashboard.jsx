@@ -8,31 +8,45 @@ const lessons = [
     id: 'C-Sketching (6-3-5)',
     title: 'C-Sketching (6-3-5)',
     description: '...explanation of C-Sketching',
-    path: '/develop/c-sketching'
+    path: '/develop/c-sketching',
+    methodKey: 'c-sketching',
+    hasReviewMethods: true
   },
   {
     id: 'Real, Win, Worth',
     title: 'Real-Win-Worth',
     description: '...explanation of RWW',
-    path: '/develop/real-win-worth'
+    path: '/develop/real-win-worth',
+    methodKey: 'real-win-worth',
+    hasReviewMethods: true
   },
   {
     id: 'Morphological Matrix',
     title: 'Morph Matrix',
     description: '...explanation of Morphological Matrix',
-    path: '/develop/morph-matrix'
+    path: '/develop/morph-matrix',
+    methodKey: 'morph-matrix',
+    hasReviewMethods: true
   },
   {
     id: 'Moodboard',
     title: 'Moodboard',
     description: '...explanation of Moodboard',
-    path: '/develop/moodboard'
+    path: '/develop/moodboard',
+    methodKey: 'moodboard',
+    hasReviewMethods: false // No review methods button for moodboard
   }
 ];
 
 const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
   const navigate = useNavigate();
-  const { title, description, path } = lesson;
+  const { title, description, path, methodKey, hasReviewMethods } = lesson;
+
+  const handleReviewMethods = () => {
+    navigate('/develop/methods', { 
+      state: { currentMethod: methodKey } 
+    });
+  };
 
   return (
     <div className="border border-gray-300 rounded-lg p-4 mb-4">
@@ -53,16 +67,20 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
           <div className="flex w-full space-x-2">
             <button 
               onClick={() => navigate(path)}
-              className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
+              className={`bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm ${
+                hasReviewMethods ? 'w-1/2' : 'w-full'
+              }`}
             >
               Review Lessons
             </button>
-            <button 
-              onClick={() => navigate('/develop/methods')}
-              className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
-            >
-              Review Methods
-            </button>
+            {hasReviewMethods && (
+              <button 
+                onClick={handleReviewMethods}
+                className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
+              >
+                Review Methods
+              </button>
+            )}
           </div>
         ) : (
           <>
@@ -84,7 +102,7 @@ const DevelopDashboard = ({ completedLessons, setCompletedLessons }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
-    const handleToggleComplete = (lessonId) => {
+  const handleToggleComplete = (lessonId) => {
     const newSet = new Set(completedLessons);
     if (newSet.has(lessonId)) {
       newSet.delete(lessonId);
@@ -94,7 +112,7 @@ const DevelopDashboard = ({ completedLessons, setCompletedLessons }) => {
     setCompletedLessons(newSet);
   };
 
-    const developLessonIds = new Set(lessons.map(l => l.id));
+  const developLessonIds = new Set(lessons.map(l => l.id));
   const completedDevelopLessons = [...completedLessons].filter(id => developLessonIds.has(id));
   const completionPercentage = lessons.length > 0 ? (completedDevelopLessons.length / lessons.length) * 100 : 0;
 
@@ -114,10 +132,10 @@ const DevelopDashboard = ({ completedLessons, setCompletedLessons }) => {
       </div>
 
       <div className="flex items-center mb-4">
-        <img src="/assets/DevelopSmall.svg" alt="Define phase icon" className="w-12 h-12 mr-2" />
+        <img src="/assets/DevelopSmall.svg" alt="Develop phase icon" className="w-12 h-12 mr-2" />
         <div>
           <h1 className="text-2xl font-serif">Develop</h1>
-          <p className="text-sm text-gray-600">Interpret and reframe needs and map them into activities, functions and representations</p>
+          <p className="text-sm text-gray-600">Ideating and prototyping solutions</p>
         </div>
       </div>
 

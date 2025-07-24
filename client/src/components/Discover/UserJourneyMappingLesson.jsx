@@ -5,69 +5,73 @@ import Chatbot from './DiscoverChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
-    <div className="flex items-center mb-2">
-      <div className="w-1 bg-black h-6 mr-3"></div>
-      <h3 className="font-bold text-lg">{title}</h3>
-      {icon && <img src={icon} alt="icon" className="ml-2 w-5 h-5" />}
+    <div className="flex items-center mb-3">
+      {icon && <img src={icon} alt="" className="w-6 h-6 mr-2" />}
+      <h2 className="text-xl font-bold">{title}</h2>
     </div>
-    <div className="text-gray-700 text-sm ml-4">{children}</div>
+    {children}
   </div>
 );
 
-const UserJourneyMappingLesson = ({ onComplete }) => {
-  const navigate = useNavigate();
+function UserJourneyMappingLesson({ onComplete }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [isFirstTime, setIsFirstTime] = useState(false);
+  const navigate = useNavigate();
+
+  const totalSteps = 2; // Only 2 steps now
+  const progressPercentage = (currentStep / totalSteps) * 100;
 
   useEffect(() => {
-    const hasCompleted = localStorage.getItem('userJourneyMappingCompleted');
-    if (!hasCompleted) {
-      setIsFirstTime(true);
+    if (currentStep === 2) {
+      const timer = setTimeout(() => {
+        setShowPopup(true);
+      }, 500);
+      return () => clearTimeout(timer);
     }
-  }, []);
+  }, [currentStep]);
 
   const handleNext = () => {
-    if (currentStep === 2 && isFirstTime) {
-      setShowPopup(true);
-    } else if (currentStep < 3) {
-      setCurrentStep(prev => prev + 1);
+    if (currentStep < totalSteps) {
+      setCurrentStep(currentStep + 1);
     }
   };
 
   const handleBack = () => {
-    if (currentStep === 1) {
-      navigate(-1);
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
     } else {
-      setCurrentStep(prev => prev - 1);
+      navigate('/discover/dashboard');
     }
-  };
-
-  const handlePopupOk = () => {
-    setShowPopup(false);
-    setCurrentStep(3);
   };
 
   const handleComplete = () => {
-    if (isFirstTime) {
-      localStorage.setItem('userJourneyMappingCompleted', 'true');
-    }
     onComplete('User Journey Mapping');
     navigate('/discover/dashboard');
   };
 
-  const progressPercentage = (currentStep / 3) * 100;
+  const handlePopupOk = () => {
+    setShowPopup(false);
+  };
 
   return (
-    <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
+    <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative overflow-hidden">
       {/* Header */}
       <header className="flex items-center justify-between mb-4">
-        <button onClick={handleBack} className="p-2">
-          <img src="/assets/Home.svg" alt="Back" className="w-8 h-8 cursor-pointer" />
+        <button onClick={() => navigate('/')} className="p-2">
+          <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
-        <button onClick={() => setIsChatbotOpen(true)} className="p-2">
+        <button 
+          onClick={() => setIsChatbotOpen(true)} 
+          className={`p-2 relative ${showPopup ? 'z-50' : ''}`}
+        >
           <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+          {showPopup && (
+            <div className="absolute inset-0 rounded-full border-4 border-blue-500 animate-pulse"></div>
+          )}
+          {showPopup && (
+            <div className="absolute inset-0 rounded-full border-8 border-blue-300 opacity-50 animate-ping"></div>
+          )}
         </button>
       </header>
 
@@ -116,19 +120,6 @@ const UserJourneyMappingLesson = ({ onComplete }) => {
             </Section>
           </>
         )}
-
-        {currentStep === 3 && (
-            <>
-                <div className="flex items-start mb-4">
-                    <div className="w-1 bg-blue-600 h-16 mr-3"></div>
-                    <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
-                </div>
-                <div className="space-y-4">
-                    <div className="bg-gray-100 p-4 rounded-lg">User Interviews</div>
-                    <div className="bg-gray-100 p-4 rounded-lg">Activity Diagram</div>
-                </div>
-            </>
-        )}
       </main>
 
       {/* Footer Navigation */}
@@ -138,7 +129,7 @@ const UserJourneyMappingLesson = ({ onComplete }) => {
         </button>
         
         <div className="flex-grow flex justify-center">
-          {currentStep === 3 && (
+          {currentStep === 2 && (
             <button 
                 onClick={handleComplete}
                 className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-full"
@@ -148,13 +139,13 @@ const UserJourneyMappingLesson = ({ onComplete }) => {
           )}
         </div>
 
-        {currentStep < 3 && (
+        {currentStep < 2 && (
           <button onClick={handleNext} className="p-2 ml-auto">
             <ArrowRight className="w-8 h-8 text-black" />
           </button>
         )}
 
-        {currentStep === 3 && <div className="w-12"></div>} 
+        {currentStep === 2 && <div className="w-12"></div>}
       </footer>
 
       {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}

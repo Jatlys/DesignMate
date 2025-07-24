@@ -1,31 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chatbot from './DeliverChatbot';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
-const lessons = [
-    { id: 'Storyboarding', title: 'Storyboarding', path: '/deliver/storyboarding' },
-    { id: 'Wireframing', title: 'Wireframing', path: '/deliver/wireframing' },
-    { id: 'Physical Model', title: 'Physical Model', path: '/deliver/physical-model' },
-    { id: 'Mockups', title: 'Mockups', path: '/deliver/mockups' }
-];
+// Define relevant methods for each lesson (non-clickable display items)
+const methodRecommendations = {
+    'storyboarding': [
+        'User Journey Map',
+        'Personas',
+        'Scenarios',
+        'Service/UX Blueprinting'
+    ],
+    'wireframing': [
+        'Prototyping Canvas'
+    ],
+    'physical-model': [
+        'Prototyping Canvas'
+    ],
+    'mockups': [
+        'Prototyping Canvas'
+    ]
+};
 
-const MethodCard = ({ lesson }) => {
-    const navigate = useNavigate();
+// Method titles mapping for display
+const methodTitleMapping = {
+    'storyboarding': 'Storyboarding',
+    'wireframing': 'Wireframing',
+    'physical-model': 'Physical Model',
+    'mockups': 'Mockups'
+};
+
+const MethodDisplayCard = ({ methodName }) => {
     return (
-        <button
-            onClick={() => navigate(lesson.path)}
-            className="border border-gray-300 rounded-lg p-4 mb-4 w-full text-left hover:bg-gray-50 transition-colors"
-        >
-            <h3 className="font-bold text-lg">{lesson.title}</h3>
-        </button>
+        <div className="bg-gray-100 p-4 rounded-lg mb-4 w-full">
+            <h3 className="font-medium text-lg text-gray-800">{methodName}</h3>
+        </div>
     );
 };
 
 const DeliverMethods = ({ completedLessons }) => {
     const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [currentMethod, setCurrentMethod] = useState('storyboarding');
     const navigate = useNavigate();
-    const completionPercentage = (completedLessons.size / lessons.length) * 100;
+    const location = useLocation();
+    
+    useEffect(() => {
+        // Check if method is passed in location state
+        if (location.state?.currentMethod) {
+            setCurrentMethod(location.state.currentMethod);
+            return;
+        }
+        
+        // If no state, default to storyboarding
+        setCurrentMethod('storyboarding');
+    }, [location.state]);
+
+    const completionPercentage = (completedLessons?.size || 0) / 4 * 100; // Assuming 4 total lessons
+
+    // Get relevant methods for current lesson
+    const getRelevantMethods = () => {
+        if (methodRecommendations[currentMethod]) {
+            return methodRecommendations[currentMethod];
+        }
+        return methodRecommendations['storyboarding']; // Default fallback
+    };
+
+    const relevantMethods = getRelevantMethods();
+    const currentMethodTitle = methodTitleMapping[currentMethod] || 'Current Method';
 
     const handleBack = () => {
         navigate('/deliver/dashboard');
@@ -49,15 +90,27 @@ const DeliverMethods = ({ completedLessons }) => {
             </div>
 
             <div className="flex items-start mb-4">
-                <div className="w-1 bg-black h-16 mr-3"></div>
-                <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
+                <div className="w-1 bg-blue-600 h-16 mr-3"></div>
+                <h1 className="text-4xl font-bold leading-tight">
+                    Relevant<br/>Methods
+                </h1>
             </div>
+
+            {/* Subtitle showing which method these recommendations are for */}
+            <p className="text-gray-600 mb-6 ml-4">
+                Methods relevant to <span className="font-semibold">{currentMethodTitle}</span>
+            </p>
 
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto">
-                {lessons.map(lesson => (
-                    <MethodCard key={lesson.id} lesson={lesson} />
-                ))}
+                <div className="space-y-4">
+                    {relevantMethods.map((methodName, index) => (
+                        <MethodDisplayCard 
+                            key={index}
+                            methodName={methodName}
+                        />
+                    ))}
+                </div>
             </main>
 
             {/* Footer Navigation */}

@@ -1,31 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chatbot from './DevelopChatbot';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
-const lessons = [
-    { id: 'C-Sketching', title: 'C-Sketching (6-3-5)', path: '/develop/c-sketching' },
-    { id: 'Real-Win-Worth', title: 'Real-Win-Worth', path: '/develop/real-win-worth' },
-    { id: 'Morph Matrix', title: 'Morph Matrix', path: '/develop/morph-matrix' },
-    { id: 'Moodboard', title: 'Moodboard', path: '/develop/moodboard' }
-];
+// Define relevant methods for each lesson (non-clickable display items)
+const methodRecommendations = {
+    'c-sketching': [
+        'User Interviews',
+        'Affinity Analysis',
+        'Activity Diagram',
+        'Hierarchy of Purpose'
+    ],
+    'real-win-worth': [
+        'Brainstorming',
+        'DI Mindmapping',
+        'C-Sketch (6-3-5)',
+        'Design by Analogy'
+    ],
+    'morph-matrix': [
+        'Systems Function Model'
+    ]
+    // Note: moodboard is excluded as it doesn't need review methods
+};
 
-const MethodCard = ({ lesson }) => {
-    const navigate = useNavigate();
+// Method titles mapping for display
+const methodTitleMapping = {
+    'c-sketching': 'C-Sketching',
+    'real-win-worth': 'Real Win Worth',
+    'morph-matrix': 'Morph Matrix'
+};
+
+const MethodDisplayCard = ({ methodName }) => {
     return (
-        <button
-            onClick={() => navigate(lesson.path)}
-            className="border border-gray-300 rounded-lg p-4 mb-4 w-full text-left hover:bg-gray-50 transition-colors"
-        >
-            {lesson.title}
-        </button>
+        <div className="bg-gray-100 p-4 rounded-lg mb-4 w-full">
+            <h3 className="font-medium text-lg text-gray-800">{methodName}</h3>
+        </div>
     );
 };
 
 const DevelopMethods = ({ completedLessons }) => {
-  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [currentMethod, setCurrentMethod] = useState('c-sketching');
     const navigate = useNavigate();
-    const completionPercentage = (completedLessons.size / lessons.length) * 100;
+    const location = useLocation();
+    
+    useEffect(() => {
+        // Check if method is passed in location state
+        if (location.state?.currentMethod) {
+            setCurrentMethod(location.state.currentMethod);
+            return;
+        }
+        
+        // If no state, default to c-sketching
+        setCurrentMethod('c-sketching');
+    }, [location.state]);
+
+    const completionPercentage = (completedLessons?.size || 0) / 4 * 100; // Assuming 4 total lessons
+
+    // Get relevant methods for current lesson
+    const getRelevantMethods = () => {
+        if (methodRecommendations[currentMethod]) {
+            return methodRecommendations[currentMethod];
+        }
+        return methodRecommendations['c-sketching']; // Default fallback
+    };
+
+    const relevantMethods = getRelevantMethods();
+    const currentMethodTitle = methodTitleMapping[currentMethod] || 'Current Method';
 
     const handleBack = () => {
         navigate('/develop/dashboard');
@@ -49,15 +90,27 @@ const DevelopMethods = ({ completedLessons }) => {
             </div>
 
             <div className="flex items-start mb-4">
-                <div className="w-1 bg-black h-16 mr-3"></div>
-                <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
+                <div className="w-1 bg-blue-600 h-16 mr-3"></div>
+                <h1 className="text-4xl font-bold leading-tight">
+                    Relevant<br/>Methods
+                </h1>
             </div>
+
+            {/* Subtitle showing which method these recommendations are for */}
+            <p className="text-gray-600 mb-6 ml-4">
+                Methods relevant to <span className="font-semibold">{currentMethodTitle}</span>
+            </p>
 
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto">
-                {lessons.map(lesson => (
-                    <MethodCard key={lesson.id} lesson={lesson} />
-                ))}
+                <div className="space-y-4">
+                    {relevantMethods.map((methodName, index) => (
+                        <MethodDisplayCard 
+                            key={index}
+                            methodName={methodName}
+                        />
+                    ))}
+                </div>
             </main>
 
             {/* Footer Navigation */}

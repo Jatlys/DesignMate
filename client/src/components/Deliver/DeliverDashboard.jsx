@@ -1,38 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import Chatbot from './DeliverChatbot';
+import DeliverChatbot from './DeliverChatbot';
 
 const lessons = [
   {
     id: 'Storyboarding',
     title: 'Storyboarding',
-    description: '...explanation of Storyboarding',
-    path: '/deliver/storyboarding'
+    description: '...explanation of storyboarding',
+    path: '/deliver/storyboarding',
+    methodKey: 'storyboarding'
   },
   {
     id: 'Wireframing',
     title: 'Wireframing',
     description: '...explanation of wireframing',
-    path: '/deliver/wireframing'
+    path: '/deliver/wireframing',
+    methodKey: 'wireframing'
   },
   {
     id: 'Physical Model',
     title: 'Physical Model',
-    description: '...explanation of Physical Model',
-    path: '/deliver/physical-model'
+    description: '...explanation of physical model',
+    path: '/deliver/physical-model',
+    methodKey: 'physical-model'
   },
   {
     id: 'Mockups',
     title: 'Mockups',
-    description: '...explanation of Mockups',
-    path: '/deliver/mockups'
+    description: '...explanation of mockups',
+    path: '/deliver/mockups',
+    methodKey: 'mockups'
   }
 ];
 
 const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
   const navigate = useNavigate();
-  const { title, description, path } = lesson;
+  const { title, description, path, methodKey } = lesson;
+
+  const handleReviewMethods = () => {
+    navigate('/deliver/methods', { 
+      state: { currentMethod: methodKey } 
+    });
+  };
 
   return (
     <div className="border border-gray-300 rounded-lg p-4 mb-4">
@@ -58,7 +68,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
               Review Lessons
             </button>
             <button 
-              onClick={() => navigate('/deliver/methods')}
+              onClick={handleReviewMethods}
               className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
             >
               Review Methods
@@ -84,7 +94,7 @@ const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
-    const handleToggleComplete = (lessonId) => {
+  const handleToggleComplete = (lessonId) => {
     const newSet = new Set(completedLessons);
     if (newSet.has(lessonId)) {
       newSet.delete(lessonId);
@@ -94,7 +104,7 @@ const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
     setCompletedLessons(newSet);
   };
 
-    const deliverLessonIds = new Set(lessons.map(l => l.id));
+  const deliverLessonIds = new Set(lessons.map(l => l.id));
   const completedDeliverLessons = [...completedLessons].filter(id => deliverLessonIds.has(id));
   const completionPercentage = lessons.length > 0 ? (completedDeliverLessons.length / lessons.length) * 100 : 0;
 
@@ -117,7 +127,7 @@ const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
         <img src="/assets/DeliverSmall.svg" alt="Deliver phase icon" className="w-12 h-12 mr-2" />
         <div>
           <h1 className="text-2xl font-serif">Deliver</h1>
-          <p className="text-sm text-gray-600">Iteratively prototype and test concepts and models with users</p>
+          <p className="text-sm text-gray-600">Testing and implementing solutions</p>
         </div>
       </div>
 
@@ -145,7 +155,7 @@ const DeliverDashboard = ({ completedLessons, setCompletedLessons }) => {
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <DeliverChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 };
