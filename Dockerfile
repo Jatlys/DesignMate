@@ -29,6 +29,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the backend application code
 COPY server/llm_server/ .
 
+# Copy the knowledge base documents into the container
+COPY server/llm_server/knowledge_bases ./knowledge_bases
+
 # Copy the built frontend from the builder stage
 # The build output from 'npm run build' is in the '/app/dist' directory of the builder stage.
 COPY --from=builder-frontend /app/dist ./dist
