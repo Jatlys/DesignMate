@@ -67,9 +67,9 @@ const DiscoverMethods = ({ completedLessons, setCompletedLessons }) => {
                 </button>
             </footer>
 
-            {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+            {isChatbotOpen && <DiscoverChatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
 };
 
-export default Methods;
+export default DiscoverMethods;

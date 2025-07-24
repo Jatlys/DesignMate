@@ -31,6 +31,7 @@ import ScenariosLesson from './components/Discover/ScenariosLesson';
 import UserJourneyMappingLesson from './components/Discover/UserJourneyMappingLesson';
 import DiscoverMethods from './components/Discover/DiscoverMethods';
 
+
 // Define Phase Imports
 import Define from './components/Define/Define';
 import DefineDashboard from './components/Define/DefineDashboard';

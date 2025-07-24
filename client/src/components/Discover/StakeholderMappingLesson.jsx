@@ -30,10 +30,13 @@ const StakeholderMappingLesson = ({ onComplete }) => {
   }, []);
 
   const handleNext = () => {
-    if (currentStep === 2 && isFirstTime) {
-      setShowPopup(true);
-    } else if (currentStep < 3) {
+    if (currentStep === 1) {
       setCurrentStep(prev => prev + 1);
+      if (isFirstTime) {
+        setShowPopup(true);
+      }
+    } else if (currentStep === 2) {
+      handleComplete();
     }
   };
 
@@ -47,7 +50,7 @@ const StakeholderMappingLesson = ({ onComplete }) => {
 
   const handlePopupOk = () => {
     setShowPopup(false);
-    setCurrentStep(3); // Move to Relevant Methods page
+    handleComplete();
   };
 
   const handleComplete = () => {
@@ -58,7 +61,7 @@ const StakeholderMappingLesson = ({ onComplete }) => {
     navigate('/discover/dashboard');
   };
 
-  const progressPercentage = (currentStep / 3) * 100;
+  const progressPercentage = (currentStep / 2) * 100;
 
   return (
     <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
@@ -127,19 +130,8 @@ const StakeholderMappingLesson = ({ onComplete }) => {
           </>
         )}
 
-        {currentStep === 3 && (
-            <>
-                <div className="flex items-start mb-4">
-                    <div className="w-1 bg-blue-600 h-16 mr-3"></div>
-                    <h1 className="text-4xl font-bold leading-tight">Relevant<br/>Methods</h1>
-                </div>
-                <div className="space-y-4">
-                    <div className="bg-gray-100 p-4 rounded-lg">Method 1</div>
-                    <div className="bg-gray-100 p-4 rounded-lg">Method 2</div>
-                    <div className="bg-gray-100 p-4 rounded-lg">Method 3</div>
-                </div>
-            </>
-        )}
+
+
       </main>
 
       {/* Footer Navigation */}
@@ -149,7 +141,7 @@ const StakeholderMappingLesson = ({ onComplete }) => {
         </button>
         
         <div className="flex-grow flex justify-center">
-          {currentStep === 3 && (
+          {currentStep === 2 && (
             <button 
                 onClick={handleComplete}
                 className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-full"
@@ -159,13 +151,13 @@ const StakeholderMappingLesson = ({ onComplete }) => {
           )}
         </div>
 
-        {currentStep < 3 && (
+        {currentStep < 2 && (
           <button onClick={handleNext} className="p-2 ml-auto">
             <ArrowRight className="w-8 h-8 text-black" />
           </button>
         )}
 
-        {currentStep === 3 && <div className="w-12"></div>} 
+        {currentStep === 2 && <div className="w-12"></div>} 
       </footer>
 
                   <Modal
