@@ -110,11 +110,6 @@ def get_rag_chain(persist_dir: str):
     return qa_chain
 
 # --- API Endpoints ---
-@app.get("/", summary="Root endpoint to check server status")
-def read_root():
-    """Check if the server is running."""
-    return {"status": "LLM server is running"}
-
 @app.post("/api/{phase}/chat", summary="Chat with a chatbot for a specific phase")
 async def chat(phase: str, query: str = Form(...)):
     """Handles chat requests for any phase using a RAG pipeline."""
