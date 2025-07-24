@@ -1,4 +1,5 @@
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File, Form, Request
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
@@ -166,21 +167,15 @@ async def upload(phase: str, file: UploadFile = File(...)):
 
     return {"filename": file.filename, "status": f"Uploaded and processed for {phase} KB"}
 
-# --- Static Files Mount (Moved to the end) ---
-# This must be the last route added so it doesn't override API endpoints.
-# Path for Docker environment
-dist_path_docker = os.path.join(os.path.dirname(__file__), 'dist')
+# --- Static Files and Catch-all Route ---
+static_files_dir = os.path.join(os.path.dirname(__file__), "dist")
 
-# Path for local development environment
-dist_path_local = os.path.join(os.path.dirname(__file__), '..', '..', 'client', 'dist')
+app.mount("/assets", StaticFiles(directory=os.path.join(static_files_dir, "assets")), name="assets")
 
-# Determine which path exists
-if os.path.exists(dist_path_docker):
-    static_dir = dist_path_docker
-elif os.path.exists(dist_path_local):
-    static_dir = dist_path_local
-else:
-    static_dir = None
-
-if static_dir:
-    app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
+@app.get("/{full_path:path}")
+async def catch_all(request: Request, full_path: str):
+    """Catch-all endpoint to serve index.html for client-side routing."""
+    file_path = os.path.join(static_files_dir, "index.html")
+    if os.path.exists(file_path):
+        return FileResponse(file_path)
+    return {"error": "index.html not found"}
