@@ -11,12 +11,32 @@ from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.prompts import PromptTemplate
+from contextlib import asynccontextmanager
+
+# --- Lifespan Management ---
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Build vector stores on startup if they don't exist."""
+    print("Checking for vector stores...")
+    for phase in PHASES:
+        kb_path = KB_PATHS[phase]
+        persist_dir = DB_PATHS[phase]
+        # Check if the vector store is missing or empty
+        if not os.path.exists(persist_dir) or not os.listdir(persist_dir):
+            print(f"Vector store for '{phase}' not found. Building now...")
+            create_vector_db(kb_path, persist_dir)
+            print(f"Vector store for '{phase}' built successfully.")
+        else:
+            print(f"Vector store for '{phase}' already exists.")
+    yield
+    # Code to run on shutdown could be placed here
 
 # --- App Setup ---
 app = FastAPI(
     title="DesignMate LLM Server",
     description="Handles LLM and RAG operations for the DesignMate application.",
     version="0.1.0",
+    lifespan=lifespan
 )
 
 # forcing refresh
@@ -30,28 +50,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# --- Static Files Mount ---
-# This logic handles finding the 'dist' folder for both local dev and Docker.
-# It also prevents the server from crashing if the frontend hasn't been built.
-
-# Path for Docker environment
-dist_path_docker = os.path.join(os.path.dirname(__file__), 'dist')
-
-# Path for local development environment
-dist_path_local = os.path.join(os.path.dirname(__file__), '..', '..', 'client', 'dist')
-
-# Determine which path exists
-if os.path.exists(dist_path_docker):
-    static_dir = dist_path_docker
-elif os.path.exists(dist_path_local):
-    static_dir = dist_path_local
-else:
-    static_dir = None
-
-# Mount the static directory only if it was found
-if static_dir:
-    app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
 
 # --- Knowledge Base and Vector Store Configuration ---
 KB_BASE_PATH = "knowledge_bases"
@@ -132,11 +130,6 @@ def get_rag_chain(persist_dir: str):
     return qa_chain
 
 # --- API Endpoints ---
-@app.get("/", summary="Root endpoint to check server status")
-def read_root():
-    """Check if the server is running."""
-    return {"status": "LLM server is running"}
-
 @app.post("/api/{phase}/chat", summary="Chat with a chatbot for a specific phase")
 async def chat(phase: str, query: str = Form(...)):
     """Handles chat requests for any phase using a RAG pipeline."""
@@ -172,3 +165,22 @@ async def upload(phase: str, file: UploadFile = File(...)):
     create_vector_db(kb_path, persist_dir)
 
     return {"filename": file.filename, "status": f"Uploaded and processed for {phase} KB"}
+
+# --- Static Files Mount (Moved to the end) ---
+# This must be the last route added so it doesn't override API endpoints.
+# Path for Docker environment
+dist_path_docker = os.path.join(os.path.dirname(__file__), 'dist')
+
+# Path for local development environment
+dist_path_local = os.path.join(os.path.dirname(__file__), '..', '..', 'client', 'dist')
+
+# Determine which path exists
+if os.path.exists(dist_path_docker):
+    static_dir = dist_path_docker
+elif os.path.exists(dist_path_local):
+    static_dir = dist_path_local
+else:
+    static_dir = None
+
+if static_dir:
+    app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")

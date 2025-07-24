@@ -185,7 +185,7 @@ const AppRoutes = () => {
       <Route path="/define/chatbot" element={<DefineChatbot onClose={handleCloseDefineChatbot} />} />
       <Route path="/develop/chatbot" element={<DevelopChatbot onClose={handleCloseDevelopChatbot} />} />
       <Route path="/deliver/chatbot" element={<DeliverChatbot onClose={handleCloseDeliverChatbot} />} />
-              <Route path="/icebreaker/:teamCode" element={<IceBreakerStart />} />
+      <Route path="/icebreaker/:teamCode" element={<IceBreakerStart />} />
         </Routes>
   );
 };

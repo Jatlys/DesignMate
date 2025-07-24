@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, X } from 'lucide-react';
 
 const IceBreakerQuestion2 = () => {
+  const navigate = useNavigate();
   const [answer, setAnswer] = useState('');
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(180);
   const [isRunning, setIsRunning] = useState(true);
 
   // Pool of questions for this stage (personality/preferences)
@@ -24,13 +26,11 @@ const IceBreakerQuestion2 = () => {
   const [usedQuestions, setUsedQuestions] = useState([questionPool[0]]);
 
   const handleBack = () => {
-    // In your actual app, replace with: navigate('/');
-    window.location.href = '/';
+    navigate('/');
   };
 
   const handleNext = () => {
-    // In your actual app, replace with: navigate('/icebreaker/question/3');
-    window.location.href = '/icebreaker/question/3';
+    navigate('/icebreaker/question/3');
   };
 
   const handleSkip = () => {
@@ -54,7 +54,7 @@ const IceBreakerQuestion2 = () => {
     
     // Update question and reset timer
     setCurrentQuestion(newQuestion);
-    setTimeLeft(10);
+    setTimeLeft(180);
     setIsRunning(true);
   };
 
@@ -67,7 +67,7 @@ const IceBreakerQuestion2 = () => {
         if (prev <= 1) {
           console.log('Timer expired on Question 2, going to next page');
           handleNext(); // Go to next page instead of new question
-          return 10;
+          return 180;
         }
         return prev - 1;
       });
@@ -124,9 +124,9 @@ const IceBreakerQuestion2 = () => {
               fill="none"
               strokeLinecap="round"
               strokeDasharray={`${2 * Math.PI * 54}`}
-              strokeDashoffset={`${2 * Math.PI * 54 * (timeLeft / 10)}`}
+              strokeDashoffset={`${2 * Math.PI * 54 * (timeLeft / 180)}`}
               style={{
-                transition: timeLeft === 10 ? 'none' : 'stroke-dashoffset 1s linear'
+                transition: timeLeft === 180 ? 'none' : 'stroke-dashoffset 1s linear'
               }}
             />
           </svg>
@@ -149,6 +149,9 @@ const IceBreakerQuestion2 = () => {
         >
           SKIP
         </button>
+        <p className="text-gray-600">
+          Want another question? Skip!
+        </p>
       </div>
 
       {/* Footer - using same arrow as RoleSelectionPage */}
