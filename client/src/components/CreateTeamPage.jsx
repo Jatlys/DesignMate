@@ -53,17 +53,7 @@ const CreateTeamPage = () => {
           className="bg-gray-200 text-black placeholder-black font-semibold py-3 px-6 rounded-full w-full mb-4 text-center"
         />
 
-        <div className="relative w-full mb-6">
-          <input
-            type="text"
-            onFocus={(e) => (e.target.type = 'date')}
-            onBlur={(e) => (e.target.type = 'text')}
-            placeholder="END PROJECT DATE"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="bg-gray-200 text-black placeholder-black font-semibold py-3 px-6 rounded-full w-full text-center appearance-none"
-          />
-        </div>
+        
 
         <div className="flex items-center justify-center w-full">
           <span className="mr-4 font-semibold text-black text-lg">Icebreaker</span>
