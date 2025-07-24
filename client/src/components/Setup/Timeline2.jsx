@@ -20,20 +20,7 @@ const Timeline2 = () => {
   };
 
   const handleNext = () => {
-    const dateData = {
-      startDate, 
-      endDate, 
-      startMonth, 
-      endMonth 
-    };
-    
-    console.log('Timeline2 sending data:', dateData);
-    
-    // Store data in sessionStorage for Timeline3 to pick up
-    sessionStorage.setItem('timeline2Data', JSON.stringify(dateData));
-    
-    // In your actual app, replace this with: navigate('/timeline/3');
-    window.location.href = '/timeline/3';
+    navigate('/timeline/3');
   };
 
   // Calendar logic
@@ -293,8 +280,6 @@ const Timeline2 = () => {
       <div className="flex justify-end p-4">
         <button 
           onClick={() => {
-            console.log('BUTTON CLICKED!');
-            console.log('Button state check:', { startDate, endDate, startMonth, endMonth });
             handleNext();
           }} 
           disabled={!startDate || !endDate}

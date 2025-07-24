@@ -30,8 +30,14 @@ venv/
 
 # Docker related files
 .dockerignore
-Dockerfile
+
 
 # IDE files
 .idea
 .vscode
+
+# Force include RAG data directories for the build context
+!server/llm_server/knowledge_bases
+!server/llm_server/vector_stores
+
+# forcing a restart

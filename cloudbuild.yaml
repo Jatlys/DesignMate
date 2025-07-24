@@ -32,6 +32,7 @@ steps:
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
+      - '--set-secrets=GOOGLE_API_KEY=GOOGLE_API_KEY:latest'
 
 # Push the image to Google Container Registry
 images:

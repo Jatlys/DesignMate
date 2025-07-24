@@ -140,7 +140,7 @@ build/
 dist/
 
 # DesignMate RAG Data
-server/llm_server/knowledge_bases/
+# Ignore the generated vector store, but keep the source documents in git
 server/llm_server/vector_stores/
 
 # Python virtual environment

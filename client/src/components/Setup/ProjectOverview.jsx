@@ -30,8 +30,8 @@ const ProjectOverview = () => {
   };
 
   const handleStart = () => {
-    // START button goes to homepage
-    window.location.href = '/';
+    // START button goes to sprint manual page
+    window.location.href = '/sprint_manual';
   };
 
   const handleSendMessage = () => {
