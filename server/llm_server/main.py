@@ -31,28 +31,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- Static Files Mount ---
-# This logic handles finding the 'dist' folder for both local dev and Docker.
-# It also prevents the server from crashing if the frontend hasn't been built.
-
-# Path for Docker environment
-dist_path_docker = os.path.join(os.path.dirname(__file__), 'dist')
-
-# Path for local development environment
-dist_path_local = os.path.join(os.path.dirname(__file__), '..', '..', 'client', 'dist')
-
-# Determine which path exists
-if os.path.exists(dist_path_docker):
-    static_dir = dist_path_docker
-elif os.path.exists(dist_path_local):
-    static_dir = dist_path_local
-else:
-    static_dir = None
-
-# Mount the static directory only if it was found
-if static_dir:
-    app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
-
 # --- Knowledge Base and Vector Store Configuration ---
 KB_BASE_PATH = "knowledge_bases"
 DB_BASE_PATH = "vector_stores"
@@ -172,3 +150,22 @@ async def upload(phase: str, file: UploadFile = File(...)):
     create_vector_db(kb_path, persist_dir)
 
     return {"filename": file.filename, "status": f"Uploaded and processed for {phase} KB"}
+
+# --- Static Files Mount (Moved to the end) ---
+# This must be the last route added so it doesn't override API endpoints.
+# Path for Docker environment
+dist_path_docker = os.path.join(os.path.dirname(__file__), 'dist')
+
+# Path for local development environment
+dist_path_local = os.path.join(os.path.dirname(__file__), '..', '..', 'client', 'dist')
+
+# Determine which path exists
+if os.path.exists(dist_path_docker):
+    static_dir = dist_path_docker
+elif os.path.exists(dist_path_local):
+    static_dir = dist_path_local
+else:
+    static_dir = None
+
+if static_dir:
+    app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
