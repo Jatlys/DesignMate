@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, X } from 'lucide-react';
 
 const IceBreakerQuestion2 = () => {
+  const navigate = useNavigate();
   const [answer, setAnswer] = useState('');
   const [timeLeft, setTimeLeft] = useState(10);
   const [isRunning, setIsRunning] = useState(true);
@@ -24,13 +26,11 @@ const IceBreakerQuestion2 = () => {
   const [usedQuestions, setUsedQuestions] = useState([questionPool[0]]);
 
   const handleBack = () => {
-    // In your actual app, replace with: navigate('/');
-    window.location.href = '/';
+    navigate('/');
   };
 
   const handleNext = () => {
-    // In your actual app, replace with: navigate('/icebreaker/question/3');
-    window.location.href = '/icebreaker/question/3';
+    navigate('/icebreaker/question/3');
   };
 
   const handleSkip = () => {
