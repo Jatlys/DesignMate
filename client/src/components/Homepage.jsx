@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, Plus, Eye, Home, UserCircle } from 'lucide-react';
-import Chatbot from './Chatbot'; // Import the Chatbot component
+import GeneralChatbot from './GeneralChatbot'; // Import the GeneralChatbot component
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -165,7 +165,7 @@ const Homepage = () => {
         </div>
       </div>
 
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
     </>
   );
 };

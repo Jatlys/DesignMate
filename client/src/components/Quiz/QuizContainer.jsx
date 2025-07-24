@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './QuizNew.css';
 import { BsArrowRight } from 'react-icons/bs';
 import { VscClose } from 'react-icons/vsc';
-import Chatbot from './QuizChatbot';
+import GeneralChatbot from '../GeneralChatbot';
 
 const quizData = [
   {
@@ -176,7 +176,7 @@ const QuizContainer = () => {
         </div>
       )}
 
-      {showChatbot && <Chatbot onClose={() => setShowChatbot(false)} />}
+      {showChatbot && <GeneralChatbot onClose={() => setShowChatbot(false)} />}
     </div>
   );
 };
