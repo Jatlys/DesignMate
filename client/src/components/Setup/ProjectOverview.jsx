@@ -31,7 +31,7 @@ const ProjectOverview = () => {
 
   const handleStart = () => {
     // START button goes to sprint manual page
-    window.location.href = '/sprint_manual';
+    window.location.href = '/sprint-manual';
   };
 
   const handleSendMessage = () => {
