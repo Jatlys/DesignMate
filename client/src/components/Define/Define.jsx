@@ -12,12 +12,7 @@ const Define = () => {
   return (
     // Main container for the Define phase intro page.
     <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
-      {/* Header section with a back button to navigate to the previous page. */}
-      <header className="w-full flex justify-start">
-        <button onClick={() => navigate('/')} className="p-2">
-          <ArrowLeft className="w-8 h-8 text-black" />
-        </button>
-      </header>
+
 
       {/* Main content area with an illustration, title, and description for the Define phase. */}
       <main className="flex-grow flex flex-col items-center justify-center text-center px-4">
@@ -29,8 +24,10 @@ const Define = () => {
         </p>
       </main>
 
-      {/* Footer section with a next button to proceed to the Define dashboard. */}
-      <footer className="w-full flex justify-end p-4">
+      <footer className="w-full flex justify-between items-center p-4">
+        <button onClick={() => navigate('/')} className="p-2">
+          <ArrowLeft className="w-8 h-8 text-black" />
+        </button>
         <button onClick={handleNext} className="p-2">
           <ArrowRight className="w-8 h-8 text-black" />
         </button>
