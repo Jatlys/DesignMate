@@ -11,10 +11,10 @@ const LoginPage = () => {
     console.log('Logging in with:', { email, password });
   };
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg">
+    <div className="relative min-h-screen bg-white flex flex-col items-center justify-center p-4 overflow-hidden">
       {/* Main Content */}
-      <form onSubmit={handleLogin} className="flex-1 flex flex-col items-center justify-center px-8 text-center">
-        <h2 className="text-3xl font-serif text-black mb-8">LOG IN</h2>
+      <form onSubmit={handleLogin} className="w-full max-w-sm flex flex-col items-center justify-center text-center px-4">
+        <h2 className="text-3xl sm:text-4xl font-serif text-black mb-8">LOG IN</h2>
         
         <input
           type="email"
@@ -29,7 +29,7 @@ const LoginPage = () => {
           placeholder="PASSWORD"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="bg-gray-200 text-black placeholder-black font-semibold py-3 px-6 rounded-full w-full mb-4 text-center"
+          className="bg-gray-200 text-black placeholder-black font-semibold py-3 px-6 rounded-full w-full mb-6 text-center"
         />
 
         <p className="text-sm text-gray-600">
@@ -37,12 +37,14 @@ const LoginPage = () => {
         </p>
       </form>
 
-      {/* Footer */}
-      <div className="flex justify-end p-4">
-        <button type="submit" onClick={handleLogin}>
-          <ArrowRight className="w-6 h-6 text-black" />
-        </button>
-      </div>
+      {/* Footer Button */}
+      <button 
+        type="submit" 
+        onClick={handleLogin}
+        className="absolute bottom-4 right-4 p-2"
+      >
+        <ArrowRight className="w-8 h-8 text-black" />
+      </button>
     </div>
   );
 };

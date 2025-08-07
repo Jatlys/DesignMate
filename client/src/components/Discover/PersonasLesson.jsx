@@ -55,9 +55,9 @@ function PersonasLesson({ onComplete }) {
   };
 
   return (
-    <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative overflow-hidden">
-      {/* Header */}
-      <header className="flex items-center justify-between mb-4">
+    <div className="relative min-h-screen bg-white flex flex-col items-center p-4 pt-20 pb-20 overflow-hidden">
+      {/* Header Buttons */}
+      <header className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
         <button onClick={() => navigate('/')} className="p-2">
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
@@ -75,81 +75,82 @@ function PersonasLesson({ onComplete }) {
         </button>
       </header>
 
-      {/* Progress Bar */}
-      <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
-        <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progressPercentage}%` }}></div>
+      {/* Main Content Container */}
+      <div className="w-full max-w-sm h-full flex flex-col">
+        {/* Progress Bar */}
+        <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progressPercentage}%` }}></div>
+        </div>
+
+        {/* Scrollable Lesson Content */}
+        <main className="flex-grow overflow-y-auto pr-2">
+          {currentStep === 1 && (
+            <>
+              <div className="flex items-start mb-4">
+                <div className="w-1 bg-black h-16 mr-3"></div>
+                <h1 className="text-3xl sm:text-4xl font-bold leading-tight">Personas</h1>
+              </div>
+              <p className="text-gray-500 mb-6 text-sm ml-4">
+                A persona is a fictional character that represents a group of users with similar goals, needs, and characteristics.
+              </p>
+              <Section title="Why?">
+                <p>Personas help the design team to understand the users' needs, experiences, behaviors, and goals. It helps to create a user-centered design.</p>
+              </Section>
+              <Section title="Procedure">
+                <ol className="list-decimal list-inside space-y-2">
+                  <li><strong>Research</strong><p>Conduct user research to collect data about your target audience.</p></li>
+                  <li><strong>Identify Patterns</strong><p>Analyze the research data to identify patterns and create user groups.</p></li>
+                  <li><strong>Create Persona</strong><p>Develop a persona for each user group with a name, photo, and key characteristics.</p></li>
+                  <li><strong>Share</strong><p>Share the personas with the team to ensure everyone has a shared understanding of the users.</p></li>
+                </ol>
+              </Section>
+            </>
+          )}
+
+          {currentStep === 2 && (
+            <>
+              <div className="flex items-start mb-4">
+                <div className="w-1 bg-black h-16 mr-3"></div>
+                <h1 className="text-3xl sm:text-4xl font-bold leading-tight">Personas</h1>
+              </div>
+              <Section title="Tips" icon="💡">
+                  <ul className="list-disc list-inside space-y-2">
+                      <li>Personas represent idealised versions of your target user groups rather than specific individuals.</li>
+                      <li>Combine personas that share similar concepts, and separate those that are distinctly different.</li>
+                      <li>Take into account both typical and extreme user groups.</li>
+                  </ul>
+              </Section>
+              <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mt-6 rounded-r-lg">
+                  <p className="font-bold">Handy Tip!</p>
+                  <p>Create personas for both typical users and those at the extremes. Insights from extreme users often inspire innovations that benefit mainstream users.</p>
+              </div>
+            </>
+          )}
+        </main>
       </div>
 
-      {/* Main Content */}
-      <main className="flex-grow overflow-y-auto pb-20">
-        {currentStep === 1 && (
-          <>
-            <div className="flex items-start mb-4">
-              <div className="w-1 bg-black h-16 mr-3"></div>
-              <h1 className="text-4xl font-bold leading-tight">Personas</h1>
-            </div>
-            <p className="text-gray-500 mb-6 text-sm ml-4">
-              A persona is a fictional character that represents a group of users with similar goals, needs, and characteristics.
-            </p>
-            <Section title="Why?">
-              <p>Personas help the design team to understand the users' needs, experiences, behaviors, and goals. It helps to create a user-centered design.</p>
-            </Section>
-            <Section title="Procedure">
-              <ol className="list-decimal list-inside space-y-2">
-                <li><strong>Research</strong><p>Conduct user research to collect data about your target audience.</p></li>
-                <li><strong>Identify Patterns</strong><p>Analyze the research data to identify patterns and create user groups.</p></li>
-                <li><strong>Create Persona</strong><p>Develop a persona for each user group with a name, photo, and key characteristics.</p></li>
-                <li><strong>Share</strong><p>Share the personas with the team to ensure everyone has a shared understanding of the users.</p></li>
-              </ol>
-            </Section>
-          </>
-        )}
-
-        {currentStep === 2 && (
-          <>
-            <div className="flex items-start mb-4">
-              <div className="w-1 bg-black h-16 mr-3"></div>
-              <h1 className="text-4xl font-bold leading-tight">Personas</h1>
-            </div>
-            <Section title="Tips" icon="💡">
-                <ul className="list-disc list-inside space-y-2">
-                    <li>Personas represent idealised versions of your target user groups rather than specific individuals.</li>
-                    <li>Combine personas that share similar concepts, and separate those that are distinctly different.</li>
-                    <li>Take into account both typical and extreme user groups.</li>
-                </ul>
-            </Section>
-            <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mt-6 rounded-r-lg">
-                <p className="font-bold">Handy Tip!</p>
-                <p>Create personas for both typical users and those at the extremes. Insights from extreme users often inspire innovations that benefit mainstream users.</p>
-            </div>
-          </>
-        )}
-      </main>
-
       {/* Footer Navigation */}
-      <footer className="absolute bottom-0 left-0 right-0 bg-white p-4 flex items-center">
+      <footer className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
         <button onClick={handleBack} className="p-2">
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
         
-        <div className="flex-grow flex justify-center">
-          {currentStep === 2 && ( // Changed from 3 to 2
-            <button 
-                onClick={handleComplete}
-                className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-full"
-            >
-                Complete Lesson
-            </button>
-          )}
-        </div>
+        {currentStep === 2 && (
+          <button 
+              onClick={handleComplete}
+              className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-full"
+          >
+              Complete Lesson
+          </button>
+        )}
 
-        {currentStep < 2 && ( // Changed from 3 to 2
-          <button onClick={handleNext} className="p-2 ml-auto">
+        {currentStep < 2 && (
+          <button onClick={handleNext} className="p-2">
             <ArrowRight className="w-8 h-8 text-black" />
           </button>
         )}
 
-        {currentStep === 2 && <div className="w-12"></div>} {/* Changed from 3 to 2 */}
+        {currentStep === 2 && <div className="w-12"></div>} 
       </footer>
 
       {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}

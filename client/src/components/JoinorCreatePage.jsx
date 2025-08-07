@@ -28,26 +28,28 @@ const JoinorCreatePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative">
-      {/* Header */}
-      <div className="absolute top-0 right-0 p-4 mt-[33px]">
-        <button onClick={handleProfileClick} className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+    <div className="relative min-h-screen bg-white flex flex-col items-center justify-center p-4 overflow-hidden">
+      {/* Header Button */}
+      <button 
+        onClick={handleProfileClick} 
+        className="absolute top-4 right-4 p-2"
+      >
+        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
           <User className="w-6 h-6 text-gray-600" />
-        </button>
-      </div>
-
-      <div className="flex items-center justify-between p-4 bg-white mt-[94px]">
-        <div className="flex items-center gap-2 flex-grow">
-          <div className="h-1 bg-black w-1/4"></div>
-          <div className="h-1 bg-black w-1/4"></div>
-          <div className="h-1 bg-black w-1/4"></div>
-          <div className="h-1 bg-black w-1/4"></div>
         </div>
-      </div>
+      </button>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-8 text-center">
-        <h2 className="text-3xl font-serif text-black mb-8">JOIN TEAM</h2>
+      <div className="w-full max-w-sm flex flex-col items-center justify-center text-center px-4">
+        {/* Progress Bar */}
+        <div className="w-full flex items-center gap-2 mb-8">
+          <div className="h-1 bg-black flex-1"></div>
+          <div className="h-1 bg-black flex-1"></div>
+          <div className="h-1 bg-black flex-1"></div>
+          <div className="h-1 bg-black flex-1"></div>
+        </div>
+
+        <h2 className="text-3xl sm:text-4xl font-serif text-black mb-8">JOIN TEAM</h2>
         
         <div className="w-full">
           <button
@@ -65,19 +67,19 @@ const JoinorCreatePage = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="flex items-center justify-between p-4">
-        <div className="w-6 h-6"></div> {/* Spacer */}
-        <button
-          onClick={handleSkip}
-          className="font-semibold py-2 px-8 rounded-full bg-gray-200 text-black"
-        >
-          SKIP
-        </button>
-        <button onClick={handleSubmit}>
-          <ArrowRight className="w-6 h-6 text-black" />
-        </button>
-      </div>
+      {/* Footer Buttons */}
+      <button
+        onClick={handleSkip}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 font-semibold py-2 px-8 rounded-full bg-gray-200 text-black"
+      >
+        SKIP
+      </button>
+      <button 
+        onClick={handleSubmit}
+        className="absolute bottom-4 right-4 p-2"
+      >
+        <ArrowRight className="w-8 h-8 text-black" />
+      </button>
     </div>
   );
 };

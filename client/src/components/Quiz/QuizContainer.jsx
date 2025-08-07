@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './QuizNew.css';
-import { BsArrowRight } from 'react-icons/bs';
-import { VscClose } from 'react-icons/vsc';
+import { ArrowRight, X, Bot } from 'lucide-react';
 import GeneralChatbot from '../GeneralChatbot';
 
 const quizData = [
@@ -30,7 +28,7 @@ const quizData = [
     question: 'Select ALL the methods that you carry out at this stage',
     options: ['Summarize research insights', 'Ideate solutions to identified problems', 'Create high-fidelity prototypes', 'Run usability testing on prototypes'],
     correctAnswers: ['Ideate solutions to identified problems', 'Create high-fidelity prototypes', 'Run usability testing on prototypes'],
-     explanations: {
+    explanations: {
       'Summarize research insights': 'This is typically done in the "Define" phase to clarify the problem.',
     },
   },
@@ -103,8 +101,8 @@ const QuizContainer = () => {
       } else {
         const missedAnswer = currentPhaseData.correctAnswers.find(ans => !selectedAnswers.has(ans));
         if (missedAnswer) {
-            const explanation = currentPhaseData.explanations[missedAnswer];
-            feedbackText = `You missed "${missedAnswer}". ${explanation || 'This is a required option.'}`;
+          const explanation = currentPhaseData.explanations[missedAnswer];
+          feedbackText = `You missed "${missedAnswer}". ${explanation || 'This is a required option.'}`;
         }
       }
       setExplanationText(feedbackText || 'Please select all the correct answers to proceed.');
@@ -114,64 +112,94 @@ const QuizContainer = () => {
   
   const handleRedo = () => {
     setShowExplanation(false);
-    setTimeout(() => {
-      setSubmitted(false);
-      setSelectedAnswers(new Set());
-    }, 1000); // 1-second delay to show feedback
+    setSubmitted(false);
+    setSelectedAnswers(new Set());
   };
 
   const getButtonClass = (option) => {
+    const baseClass = 'w-full text-left py-4 px-6 rounded-lg transition-colors duration-200 font-semibold';
     if (!submitted) {
-      return selectedAnswers.has(option) ? 'selected' : '';
+      return selectedAnswers.has(option)
+        ? `${baseClass} bg-black text-white`
+        : `${baseClass} bg-gray-100 hover:bg-gray-200 text-gray-800`;
     }
+
     const isCorrect = currentPhaseData.correctAnswers.includes(option);
     if (selectedAnswers.has(option)) {
-      return isCorrect ? 'correct' : 'incorrect';
+      return isCorrect
+        ? `${baseClass} bg-green-500 text-white` // Correct and selected
+        : `${baseClass} bg-red-500 text-white`; // Incorrect and selected
+    } else {
+      return isCorrect
+        ? `${baseClass} bg-green-100 text-green-800` // Correct but not selected
+        : `${baseClass} bg-gray-100 text-gray-800`; // Not selected, not correct
     }
-    return '';
   };
 
   const progress = ((currentPhaseIndex + 1) / quizData.length) * 100;
 
   return (
-    <div className="quiz-container max-w-sm mx-auto">
-      <div className="quiz-header">
-        <VscClose className="quiz-icon" onClick={() => navigate('/')} />
-        <div className="progress-bar-container">
-          <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-        </div>
-        <img src="/assets/Chatbot.svg" alt="Chatbot" className="quiz-icon" onClick={() => setShowChatbot(true)} />
-      </div>
+    <div className="relative min-h-screen bg-white flex flex-col items-center p-4 pt-20 pb-28 overflow-hidden">
+      {/* Header */}
+      <header className="absolute top-4 left-4 right-4 flex items-center justify-between z-10 max-w-sm mx-auto">
+        <button onClick={() => navigate('/')} className="p-2">
+          <X className="w-8 h-8 text-gray-700" />
+        </button>
+        <button onClick={() => setShowChatbot(true)} className="p-2">
+          <Bot className="w-8 h-8 text-gray-700" />
+        </button>
+      </header>
 
-      <div className="quiz-content">
-        <p className="quiz-phase-title">{currentPhaseData.phase}</p>
-        <p className="quiz-question">{currentPhaseData.question}</p>
-        <div className="options-container">
+      {/* Main Content */}
+      <main className="w-full max-w-sm h-full flex flex-col items-center">
+        {/* Progress Bar */}
+        <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
+          <div 
+            className="bg-black h-2 rounded-full transition-all duration-500"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+
+        <div className="text-center mb-6 w-full">
+          <h2 className="text-4xl font-serif text-black mb-2">{currentPhaseData.phase}</h2>
+          <p className="text-gray-600">{currentPhaseData.question}</p>
+        </div>
+
+        <div className="w-full flex-grow overflow-y-auto space-y-3 pr-2">
           {currentPhaseData.options.map((option) => (
             <button
               key={option}
-              className={`option-button ${getButtonClass(option)}`}
+              className={getButtonClass(option)}
               onClick={() => handleSelectAnswer(option)}
             >
               {option}
             </button>
           ))}
         </div>
-      </div>
+      </main>
 
-      <div className="quiz-footer">
-        <button className="next-button" onClick={handleSubmitAndProceed}>
-            <BsArrowRight size={24} />
+      {/* Footer */}
+      <footer className="absolute bottom-4 right-4">
+        <button 
+          onClick={handleSubmitAndProceed} 
+          className="bg-black hover:bg-gray-800 text-white rounded-full p-4 shadow-lg transition-colors"
+          disabled={submitted}
+        >
+          <ArrowRight size={24} />
         </button>
-      </div>
+      </footer>
 
       {showExplanation && (
-        <div className="modal-overlay">
-          <div className="modal-content explanation-modal">
-            <button className="close-modal-button" onClick={handleRedo}><VscClose /></button>
-            <h3>Wrong Choice!</h3>
-            <p>{explanationText}</p>
-            <button className="redo-button" onClick={handleRedo}>Redo</button>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm text-center">
+            <h3 className="text-xl font-bold font-serif mb-4 text-red-500">Wrong Choice!</h3>
+            <p className="text-gray-600 mb-6">{explanationText}</p>
+            <button 
+              onClick={handleRedo} 
+              className="w-full bg-black text-white font-semibold py-3 rounded-full hover:bg-gray-800 transition-colors"
+            >
+              Redo
+            </button>
           </div>
         </div>
       )}

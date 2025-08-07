@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Chatbot from './DefineChatbot';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Bot } from 'lucide-react';
+import DefineChatbot from './DefineChatbot';
 
-// Define relevant methods for each lesson (non-clickable display items)
 const methodRecommendations = {
     'activity-diagram': [
         'User Interviews',
@@ -29,7 +28,6 @@ const methodRecommendations = {
     ]
 };
 
-// Method titles mapping for display
 const methodTitleMapping = {
     'activity-diagram': 'Activity Diagram',
     'how-might-we': 'How Might We',
@@ -37,100 +35,56 @@ const methodTitleMapping = {
     '5-whys': '5 Whys'
 };
 
-const MethodDisplayCard = ({ methodName }) => {
-    return (
-        <div className="bg-gray-100 p-4 rounded-lg mb-4 w-full">
-            <h3 className="font-medium text-lg text-gray-800">{methodName}</h3>
-        </div>
-    );
-};
+const MethodDisplayCard = ({ methodName }) => (
+    <div className="bg-white shadow-sm p-4 rounded-lg w-full">
+        <h3 className="font-semibold text-lg text-gray-800">{methodName}</h3>
+    </div>
+);
 
-const Methods = ({ completedLessons }) => {
-    const [isChatbotOpen, setIsChatbotOpen] = useState(false);
-    const [currentMethod, setCurrentMethod] = useState('activity-diagram');
+const DefineMethods = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+    const [currentMethod, setCurrentMethod] = useState('activity-diagram');
     
     useEffect(() => {
-        // Check if method is passed in location state
         if (location.state?.currentMethod) {
             setCurrentMethod(location.state.currentMethod);
-            return;
         }
-        
-        // If no state, default to activity-diagram
-        setCurrentMethod('activity-diagram');
     }, [location.state]);
 
-    const completionPercentage = (completedLessons?.size || 0) / 4 * 100; // Assuming 4 total lessons
-
-    // Get relevant methods for current lesson
-    const getRelevantMethods = () => {
-        if (methodRecommendations[currentMethod]) {
-            return methodRecommendations[currentMethod];
-        }
-        return methodRecommendations['activity-diagram']; // Default fallback
-    };
-
-    const relevantMethods = getRelevantMethods();
+    const relevantMethods = methodRecommendations[currentMethod] || methodRecommendations['activity-diagram'];
     const currentMethodTitle = methodTitleMapping[currentMethod] || 'Current Method';
 
-    const handleBack = () => {
-        // Go back to the dashboard
-        navigate('/define/dashboard');
-    };
-
     return (
-        <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative overflow-hidden">
-            {/* Header */}
-            <header className="flex items-center justify-between mb-4">
-                <button onClick={() => navigate('/')} className="p-2">
-                    <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
+        <div className="relative min-h-screen bg-gray-50 flex flex-col items-center p-4 pt-24 pb-8">
+            <header className="absolute top-6 left-6 right-6 flex items-center justify-between z-10 max-w-md mx-auto">
+                <button onClick={() => navigate('/define/dashboard')} className="p-3 rounded-full hover:bg-gray-200 transition-colors">
+                    <ArrowLeft className="w-10 h-10 text-gray-800" />
                 </button>
-                <button onClick={() => setIsChatbotOpen(true)} className="p-2">
-                    <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+                <button onClick={() => setIsChatbotOpen(true)} className="p-3 rounded-full hover:bg-gray-200 transition-colors">
+                    <Bot className="w-10 h-10 text-gray-800" />
                 </button>
             </header>
 
-            {/* Progress Bar */}
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
-                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
-            </div>
+            <main className="w-full max-w-sm flex-grow flex flex-col">
+                <div className="text-center mb-4">
+                    <h1 className="text-4xl font-serif text-black">Relevant Methods</h1>
+                </div>
+                <p className="text-center text-gray-600 mb-8">
+                    For <span className="font-semibold text-gray-800">{currentMethodTitle}</span>
+                </p>
 
-            <div className="flex items-start mb-4">
-                <div className="w-1 bg-blue-600 h-16 mr-3"></div>
-                <h1 className="text-4xl font-bold leading-tight">
-                    Relevant<br/>Methods
-                </h1>
-            </div>
-
-            {/* Subtitle showing which method these recommendations are for */}
-            <p className="text-gray-600 mb-6 ml-4">
-                Methods relevant to <span className="font-semibold">{currentMethodTitle}</span>
-            </p>
-
-            {/* Main Content */}
-            <main className="flex-1 overflow-y-auto">
-                <div className="space-y-4">
+                <div className="flex-grow overflow-y-auto pr-2 -mr-2 space-y-4">
                     {relevantMethods.map((methodName, index) => (
-                        <MethodDisplayCard 
-                            key={index}
-                            methodName={methodName}
-                        />
+                        <MethodDisplayCard key={index} methodName={methodName} />
                     ))}
                 </div>
             </main>
 
-            {/* Footer Navigation */}
-            <footer className="bg-white p-4 border-t border-gray-100">
-                <button onClick={handleBack} className="p-2">
-                    <ArrowLeft className="w-8 h-8 text-black" />
-                </button>
-            </footer>
-
-            {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+            {isChatbotOpen && <DefineChatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
 };
 
-export default Methods;
+export default DefineMethods;

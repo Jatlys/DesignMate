@@ -28,34 +28,36 @@ const CreateTeamPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative">
-      {/* Header */}
-      <div className="absolute top-0 left-0 p-4 mt-[33px]">
-        <button onClick={handleBackClick}>
-          <ArrowLeft className="w-6 h-6 text-black" />
-        </button>
-      </div>
-      <div className="absolute top-0 right-0 p-4 mt-[33px]">
-        <button onClick={handleProfileClick} className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+    <div className="relative min-h-screen bg-white flex flex-col items-center justify-center p-4 overflow-hidden">
+      {/* Header Buttons */}
+      <button 
+        onClick={handleBackClick}
+        className="absolute top-4 left-4 p-2"
+      >
+        <ArrowLeft className="w-8 h-8 text-black" />
+      </button>
+      <button 
+        onClick={handleProfileClick} 
+        className="absolute top-4 right-4 p-2"
+      >
+        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
           <User className="w-6 h-6 text-gray-600" />
-        </button>
-      </div>
+        </div>
+      </button>
 
       {/* Main Content */}
-      <form onSubmit={handleSubmit} className="flex-1 flex flex-col items-center justify-center px-8 text-center">
-        <h2 className="text-3xl font-serif text-black mb-8">TEAM DETAILS</h2>
+      <form onSubmit={handleSubmit} className="w-full max-w-sm flex flex-col items-center justify-center text-center px-4">
+        <h2 className="text-3xl sm:text-4xl font-serif text-black mb-8">TEAM DETAILS</h2>
         
         <input
           type="text"
           placeholder="TEAM NAME"
           value={teamName}
           onChange={(e) => setTeamName(e.target.value)}
-          className="bg-gray-200 text-black placeholder-black font-semibold py-3 px-6 rounded-full w-full mb-4 text-center"
+          className="bg-gray-200 text-black placeholder-black font-semibold py-3 px-6 rounded-full w-full mb-6 text-center"
         />
 
-        
-
-        <div className="flex items-center justify-center w-full">
+        <div className="flex items-center justify-center w-full mb-8">
           <span className="mr-4 font-semibold text-black text-lg">Icebreaker</span>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -69,12 +71,14 @@ const CreateTeamPage = () => {
         </div>
       </form>
 
-      {/* Footer */}
-      <div className="flex justify-end p-4">
-        <button type="submit" onClick={handleSubmit}>
-          <ArrowRight className="w-6 h-6 text-black" />
-        </button>
-      </div>
+      {/* Footer Button */}
+      <button 
+        type="submit" 
+        onClick={handleSubmit}
+        className="absolute bottom-4 right-4 p-2"
+      >
+        <ArrowRight className="w-8 h-8 text-black" />
+      </button>
     </div>
   );
 };

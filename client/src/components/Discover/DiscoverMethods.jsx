@@ -81,52 +81,49 @@ const Methods = ({ completedLessons }) => {
     };
 
     return (
-        <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative overflow-hidden">
-            {/* Header */}
-            <header className="flex items-center justify-between mb-4">
-                <button onClick={() => navigate('/')} className="p-2">
-                    <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
-                </button>
-                <button onClick={() => setIsChatbotOpen(true)} className="p-2">
-                    <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
-                </button>
-            </header>
+        <div className="relative min-h-screen bg-white flex flex-col items-center p-4 pt-20 pb-20 overflow-hidden">
+            {/* Header Buttons */}
+            <button onClick={() => navigate('/')} className="absolute top-4 left-4 p-2">
+                <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
+            </button>
+            <button onClick={() => setIsChatbotOpen(true)} className="absolute top-4 right-4 p-2">
+                <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+            </button>
 
-            {/* Progress Bar */}
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
-                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
-            </div>
+            {/* Main Content Container */}
+            <div className="w-full max-w-sm h-full flex flex-col">
+                {/* Progress Bar */}
+                <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
+                </div>
 
-            <div className="flex items-start mb-4">
-                <div className="w-1 bg-blue-600 h-16 mr-3"></div>
-                <h1 className="text-4xl font-bold leading-tight">
-                    Relevant<br/>Methods
-                </h1>
-            </div>
+                <div className="flex items-start mb-4">
+                    <div className="w-1 bg-blue-600 h-16 mr-3"></div>
+                    <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
+                        Relevant<br/>Methods
+                    </h1>
+                </div>
 
-            {/* Subtitle showing which method these recommendations are for */}
-            <p className="text-gray-600 mb-6 ml-4">
-                Methods relevant to <span className="font-semibold">{currentMethodTitle}</span>
-            </p>
+                {/* Subtitle showing which method these recommendations are for */}
+                <p className="text-gray-600 mb-6 ml-4">
+                    Methods relevant to <span className="font-semibold">{currentMethodTitle}</span>
+                </p>
 
-            {/* Main Content */}
-            <main className="flex-1 overflow-y-auto">
-                <div className="space-y-4">
+                {/* Scrollable Method List */}
+                <main className="flex-1 overflow-y-auto space-y-4 pr-2">
                     {relevantMethods.map((methodName, index) => (
                         <MethodDisplayCard 
                             key={index}
                             methodName={methodName}
                         />
                     ))}
-                </div>
-            </main>
+                </main>
+            </div>
 
             {/* Footer Navigation */}
-            <footer className="bg-white p-4 border-t border-gray-100">
-                <button onClick={handleBack} className="p-2">
-                    <ArrowLeft className="w-8 h-8 text-black" />
-                </button>
-            </footer>
+            <button onClick={handleBack} className="absolute bottom-4 left-4 p-2">
+                <ArrowLeft className="w-8 h-8 text-black" />
+            </button>
 
             {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>

@@ -34,8 +34,6 @@ const IceBreakerQuestion3 = () => {
   };
 
   const handleSkip = () => {
-    console.log('Skip button clicked on Question 3!');
-    
     // Get available questions
     const availableQuestions = questionPool.filter(q => !usedQuestions.includes(q));
     
@@ -65,7 +63,6 @@ const IceBreakerQuestion3 = () => {
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
-          console.log('Timer expired on Question 3, going to complete page');
           handleNext(); // Go to complete page instead of new question
           return 180;
         }
@@ -77,89 +74,75 @@ const IceBreakerQuestion3 = () => {
   }, [timeLeft, isRunning]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative">
-      {/* Header - X button moved further left */}
-      <div className="w-full flex justify-start items-center px-4 pt-8 pb-4">
-        <button onClick={handleBack} className="">
+    <div className="relative min-h-screen bg-white flex flex-col items-center p-4 pt-20 pb-20 overflow-hidden">
+      {/* Header */}
+      <header className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+        <button onClick={handleBack} className="p-2">
           <X className="w-8 h-8 text-black" />
         </button>
-      </div>
-
-      {/* Progress bar - 3rd step active */}
-      <div className="px-6 mb-8">
-        <div className="flex items-center gap-2">
-          <div className="h-1 bg-black w-1/4"></div>
-          <div className="h-1 bg-black w-1/4"></div>
-          <div className="h-1 bg-black w-1/4"></div>
-          <div className="h-1 bg-gray-300 w-1/4"></div>
-        </div>
-      </div>
+      </header>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-8 text-center">
-        <h2 className="text-2xl font-serif text-black mb-16 leading-relaxed">
-          {currentQuestion}
-        </h2>
-        
-        {/* Circular Progress Timer */}
-        <div className="relative mb-16">
-          {/* SVG Circle Progress */}
-          <svg className="w-32 h-32 -rotate-90" viewBox="0 0 120 120">
-            {/* Background circle */}
-            <circle
-              cx="60"
-              cy="60"
-              r="54"
-              stroke="#e5e7eb"
-              strokeWidth="8"
-              fill="none"
-            />
-            {/* Progress circle */}
-            <circle
-              cx="60"
-              cy="60"
-              r="54"
-              stroke={timeLeft <= 3 ? "#ef4444" : "#000000"}
-              strokeWidth="8"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray={`${2 * Math.PI * 54}`}
-              strokeDashoffset={`${2 * Math.PI * 54 * (timeLeft / 180)}`}
-              style={{
-                transition: timeLeft === 180 ? 'none' : 'stroke-dashoffset 1s linear'
-              }}
-            />
-          </svg>
-          
-          {/* Timer number in center */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className={`text-6xl font-bold font-['Instrument_Sans'] transition-colors ${
-              timeLeft <= 3 ? 'text-red-500' : 'text-black'
-            }`}>
-              {timeLeft}
-            </span>
+      <main className="w-full max-w-sm h-full flex flex-col items-center justify-between">
+        {/* Progress bar */}
+        <div className="w-full px-2 mb-8">
+          <div className="flex items-center gap-2">
+            <div className="h-1 bg-black w-1/4 rounded-full"></div>
+            <div className="h-1 bg-black w-1/4 rounded-full"></div>
+            <div className="h-1 bg-black w-1/4 rounded-full"></div>
+            <div className="h-1 bg-gray-300 w-1/4 rounded-full"></div>
           </div>
         </div>
 
-        {/* SKIP button */}
-        <button 
-          type="button"
-          onClick={handleSkip}
-          className="bg-gray-300 text-black font-semibold px-12 py-3 rounded-full hover:bg-gray-400 transition-colors"
-        >
-          SKIP
-        </button>
-        <p className="text-gray-600">
-          Want another question? Skip!
-        </p>
-      </div>
+        <div className="flex flex-col items-center justify-center text-center flex-grow">
+          <h2 className="text-2xl font-serif text-black mb-8 leading-relaxed">
+            {currentQuestion}
+          </h2>
+          
+          {/* Circular Progress Timer */}
+          <div className="relative mb-8">
+            <svg className="w-32 h-32 -rotate-90" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="54" stroke="#e5e7eb" strokeWidth="8" fill="none" />
+              <circle
+                cx="60"
+                cy="60"
+                r="54"
+                stroke={timeLeft <= 10 ? "#ef4444" : "#000000"}
+                strokeWidth="8"
+                fill="none"
+                strokeLinecap="round"
+                strokeDasharray={`${2 * Math.PI * 54}`}
+                strokeDashoffset={`${(2 * Math.PI * 54 * (180 - timeLeft)) / 180}`}
+                style={{ transition: 'stroke-dashoffset 1s linear, stroke 0.3s' }}
+              />
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className={`text-5xl font-bold font-['Instrument_Sans'] transition-colors ${timeLeft <= 10 ? 'text-red-500' : 'text-black'}`}>
+                {timeLeft}
+              </span>
+            </div>
+          </div>
 
-      {/* Footer - using same arrow as RoleSelectionPage */}
-      <div className="flex justify-end p-4">
-        <button onClick={handleNext}>
-          <ArrowRight className="w-6 h-6 text-black" />
+          {/* SKIP button */}
+          <button 
+            type="button"
+            onClick={handleSkip}
+            className="bg-gray-200 text-black font-semibold px-10 py-3 rounded-full hover:bg-gray-300 transition-colors"
+          >
+            SKIP
+          </button>
+          <p className="text-gray-500 text-sm mt-2">
+            Want another question? Skip!
+          </p>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="absolute bottom-4 left-4 right-4 flex justify-end max-w-sm mx-auto">
+        <button onClick={handleNext} className="p-2">
+          <ArrowRight className="w-8 h-8 text-black" />
         </button>
-      </div>
+      </footer>
     </div>
   );
 };

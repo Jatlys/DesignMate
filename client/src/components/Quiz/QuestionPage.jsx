@@ -1,31 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './QuizNew.css'; // Import the new CSS file
-import { questions } from './questions'; // Assuming questions are in this file
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-
-
-const Section = ({ title, children, icon }) => (
-  <div className="mb-6">
-    <div className="flex items-center mb-2">
-      <div className="w-1 bg-black h-6 mr-3"></div>
-      <h3 className="font-bold text-lg">{title}</h3>
-      {icon && <img src={icon} alt="icon" className="ml-2 w-5 h-5" />}
-    </div>
-    <div className="text-gray-700 text-sm ml-4">{children}</div>
-  </div>
-);
+import { questions } from './questions';
+import { ArrowRight, X, Bot } from 'lucide-react';
 
 const WrongAnswerModal = ({ explanation, onRedo }) => (
-  <div className="modal-overlay">
-    <div className="modal-content">
-      <div className="modal-body">
-        <h3>Wrong Choice!</h3>
-        <p>{explanation}</p>
-      </div>
-      <div className="modal-footer">
-        <button onClick={onRedo} className="redo-button">Redo</button>
-      </div>
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm text-center">
+      <h3 className="text-xl font-bold font-serif mb-4">Wrong Choice!</h3>
+      <p className="text-gray-600 mb-6">{explanation}</p>
+      <button 
+        onClick={onRedo} 
+        className="w-full bg-black text-white font-semibold py-3 rounded-full hover:bg-gray-800 transition-colors"
+      >
+        Redo
+      </button>
     </div>
   </div>
 );
@@ -34,7 +22,7 @@ const QuestionPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [modalExplanation, setModalExplanation] = useState('');
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   const navigate = useNavigate();
 
   if (!questions || questions.length === 0) {
@@ -42,7 +30,6 @@ const QuestionPage = () => {
   }
 
   const currentQuestion = questions[currentQuestionIndex];
-  const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   const handleAnswerSelect = (option) => {
     const newSelectedAnswers = selectedAnswers.includes(option)
@@ -63,7 +50,6 @@ const QuestionPage = () => {
         navigate('/quiz/completed');
       }
     } else {
-      setModalExplanation(currentQuestion.explanation);
       setShowModal(true);
     }
   };
@@ -77,51 +63,70 @@ const QuestionPage = () => {
     navigate('/');
   };
 
-  return (
-    <div className="quiz-page max-w-sm mx-auto">
-      {showModal && <WrongAnswerModal explanation={modalExplanation} onRedo={handleRedo} />}
+  const toggleChatbot = () => {
+    setIsChatbotOpen(!isChatbotOpen);
+  };
 
-      {/* Header section with a close button and a chat icon. */}
-      <header className="flex justify-between items-center mb-6">
-        <button onClick={handleClose} className="text-2xl">&times;</button>
-        <button className="p-2 border rounded-full">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+  const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+
+  return (
+    <div className="relative min-h-screen bg-white flex flex-col items-center p-4 pt-20 pb-28 overflow-hidden">
+      {showModal && <WrongAnswerModal explanation={currentQuestion.explanation} onRedo={handleRedo} />}
+      
+      {/* Header */}
+      <header className="absolute top-4 left-4 right-4 flex items-center justify-between z-10 max-w-sm mx-auto">
+        <button onClick={handleClose} className="p-2">
+          <X className="w-8 h-8 text-gray-700" />
+        </button>
+        <button onClick={toggleChatbot} className="p-2">
+          <Bot className="w-8 h-8 text-gray-700" />
         </button>
       </header>
 
-      {/* Progress bar to show the user's progress through the quiz. */}
-      <div className="relative w-full h-2 bg-gray-200 rounded-full mb-8">
-        <div className="absolute top-0 left-0 h-2 bg-gray-400 rounded-full" style={{ width: `${progress}%` }}></div>
-        <div className="absolute h-4 w-4 bg-white border-2 border-gray-400 rounded-full -top-1" style={{ left: `calc(${progress}% - 8px)` }}></div>
-      </div>
+      {/* Main Content */}
+      <main className="w-full max-w-sm h-full flex flex-col items-center">
+        {/* Progress Bar */}
+        <div className="w-full bg-gray-200 rounded-full h-2 mb-8">
+          <div 
+            className="bg-black h-2 rounded-full transition-all duration-500"
+            style={{ width: `${progressPercentage}%` }}
+          ></div>
+        </div>
 
-      {/* Main content area for the question and answer options. */}
-      <main className="flex-grow flex flex-col items-center text-center">
-        <h1 className="text-4xl font-serif text-black mb-2">{currentQuestion.phase}</h1>
-        <p className="text-gray-600 mb-8">{currentQuestion.question}</p>
-        
-        {/* Container for the answer buttons. */}
-        <div className="w-full space-y-4">
-          {/* Maps over the available options for the current question and creates a button for each. */}
-          {currentQuestion.options.map((option, index) => (
-            <button 
-              key={index} 
-              className={`w-full py-4 px-6 text-center rounded-full transition-colors duration-200 ${selectedAnswers.includes(option) ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-800'}`}
-              onClick={() => handleAnswerSelect(option)}
-            >
-              {option}
-            </button>
-          ))}
+        <div className="flex flex-col items-center text-center flex-grow w-full">
+          <h1 className="text-4xl font-serif text-black mb-2">{currentQuestion.phase}</h1>
+          <p className="text-gray-600 mb-8">{currentQuestion.question}</p>
+          
+          <div className="w-full space-y-3">
+            {currentQuestion.options.map((option, index) => (
+              <button 
+                key={index} 
+                className={`w-full py-4 px-6 text-left rounded-lg transition-colors duration-200 font-semibold ${
+                  selectedAnswers.includes(option) 
+                    ? 'bg-black text-white' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-800'
+                }`}
+                onClick={() => handleAnswerSelect(option)}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
         </div>
       </main>
 
-      <footer className="w-full flex justify-end p-4">
-        <button onClick={handleSubmit} className="p-2">
-          <ArrowRight className="w-8 h-8 text-black" />
+      {/* Footer */}
+      <footer className="absolute bottom-4 right-4">
+        <button 
+          onClick={handleSubmit} 
+          className="bg-black hover:bg-gray-800 text-white rounded-full p-4 shadow-lg transition-colors"
+        >
+          <ArrowRight size={24} />
         </button>
       </footer>
-    </div>
 
+      {/* {isChatbotOpen && <QuizChatbot onClose={toggleChatbot} />} */}
+    </div>
   );
 };
 

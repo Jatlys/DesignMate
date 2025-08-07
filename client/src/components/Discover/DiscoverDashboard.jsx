@@ -47,7 +47,7 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
   return (
     <div className="border border-gray-300 rounded-lg p-4 mb-4">
       <div className="flex justify-between items-start">
-        <div>
+        <div className="pr-2">
           <h3 className="font-bold text-lg">{title}</h3>
           <p className="text-sm text-gray-500">{description}</p>
         </div>
@@ -55,10 +55,10 @@ const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
           type="checkbox" 
           checked={isCompleted} 
           onChange={() => onToggleComplete(lesson.id)}
-          className="form-checkbox h-5 w-5 text-blue-600 cursor-pointer"
+          className="form-checkbox h-5 w-5 text-blue-600 cursor-pointer flex-shrink-0 mt-1"
         />
       </div>
-      <div className="flex justify-between items-center mt-4">
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-2 sm:space-y-0 sm:space-x-2">
         {isCompleted ? (
           <div className="flex w-full space-x-2">
             <button 
@@ -109,8 +109,9 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
   const completionPercentage = lessons.length > 0 ? (completedDiscoverLessons.length / lessons.length) * 100 : 0;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
-      <header className="flex items-center justify-between mb-4">
+    <div className="relative min-h-screen bg-white flex flex-col items-center p-4 pt-20 pb-20 overflow-hidden">
+      {/* Header Buttons */}
+      <header className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
         <button onClick={() => navigate('/')}>
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
@@ -119,37 +120,44 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
         </button>
       </header>
 
-      <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
-        <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
-      </div>
-
-      <div className="flex items-center mb-4">
-        <img src="/assets/DiscoverSmall.svg" alt="Discover phase icon" className="w-12 h-12 mr-2" />
-        <div>
-          <h1 className="text-2xl font-serif">Discover</h1>
-          <p className="text-sm text-gray-600">Understanding users and empathising with their needs</p>
+      {/* Main Content Container */}
+      <div className="w-full max-w-sm h-full flex flex-col">
+        {/* Progress Bar */}
+        <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
         </div>
+
+        {/* Phase Title */}
+        <div className="flex items-center mb-4">
+          <img src="/assets/DiscoverSmall.svg" alt="Discover phase icon" className="w-12 h-12 mr-2" />
+          <div>
+            <h1 className="text-2xl font-serif">Discover</h1>
+            <p className="text-sm text-gray-600">Understanding users and empathising with their needs</p>
+          </div>
+        </div>
+
+        {/* Scrollable Lesson List */}
+        <main className="flex-grow overflow-y-auto pr-2">
+          {lessons.map(lesson => (
+            <LessonCard 
+              key={lesson.id} 
+              lesson={lesson} 
+              isCompleted={completedLessons.has(lesson.id)} 
+              onToggleComplete={handleToggleComplete}
+            />
+          ))}
+          {completionPercentage === 100 && (
+            <button
+              onClick={() => navigate('/sprint-manual')}
+              className="w-full mt-4 bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg text-lg"
+            >
+              Complete
+            </button>
+          )}
+        </main>
       </div>
 
-      <main className="flex-grow pb-16">
-        {lessons.map(lesson => (
-          <LessonCard 
-            key={lesson.id} 
-            lesson={lesson} 
-            isCompleted={completedLessons.has(lesson.id)} 
-            onToggleComplete={handleToggleComplete}
-          />
-        ))}
-        {completionPercentage === 100 && (
-          <button
-            onClick={() => navigate('/sprint-manual')}
-            className="w-full mt-4 bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg text-lg"
-          >
-            Complete
-          </button>
-        )}
-      </main>
-
+      {/* Footer Navigation */}
       <footer className="absolute bottom-4 left-4">
         <button onClick={() => navigate('/sprint-manual')}>
           <ArrowLeft className="w-8 h-8 text-black" />

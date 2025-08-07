@@ -34,24 +34,28 @@ const TeamCreatedPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative">
-      {/* Header */}
-      <div className="absolute top-0 left-0 p-4 mt-[33px]">
-        <button onClick={handleBackClick}>
-          <ArrowLeft className="w-6 h-6 text-black" />
-        </button>
-      </div>
-      <div className="absolute top-0 right-0 p-4 mt-[33px]">
-        <button onClick={handleProfileClick} className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+    <div className="relative min-h-screen bg-white flex flex-col items-center justify-center p-4 overflow-hidden">
+      {/* Header Buttons */}
+      <button 
+        onClick={handleBackClick}
+        className="absolute top-4 left-4 p-2"
+      >
+        <ArrowLeft className="w-8 h-8 text-black" />
+      </button>
+      <button 
+        onClick={handleProfileClick} 
+        className="absolute top-4 right-4 p-2"
+      >
+        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
           <User className="w-6 h-6 text-gray-600" />
-        </button>
-      </div>
+        </div>
+      </button>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-8 text-center">
-        <h2 className="text-3xl font-serif text-black mb-8">TEAM CODE</h2>
+      <div className="w-full max-w-sm flex flex-col items-center justify-center text-center px-4">
+        <h2 className="text-3xl sm:text-4xl font-serif text-black mb-8">TEAM CODE</h2>
         
-        <div className="relative w-64 h-64 bg-gray-200 flex items-center justify-center mb-6">
+        <div className="relative w-48 h-48 sm:w-64 sm:h-64 bg-gray-200 flex items-center justify-center mb-6">
           <span className="text-gray-500">placeholder for qr code</span>
           <button onClick={handleShare} className="absolute bottom-2 left-2 p-1">
             <Upload className="w-6 h-6 text-gray-600" />
@@ -66,12 +70,13 @@ const TeamCreatedPage = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="flex justify-end p-4">
-        <button onClick={handleSubmit}>
-          <ArrowRight className="w-6 h-6 text-black" />
-        </button>
-      </div>
+      {/* Footer Button */}
+      <button 
+        onClick={handleSubmit}
+        className="absolute bottom-4 right-4 p-2"
+      >
+        <ArrowRight className="w-8 h-8 text-black" />
+      </button>
     </div>
   );
 };

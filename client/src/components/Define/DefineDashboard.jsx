@@ -1,160 +1,102 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Bot, CheckCircle } from 'lucide-react';
 import DefineChatbot from './DefineChatbot';
 
 const lessons = [
-  {
-    id: 'Activity Diagram',
-    title: 'Activity Diagram',
-    description: '...explanation of activity diagram',
-    path: '/define/activity-diagram',
-    methodKey: 'activity-diagram'
-  },
-  {
-    id: 'How Might We',
-    title: 'How Might We',
-    description: '...explanation of how might we',
-    path: '/define/how-might-we',
-    methodKey: 'how-might-we'
-  },
-  {
-    id: 'Affinity Analysis',
-    title: 'Affinity Analysis',
-    description: '...explanation of affinity analysis',
-    path: '/define/affinity-analysis',
-    methodKey: 'affinity-analysis'
-  },
-  {
-    id: '5 Whys',
-    title: '5 Whys',
-    description: '...explanation of 5 whys',
-    path: '/define/5-whys',
-    methodKey: '5-whys'
-  }
+  { id: 'Activity Diagram', title: 'Activity Diagram', path: '/define/activity-diagram', methodKey: 'activity-diagram' },
+  { id: 'How Might We', title: 'How Might We', path: '/define/how-might-we', methodKey: 'how-might-we' },
+  { id: 'Affinity Analysis', title: 'Affinity Analysis', path: '/define/affinity-analysis', methodKey: 'affinity-analysis' },
+  { id: '5 Whys', title: '5 Whys', path: '/define/5-whys', methodKey: '5-whys' },
 ];
 
-const LessonCard = ({ lesson, isCompleted, onToggleComplete }) => {
-  const navigate = useNavigate();
-  const { title, description, path, methodKey } = lesson;
-
-  const handleReviewMethods = () => {
-    navigate('/define/methods', { 
-      state: { currentMethod: methodKey } 
-    });
-  };
-
-  return (
-    <div className="border border-gray-300 rounded-lg p-4 mb-4">
-      <div className="flex justify-between items-start">
-        <div>
-          <h3 className="font-bold text-lg">{title}</h3>
-          <p className="text-sm text-gray-500">{description}</p>
-        </div>
-        <input 
-          type="checkbox" 
-          checked={isCompleted} 
-          onChange={() => onToggleComplete(lesson.id)}
-          className="form-checkbox h-5 w-5 text-blue-600 cursor-pointer"
-        />
-      </div>
-      <div className="flex justify-between items-center mt-4">
-        {isCompleted ? (
-          <div className="flex w-full space-x-2">
-            <button 
-              onClick={() => navigate(path)}
-              className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
-            >
-              Review Lessons
-            </button>
-            <button 
-              onClick={handleReviewMethods}
-              className="bg-green-200 text-green-800 font-semibold py-2 px-4 rounded-lg text-sm w-1/2"
-            >
-              Review Methods
-            </button>
-          </div>
-        ) : (
-          <>
-            <p className="text-sm text-gray-500">5 Lessons</p>
-            <button 
-              onClick={() => navigate(path)}
-              className="bg-gray-200 text-black font-semibold py-2 px-4 rounded-lg text-sm"
-            >
-              Start Learning
-            </button>
-          </>
-        )}
-      </div>
+const LessonCard = ({ lesson, isCompleted, onStart, onReview, onReviewMethods }) => (
+  <div className={`bg-white rounded-xl shadow-sm p-4 mb-4 border ${isCompleted ? 'border-green-400' : 'border-gray-200'}`}>
+    <div className="flex justify-between items-center">
+      <h3 className="font-bold text-lg text-gray-900">{lesson.title}</h3>
+      {isCompleted && <CheckCircle className="w-6 h-6 text-green-500" />}
     </div>
-  );
-};
+    <div className="flex justify-end items-center mt-4 space-x-2">
+      {isCompleted ? (
+        <>
+          <button 
+            onClick={() => onReview(lesson.path)}
+            className="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg text-sm"
+          >
+            Review Lesson
+          </button>
+          <button 
+            onClick={() => onReviewMethods(lesson.methodKey)}
+            className="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg text-sm"
+          >
+            Review Methods
+          </button>
+        </>
+      ) : (
+        <button 
+          onClick={() => onStart(lesson.path)}
+          className="bg-black text-white font-semibold py-2 px-4 rounded-lg text-sm"
+        >
+          Start Learning
+        </button>
+      )}
+    </div>
+  </div>
+);
 
 const DefineDashboard = ({ completedLessons, setCompletedLessons }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
-  const handleToggleComplete = (lessonId) => {
-    const newSet = new Set(completedLessons);
-    if (newSet.has(lessonId)) {
-      newSet.delete(lessonId);
-    } else {
-      newSet.add(lessonId);
-    }
-    setCompletedLessons(newSet);
-  };
-
   const defineLessonIds = new Set(lessons.map(l => l.id));
   const completedDefineLessons = [...completedLessons].filter(id => defineLessonIds.has(id));
-  const completionPercentage = lessons.length > 0 ? (completedDefineLessons.length / lessons.length) * 100 : 0;
+  const allLessonsCompleted = completedDefineLessons.length === lessons.length;
+
+  const handleStartLesson = (path) => navigate(path);
+  const handleReviewLesson = (path) => navigate(path);
+  const handleReviewMethods = (methodKey) => {
+    navigate('/define/methods', { state: { currentMethod: methodKey } });
+  };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
-      <header className="flex items-center justify-between mb-4">
-        <button onClick={() => navigate('/')}>
-          <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
+    <div className="relative min-h-screen bg-gray-50 flex flex-col items-center p-4 pt-24 pb-8">
+      <header className="absolute top-6 left-6 right-6 flex items-center justify-between z-10 max-w-md mx-auto">
+        <button onClick={() => navigate('/sprint-manual')} className="p-3 rounded-full hover:bg-gray-200 transition-colors">
+          <ArrowLeft className="w-10 h-10 text-gray-800" />
         </button>
-        <button onClick={() => setIsChatbotOpen(true)} className="p-2">
-          <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+        <button onClick={() => setIsChatbotOpen(true)} className="p-3 rounded-full hover:bg-gray-200 transition-colors">
+          <Bot className="w-10 h-10 text-gray-800" />
         </button>
       </header>
 
-      <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
-        <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${completionPercentage}%` }}></div>
-      </div>
-
-      <div className="flex items-center mb-4">
-        <img src="/assets/DefineSmall.svg" alt="Define phase icon" className="w-12 h-12 mr-2" />
-        <div>
-          <h1 className="text-2xl font-serif">Define</h1>
-          <p className="text-sm text-gray-600">Synthesising observations into problems</p>
+      <main className="w-full max-w-sm flex-grow flex flex-col">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-serif text-black">Define</h1>
+          <p className="text-gray-600 mt-1">Synthesising observations into problems.</p>
         </div>
-      </div>
 
-      <main className="flex-grow pb-16">
-        {lessons.map(lesson => (
-          <LessonCard 
-            key={lesson.id} 
-            lesson={lesson} 
-            isCompleted={completedLessons.has(lesson.id)} 
-            onToggleComplete={handleToggleComplete}
-          />
-        ))}
-        {completionPercentage === 100 && (
-          <button
-            onClick={() => navigate('/sprint-manual')}
-            className="w-full mt-4 bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg text-lg"
-          >
-            Complete
-          </button>
-        )}
+        <div className="flex-grow overflow-y-auto pr-2 -mr-2">
+          {lessons.map(lesson => (
+            <LessonCard 
+              key={lesson.id} 
+              lesson={lesson} 
+              isCompleted={completedLessons.has(lesson.id)} 
+              onStart={handleStartLesson}
+              onReview={handleReviewLesson}
+              onReviewMethods={handleReviewMethods}
+            />
+          ))}
+          {allLessonsCompleted && (
+            <button
+              onClick={() => navigate('/sprint-manual')}
+              className="w-full mt-4 bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-lg hover:bg-green-700 transition-colors"
+            >
+              Phase Complete
+            </button>
+          )}
+        </div>
       </main>
 
-      <footer className="absolute bottom-4 left-4">
-        <button onClick={() => navigate('/sprint-manual')}>
-          <ArrowLeft className="w-8 h-8 text-black" />
-        </button>
-      </footer>
       {isChatbotOpen && <DefineChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );

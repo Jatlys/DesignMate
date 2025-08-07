@@ -1,23 +1,23 @@
 import React from 'react';
-import Chatbot from '../Chatbot';
+import GeneralChatbot from '../GeneralChatbot';
 
 const DeliverChatbot = ({ onClose }) => {
-  const initialMessages = [
+  const deliverMessages = [
     {
-      text: "Hi! I'm here to guide your team through the design innovation process.",
+      text: 'Welcome to the Deliver phase! Here, we focus on testing and implementing solutions.',
       sender: 'ai',
     },
     {
-      text: 'Current Phase: Deliver. Iteratively prototype and test concepts and models with users.',
-      sender: 'ai-phase',
+      text: 'You can use methods like Storyboarding, Wireframing, and creating Mockups to bring your ideas to life.',
+      sender: 'ai',
     },
     {
-      text: 'Pro Tip: Use prototypes and storyboards to clearly communicate your ideas and gather feedback.',
+      text: 'Remember to gather feedback from users to iterate and improve your prototypes.',
       sender: 'ai-tip',
     },
   ];
 
-  return <Chatbot onClose={onClose} initialMessages={initialMessages} phase="deliver" />;
+  return <GeneralChatbot onClose={onClose} initialMessages={deliverMessages} />;
 };
 
 export default DeliverChatbot;
