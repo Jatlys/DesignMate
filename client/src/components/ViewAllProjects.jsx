@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, MessageSquare, Edit2 } from 'lucide-react';
-import Chatbot from './Chatbot';
+import GeneralChatbot from './Chatbot';
 import { useNavigate } from 'react-router-dom';
 
 const ViewAllProjects = () => {
@@ -136,7 +136,7 @@ const ViewAllProjects = () => {
       </div>
 
       {/* Chatbot Modal */}
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 };
