@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from './DeliverChatbot';
+import GeneralChatbot from '../GeneralChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -94,7 +94,7 @@ const StoryboardingLesson = ({ onComplete }) => {
         </button>
       </main>
 
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 }

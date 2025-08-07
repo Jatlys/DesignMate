@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import Chatbot from './DiscoverChatbot';
+import GeneralChatbot from '../GeneralChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -148,7 +148,7 @@ function ScenariosLesson({ onComplete }) {
         {currentStep === 2 && <div className="w-12"></div>} {/* Changed from 3 to 2 */}
       </footer>
 
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
 
       {showPopup && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">

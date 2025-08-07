@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import Chatbot from './DevelopChatbot';
+import GeneralChatbot from '../GeneralChatbot';
 
 const lessons = [
   {
@@ -163,7 +163,7 @@ const DevelopDashboard = ({ completedLessons, setCompletedLessons }) => {
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 };
