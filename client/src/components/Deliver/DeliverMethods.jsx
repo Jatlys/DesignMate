@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Chatbot from './DeliverChatbot';
+import GeneralChatbot from '../GeneralChatbot';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
@@ -120,7 +120,7 @@ const DeliverMethods = ({ completedLessons }) => {
                 </button>
             </footer>
 
-            {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+            {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
 };

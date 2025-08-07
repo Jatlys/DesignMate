@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import Chatbot from './DiscoverChatbot';
+import { ArrowLeft, ArrowRight, HelpCircle } from 'lucide-react';
+import GeneralChatbot from '../GeneralChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -61,18 +61,15 @@ function UserJourneyMappingLesson({ onComplete }) {
         <button onClick={() => navigate('/')} className="p-2">
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
-        <button 
-          onClick={() => setIsChatbotOpen(true)} 
-          className={`p-2 relative ${showPopup ? 'z-50' : ''}`}
-        >
-          <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
-          {showPopup && (
-            <div className="absolute inset-0 rounded-full border-4 border-blue-500 animate-pulse"></div>
-          )}
-          {showPopup && (
-            <div className="absolute inset-0 rounded-full border-8 border-blue-300 opacity-50 animate-ping"></div>
-          )}
-        </button>
+        <div className="flex items-center">
+          <h2 className="text-2xl font-bold">User Journey Mapping</h2>
+          <button 
+            className="p-2 rounded-full hover:bg-gray-200 transition-colors duration-200"
+            onClick={() => setIsChatbotOpen(true)} 
+          >
+            <HelpCircle className="w-6 h-6 text-gray-600" />
+          </button>
+        </div>
       </header>
 
       {/* Progress Bar */}
@@ -148,7 +145,7 @@ function UserJourneyMappingLesson({ onComplete }) {
         {currentStep === 2 && <div className="w-12"></div>}
       </footer>
 
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
 
       {showPopup && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
