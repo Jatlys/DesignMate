@@ -73,10 +73,7 @@ import Skillsets from './components/Setup/Skillsets';
 import ProjectOverview from './components/Setup/ProjectOverview';
 
 // Chatbot Imports
-import DiscoverChatbot from './components/Discover/DiscoverChatbot';
-import DefineChatbot from './components/Define/DefineChatbot';
-import DevelopChatbot from './components/Develop/DevelopChatbot';
-import DeliverChatbot from './components/Deliver/DeliverChatbot';
+import GeneralChatbot from './components/GeneralChatbot';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -93,18 +90,10 @@ const AppRoutes = () => {
     setCompletedLessons(prev => new Set(prev).add(lessonId));
   };
 
-  const handleCloseDiscoverChatbot = () => {
-    navigate('/discover');
-  };
-  const handleCloseDefineChatbot = () => {
-    navigate('/define');
-  };
-  const handleCloseDevelopChatbot = () => {
-    navigate('/develop');
-  };
-  const handleCloseDeliverChatbot = () => {
-    navigate('/deliver');
-  };
+  const handleCloseGeneralChatbot = () => {
+    navigate('/');
+  };  
+
 
   return (
     <Routes>
