@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import DiscoverChatbot from './DiscoverChatbot';
+import GeneralChatbot from '../GeneralChatbot';
 
 const lessons = [
   {
@@ -132,22 +132,26 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
       </div>
 
       <main className="flex-grow pb-16">
-        {lessons.map(lesson => (
-          <LessonCard 
-            key={lesson.id} 
-            lesson={lesson} 
-            isCompleted={completedLessons.has(lesson.id)} 
-            onToggleComplete={handleToggleComplete}
-          />
-        ))}
-        {completionPercentage === 100 && (
-          <button
-            onClick={() => navigate('/sprint-manual')}
-            className="w-full mt-4 bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg text-lg"
-          >
-            Complete
-          </button>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {lessons.map(lesson => (
+            <LessonCard 
+              key={lesson.id} 
+              lesson={lesson} 
+              isCompleted={completedLessons.has(lesson.id)} 
+              onToggleComplete={handleToggleComplete}
+            />
+          ))}
+        </div>
+        
+        <div className="mt-8 p-4 bg-blue-50 rounded-lg flex items-center justify-between">
+          <div>
+            <h3 className="font-bold text-lg">Need a hand?</h3>
+            <p className="text-sm">Our AI Mentor is here to help you with the discovery phase.</p>
+          </div>
+          <Link to="/chatbot" className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+            Chat with AI Mentor
+          </Link>
+        </div>
       </main>
 
       <footer className="absolute bottom-4 left-4">
@@ -155,7 +159,7 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
-      {isChatbotOpen && <DiscoverChatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 };

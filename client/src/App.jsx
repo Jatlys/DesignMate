@@ -180,10 +180,11 @@ const AppRoutes = () => {
       <Route path="/deliver/methods" element={<DeliverMethods completedLessons={completedLessons} />} />
 
       {/* Chatbot Routes*/}
-      <Route path="/discover/chatbot" element={<DiscoverChatbot onClose={handleCloseDiscoverChatbot} />} />
-      <Route path="/define/chatbot" element={<DefineChatbot onClose={handleCloseDefineChatbot} />} />
-      <Route path="/develop/chatbot" element={<DevelopChatbot onClose={handleCloseDevelopChatbot} />} />
-      <Route path="/deliver/chatbot" element={<DeliverChatbot onClose={handleCloseDeliverChatbot} />} />
+      <Route path="/discover/chatbot" element={<GeneralChatbot onClose={handleCloseDiscoverChatbot} />} />
+      <Route path="/define/chatbot" element={<GeneralChatbot onClose={handleCloseDefineChatbot} />} />
+      <Route path="/develop/chatbot" element={<GeneralChatbot onClose={handleCloseDevelopChatbot} />} />
+      <Route path="/deliver/chatbot" element={<GeneralChatbot onClose={handleCloseDeliverChatbot} />} />
+      <Route path="/general/chatbot" element={<GeneralChatbot onClose={handleCloseGeneralChatbot} />} />
       <Route path="/icebreaker/:teamCode" element={<IceBreakerStart />} />
         </Routes>
   );
