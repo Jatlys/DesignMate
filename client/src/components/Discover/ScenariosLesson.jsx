@@ -65,7 +65,7 @@ function ScenariosLesson({ onComplete }) {
           onClick={() => setIsChatbotOpen(true)} 
           className={`p-2 relative ${showPopup ? 'z-50' : ''}`}
         >
-          <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+          <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-12 h-12" />
           {showPopup && (
             <div className="absolute inset-0 rounded-full border-4 border-blue-500 animate-pulse"></div>
           )}
