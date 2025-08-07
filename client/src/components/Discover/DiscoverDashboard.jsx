@@ -158,9 +158,9 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
             <h3 className="font-bold text-lg">Need a hand?</h3>
             <p className="text-sm">Our AI Mentor is here to help you with the discovery phase.</p>
           </div>
-          <Link to="/chatbot" className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+          <button onClick={() => setIsChatbotOpen(true)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
             Chat with AI Mentor
-          </Link>
+          </button>
         </div>
       </main>
 
