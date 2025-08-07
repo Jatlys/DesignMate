@@ -92,7 +92,7 @@ const Chatbot = ({ onClose, initialMessages, phase }) => {
 
         {/* Header */}
         <div className="flex items-center mb-4">
-          <img src="/assets/Chatbot.svg" alt="AI Mentor" className="w-8 h-8 mr-3" />
+          <img src="/assets/Chatbot.svg" alt="AI Mentor" className="w-10 h-10 mr-3" />
           <h2 className="text-2xl font-bold">AI Mentor</h2>
         </div>
         <hr className="mb-4" />
