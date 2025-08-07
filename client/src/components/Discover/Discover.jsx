@@ -11,11 +11,7 @@ const Discover = () => {
 
   return (
     <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
-      <header className="w-full flex justify-start">
-        <button onClick={() => navigate('/')} className="p-2">
-          <ArrowLeft className="w-8 h-8 text-black" />
-        </button>
-      </header>
+
 
       <main className="flex-grow flex flex-col items-center justify-center text-center px-4">
         <img src="/assets/DIscoverPage.svg" alt="Illustration for the Discover Phase" className="w-48 h-48 mb-8" />
@@ -26,7 +22,10 @@ const Discover = () => {
         </p>
       </main>
 
-      <footer className="w-full flex justify-end p-4">
+      <footer className="w-full flex justify-between items-center p-4">
+        <button onClick={() => navigate('/')} className="p-2">
+          <ArrowLeft className="w-8 h-8 text-black" />
+        </button>
         <button onClick={handleNext} className="p-2">
           <ArrowRight className="w-8 h-8 text-black" />
         </button>
