@@ -9,28 +9,32 @@ const lessons = [
     title: 'Stakeholder Mapping',
     description: '...explanation of stakeholder mapping',
     path: '/discover/stakeholder-mapping',
-    methodKey: 'stakeholder-mapping'
+    methodKey: 'stakeholder-mapping',
+    hasReviewMethods: true
   },
   {
     id: 'Personas',
     title: 'Personas',
     description: '...explanation of personas',
     path: '/discover/personas',
-    methodKey: 'personas'
+    methodKey: 'personas',
+    hasReviewMethods: true
   },
   {
     id: 'Scenarios',
     title: 'Scenarios',
     description: '...explanation of scenarios',
     path: '/discover/scenarios',
-    methodKey: 'scenarios'
+    methodKey: 'scenarios',
+    hasReviewMethods: true
   },
   {
     id: 'User Journey Mapping',
     title: 'User Journey Mapping',
     description: '...explanation of user journey mapping',
     path: '/discover/user-journey-mapping',
-    methodKey: 'user-journey-mapping'
+    methodKey: 'user-journey-mapping',
+    hasReviewMethods: true
   }
 ];
 
@@ -132,7 +136,6 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
       </div>
 
       <main className="flex-grow pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {lessons.map(lesson => (
             <LessonCard 
               key={lesson.id} 
@@ -141,7 +144,14 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
               onToggleComplete={handleToggleComplete}
             />
           ))}
-        </div>
+        {completionPercentage === 100 && (
+          <button
+            onClick={() => navigate('/sprint-manual')}
+            className="w-full mt-4 bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg text-lg"
+          >
+            Complete
+          </button>
+        )}
         
         <div className="mt-8 p-4 bg-blue-50 rounded-lg flex items-center justify-between">
           <div>
