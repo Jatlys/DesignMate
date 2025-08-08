@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import Chatbot from './DiscoverChatbot';
+import { ArrowLeft, ArrowRight, HelpCircle } from 'lucide-react';
+import GeneralChatbot from '../GeneralChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
     <div className="flex items-center mb-3">
       {icon && <img src={icon} alt="" className="w-6 h-6 mr-2" />}
-      <h2 className="text-xl font-bold">{title}</h2>
+      <h2 className="text-2xl font-bold">{title}</h2>
     </div>
     {children}
   </div>
@@ -19,11 +19,11 @@ function StakeholderMappingLesson({ onComplete }) {
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
-  const totalSteps = 2; // Changed from 3 to 2
+  const totalSteps = 2; 
   const progressPercentage = (currentStep / totalSteps) * 100;
 
   useEffect(() => {
-    if (currentStep === 2) { // Changed from 3 to 2
+    if (currentStep === 2) { 
       const timer = setTimeout(() => {
         setShowPopup(true);
       }, 500);
@@ -61,18 +61,15 @@ function StakeholderMappingLesson({ onComplete }) {
         <button onClick={() => navigate('/')} className="p-2">
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
-        <button 
-          onClick={() => setIsChatbotOpen(true)} 
-          className={`p-2 relative ${showPopup ? 'z-50' : ''}`}
-        >
-          <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
-          {showPopup && (
-            <div className="absolute inset-0 rounded-full border-4 border-blue-500 animate-pulse"></div>
-          )}
-          {showPopup && (
-            <div className="absolute inset-0 rounded-full border-8 border-blue-300 opacity-50 animate-ping"></div>
-          )}
-        </button>
+        <div className="flex items-center">
+          <h2 className="text-2xl font-bold">Stakeholder Mapping</h2>
+          <button 
+            className="p-2 rounded-full hover:bg-gray-200 transition-colors duration-200"
+            onClick={() => setIsChatbotOpen(true)} 
+          >
+            <HelpCircle className="w-6 h-6 text-gray-600" />
+          </button>
+        </div>
       </header>
 
       {/* Progress Bar */}
@@ -128,7 +125,7 @@ function StakeholderMappingLesson({ onComplete }) {
         </button>
         
         <div className="flex-grow flex justify-center">
-          {currentStep === 2 && ( // Changed from 3 to 2
+          {currentStep === 2 && ( 
             <button 
                 onClick={handleComplete}
                 className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-full"
@@ -138,16 +135,16 @@ function StakeholderMappingLesson({ onComplete }) {
           )}
         </div>
 
-        {currentStep < 2 && ( // Changed from 3 to 2
+        {currentStep < 2 && ( 
           <button onClick={handleNext} className="p-2 ml-auto">
             <ArrowRight className="w-8 h-8 text-black" />
           </button>
         )}
 
-        {currentStep === 2 && <div className="w-12"></div>} {/* Changed from 3 to 2 */}
+        {currentStep === 2 && <div className="w-12"></div>} 
       </footer>
 
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
 
       {showPopup && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">

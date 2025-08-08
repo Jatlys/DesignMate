@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import DiscoverChatbot from './DiscoverChatbot';
+import GeneralChatbot from '../GeneralChatbot';
 
 const lessons = [
   {
@@ -9,28 +9,32 @@ const lessons = [
     title: 'Stakeholder Mapping',
     description: '...explanation of stakeholder mapping',
     path: '/discover/stakeholder-mapping',
-    methodKey: 'stakeholder-mapping'
+    methodKey: 'stakeholder-mapping',
+    hasReviewMethods: true
   },
   {
     id: 'Personas',
     title: 'Personas',
     description: '...explanation of personas',
     path: '/discover/personas',
-    methodKey: 'personas'
+    methodKey: 'personas',
+    hasReviewMethods: true
   },
   {
     id: 'Scenarios',
     title: 'Scenarios',
     description: '...explanation of scenarios',
     path: '/discover/scenarios',
-    methodKey: 'scenarios'
+    methodKey: 'scenarios',
+    hasReviewMethods: true
   },
   {
     id: 'User Journey Mapping',
     title: 'User Journey Mapping',
     description: '...explanation of user journey mapping',
     path: '/discover/user-journey-mapping',
-    methodKey: 'user-journey-mapping'
+    methodKey: 'user-journey-mapping',
+    hasReviewMethods: true
   }
 ];
 
@@ -115,7 +119,7 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
         <button onClick={() => setIsChatbotOpen(true)} className="p-2">
-          <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+          <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-12 h-12" />
         </button>
       </header>
 
@@ -132,14 +136,14 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
       </div>
 
       <main className="flex-grow pb-16">
-        {lessons.map(lesson => (
-          <LessonCard 
-            key={lesson.id} 
-            lesson={lesson} 
-            isCompleted={completedLessons.has(lesson.id)} 
-            onToggleComplete={handleToggleComplete}
-          />
-        ))}
+          {lessons.map(lesson => (
+            <LessonCard 
+              key={lesson.id} 
+              lesson={lesson} 
+              isCompleted={completedLessons.has(lesson.id)} 
+              onToggleComplete={handleToggleComplete}
+            />
+          ))}
         {completionPercentage === 100 && (
           <button
             onClick={() => navigate('/sprint-manual')}
@@ -148,6 +152,16 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
             Complete
           </button>
         )}
+        
+        <div className="mt-8 p-4 bg-blue-50 rounded-lg flex items-center justify-between">
+          <div>
+            <h3 className="font-bold text-lg">Need a hand?</h3>
+            <p className="text-sm">Our AI Mentor is here to help you with the discovery phase.</p>
+          </div>
+          <button onClick={() => setIsChatbotOpen(true)} className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+            Chat with AI Mentor
+          </button>
+        </div>
       </main>
 
       <footer className="absolute bottom-4 left-4">
@@ -155,7 +169,7 @@ const DiscoverDashboard = ({ completedLessons, setCompletedLessons }) => {
           <ArrowLeft className="w-8 h-8 text-black" />
         </button>
       </footer>
-      {isChatbotOpen && <DiscoverChatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 };

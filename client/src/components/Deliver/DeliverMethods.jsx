@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Chatbot from './DeliverChatbot';
+import GeneralChatbot from '../GeneralChatbot';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
@@ -80,7 +80,7 @@ const DeliverMethods = ({ completedLessons }) => {
                     <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
                 </button>
                 <button onClick={() => setIsChatbotOpen(true)} className="p-2">
-                    <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+                    <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-12 h-12" />
                 </button>
             </header>
 
@@ -120,7 +120,7 @@ const DeliverMethods = ({ completedLessons }) => {
                 </button>
             </footer>
 
-            {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+            {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
         </div>
     );
 };

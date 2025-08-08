@@ -168,7 +168,7 @@ const SprintManual = ({ completedLessons = new Set() }) => {
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
           >
             {/* Chatbot icon using the actual SVG file */}
-            <img src="/assets/Chatbot.svg" alt="AI Mentor" className="w-10 h-10" />
+            <img src="/assets/Chatbot.svg" alt="AI Mentor" className="w-12 h-12" />
           </button>
         </div>
       </div>

@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
 import shutil
-import os
 from langchain_community.vectorstores import Chroma
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from dotenv import load_dotenv
@@ -57,7 +56,7 @@ KB_BASE_PATH = "knowledge_bases"
 DB_BASE_PATH = "vector_stores"
 
 # Define paths for each phase
-PHASES = ["discover", "define", "deliver", "develop","general"]
+PHASES = ["general"]
 KB_PATHS = {phase: os.path.join(KB_BASE_PATH, phase) for phase in PHASES}
 DB_PATHS = {phase: os.path.join(DB_BASE_PATH, phase) for phase in PHASES}
 
@@ -105,11 +104,17 @@ def get_rag_chain(persist_dir: str):
     
     prompt_template = """
     ### [INST] 
-    You are a friendly and helpful Design Thinking Assistant. Use the provided context to answer the user's question.
-    Do not use any markdown formatting (such as asterisks, bullet points, or code blocks). Write in plain, readable text only.
+    You are a friendly and helpful Design Thinking Assistant. Your primary goal is to answer the user's question based on the provided context.
+    
+    First, analyze the context provided. If it contains the information needed to answer the question, use it to form your response.
+    If the context is not relevant or does not contain the answer, then use your own general knowledge to answer the question as helpfully as possible.
+    
+    When giving suggestions, tips, or recommendations, always present them in bullet point format.
+    When addressing a query or problem, include specific actionable steps the user can take.
+
+    Do not use any markdown formatting except bullet points. Do not use asterisks for emphasis, code blocks, or headings.
+    When relevant, apply design thinking principles such as empathy, defining the problem, ideation, prototyping, and testing (You can use the 4 Ds in the Double Diamond Frame Work as well). 
     Keep your answers concise and focused on key ideas.
-    When relevant, apply design thinking principles such as empathy, defining the problem, ideation, prototyping, and testing.
-    If you do not know the answer, say so clearly and do not try to make one up.
     Your tone should be approachable, encouraging, and solution-oriented.
     Do not mention the words "context" or "question" in your response.
     

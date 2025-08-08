@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, MessageSquare, Edit2 } from 'lucide-react';
-import Chatbot from './Chatbot';
+import GeneralChatbot from './Chatbot';
 import { useNavigate } from 'react-router-dom';
 
 const ViewAllProjects = () => {
@@ -90,7 +90,7 @@ const ViewAllProjects = () => {
           className="p-2 rounded-full hover:bg-gray-100 transition-colors"
         >
           {/* Chatbot icon using the actual SVG file */}
-          <img src="/assets/Chatbot.svg" alt="AI Mentor" className="w-10 h-10" />
+          <img src="/assets/Chatbot.svg" alt="AI Mentor" className="w-12 h-12" />
         </button>
       </div>
 
@@ -136,7 +136,7 @@ const ViewAllProjects = () => {
       </div>
 
       {/* Chatbot Modal */}
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from './DeliverChatbot';
+import GeneralChatbot from '../GeneralChatbot';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -30,7 +30,7 @@ const MockupsLesson = ({ onComplete }) => {
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
         <button onClick={() => setIsChatbotOpen(true)} className="p-2">
-          <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
+          <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-12 h-12" />
         </button>
       </header>
 
@@ -79,7 +79,7 @@ const MockupsLesson = ({ onComplete }) => {
         </button>
       </main>
 
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 }

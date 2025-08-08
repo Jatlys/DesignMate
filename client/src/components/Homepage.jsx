@@ -198,8 +198,8 @@ const Homepage = () => {
             <button className="p-3 sm:p-4 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
               <Home className="w-6 h-6 sm:w-7 sm:h-7 text-gray-700" />
             </button>
-            <button onClick={() => setIsChatbotOpen(true)} className="p-3 sm:p-4 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
-              <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-6 h-6 sm:w-7 sm:h-7" />
+            <button onClick={() => setIsChatbotOpen(true)} className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
+              <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-8 h-8" />
             </button>
           </div>
         </div>
