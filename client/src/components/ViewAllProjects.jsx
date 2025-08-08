@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, MessageSquare, Edit2 } from 'lucide-react';
-import GeneralChatbot from './Chatbot';
+import GeneralChatbot from './GeneralChatbot';
 import { useNavigate } from 'react-router-dom';
 
 const ViewAllProjects = () => {

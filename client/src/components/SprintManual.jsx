@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Home, MessageSquare, Edit2, Lock } from 'lucide-react';
-import Chatbot from './Chatbot';
+import GeneralChatbot from './GeneralChatbot';
 
 const SprintManual = ({ completedLessons = new Set() }) => {
   const navigate = useNavigate();
@@ -288,7 +288,7 @@ const SprintManual = ({ completedLessons = new Set() }) => {
       </div>
 
       {/* Chatbot Modal */}
-      {isChatbotOpen && <Chatbot onClose={() => setIsChatbotOpen(false)} />}
+      {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
     </div>
   );
 };
