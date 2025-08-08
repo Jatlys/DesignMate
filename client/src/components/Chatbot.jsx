@@ -2,12 +2,47 @@ import React from 'react';
 import { X, Send, Paperclip } from 'lucide-react';
 
 const Chatbot = ({ onClose, initialMessages, phase }) => {
-  const [messages, setMessages] = React.useState(initialMessages || []);
+    const storageKey = `chat_messages_${phase}`;
+
+  const [messages, setMessages] = React.useState(() => {
+    try {
+      const savedMessages = localStorage.getItem(storageKey);
+      // If we have saved messages and they are not empty, use them.
+      // Otherwise, fall back to initialMessages.
+      if (savedMessages && JSON.parse(savedMessages).length > 0) {
+        return JSON.parse(savedMessages);
+      }
+    } catch (error) {
+      console.error("Could not parse messages from local storage", error);
+    }
+    return initialMessages || [];
+  });
   const [input, setInput] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
   const [isUploading, setIsUploading] = React.useState(false);
   const inputRef = React.useRef(null);
   const fileInputRef = React.useRef(null);
+
+  // Save messages to local storage whenever they change
+  React.useEffect(() => {
+    try {
+      // Don't save the initial placeholder messages if the conversation hasn't started
+      if (messages.length > (initialMessages?.length || 0)) {
+        localStorage.setItem(storageKey, JSON.stringify(messages));
+      }
+    } catch (error) {
+      console.error("Failed to save messages to local storage", error);
+    }
+  }, [messages, storageKey, initialMessages]);
+
+  React.useEffect(() => {
+    // Save messages to localStorage whenever they change.
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify(messages));
+    } catch (error) {
+      console.error("Error writing to localStorage", error);
+    }
+  }, [messages, storageKey]);
 
   React.useEffect(() => {
     if (inputRef.current) {
