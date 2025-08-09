@@ -1,5 +1,7 @@
 import React from 'react';
 import { X, Send, Paperclip } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const Chatbot = ({ onClose, initialMessages, phase }) => {
     const storageKey = `chat_messages_${phase}`;
@@ -144,7 +146,11 @@ const Chatbot = ({ onClose, initialMessages, phase }) => {
                 msg.sender === 'ai-tip' ? 'bg-yellow-100' :
                 'bg-gray-100 self-start'
               }`}>
-              <p className="text-sm">{msg.text}</p>
+              <div className="prose prose-sm max-w-none">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {msg.text}
+                </ReactMarkdown>
+              </div>
             </div>
           ))}
           {isLoading && (

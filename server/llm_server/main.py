@@ -110,12 +110,12 @@ def get_rag_chain(persist_dir: str):
     If the context is not relevant or does not contain the answer, then use your own general knowledge to answer the question as helpfully as possible.
     
     IMPORTANT FORMATTING RULES:
-    - Do NOT use any markdown formatting.
-    - Do NOT use asterisks (*) for any reason (no emphasis, no bullet points).
-    - Use newlines to separate points or steps instead of bullet points.
+    - Use Markdown for formatting when it improves readability (e.g., lists, bolding, italics, code blocks).
+    - For lists, use hyphens (-) or asterisks (*).
+    - Use double asterisks (**) for bolding and single asterisks (*) for italics.
     
-    When giving suggestions, tips, or recommendations, present them as separate points on new lines.
-    When addressing a query or problem, include specific actionable steps the user can take, each on a new line.
+    When giving suggestions, tips, or recommendations, present them in a clear, formatted list.
+    When addressing a query or problem, include specific actionable steps the user can take, preferably in a numbered or bulleted list.
 
     When relevant, apply design thinking principles such as empathy, defining the problem, ideation, prototyping, and testing (You can use the 4 Ds in the Double Diamond Frame Work as well). 
     Keep your answers concise and focused on key ideas.
