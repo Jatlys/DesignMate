@@ -28,7 +28,7 @@ const JoinorCreatePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative">
+        <div className="min-h-screen bg-white flex flex-col max-w-md mx-auto rounded-lg relative">
       {/* Header */}
       <div className="absolute top-0 right-0 p-4 mt-[33px]">
         <button onClick={handleProfileClick} className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">

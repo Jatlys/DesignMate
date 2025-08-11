@@ -17,7 +17,7 @@ const SuccessfullyDelivered = () => {
   console.log("SuccessfullyDelivered");  
 
   return (
-    <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
+    <div className="min-h-screen bg-white flex flex-col p-4 max-w-2xl mx-auto">
       <header className="w-full flex justify-start">
         <button onClick={() => navigate('/')} className="p-2">
           <ArrowLeft className="w-8 h-8 text-black" />

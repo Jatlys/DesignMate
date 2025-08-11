@@ -10,7 +10,7 @@ const Develop = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
+        <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
 
 
       <main className="flex-grow flex flex-col items-center justify-center text-center px-4">

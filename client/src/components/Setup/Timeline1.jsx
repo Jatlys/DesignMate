@@ -91,7 +91,7 @@ const Timeline1 = () => {
   const weeks = generateCalendarDays();
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative">
+    <div className="min-h-screen bg-white flex flex-col max-w-md mx-auto rounded-lg relative">
       {/* Header - Back button left, X button right */}
       <div className="w-full flex justify-between items-center px-4 pt-8 pb-4">
         <button onClick={handleBack} className="">
@@ -165,7 +165,7 @@ const Timeline1 = () => {
         {/* Popup Notification - covers entire screen with lighter grey */}
         {showPopup && (
           <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-8 z-50">
-            <div className="bg-white rounded-2xl p-6 w-full max-w-sm border border-gray-300 shadow-lg">
+            <div className="bg-white rounded-2xl p-6 w-full max-w-md border border-gray-300 shadow-lg">
               <p className="text-center text-black font-serif text-lg mb-6 leading-relaxed">
                 Tap to select your project start and end dates
               </p>

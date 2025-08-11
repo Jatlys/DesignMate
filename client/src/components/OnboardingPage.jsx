@@ -10,7 +10,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg">
+    <div className="min-h-screen bg-white flex flex-col max-w-md mx-auto rounded-lg">
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center px-8">
         <div className="text-center mb-12">
