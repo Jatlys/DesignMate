@@ -120,8 +120,8 @@ const Chatbot = ({ onClose, initialMessages, phase }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-sm relative flex flex-col h-4/5">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-md lg:max-w-lg relative flex flex-col h-4/5 sm:h-3/4">
         {/* Close Button */}
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
           <X size={24} />
@@ -129,8 +129,8 @@ const Chatbot = ({ onClose, initialMessages, phase }) => {
 
         {/* Header */}
         <div className="flex items-center mb-4">
-          <img src="/assets/Chatbot.svg" alt="AI Mentor" className="w-10 h-10 mr-3" />
-          <h2 className="text-2xl font-bold">AI Mentor</h2>
+          <img src="/assets/Chatbot.svg" alt="AI Mentor" className="w-8 h-8 sm:w-10 sm:h-10 mr-2 sm:mr-3" />
+          <h2 className="text-xl sm:text-2xl font-bold">AI Mentor</h2>
         </div>
         <hr className="mb-4" />
 
@@ -139,7 +139,7 @@ const Chatbot = ({ onClose, initialMessages, phase }) => {
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`p-3 rounded-lg max-w-xs ${
+              className={`p-2 sm:p-3 rounded-lg max-w-xs sm:max-w-sm ${
                 msg.sender === 'user' ? 'bg-blue-100 self-end' :
                 msg.sender === 'system' ? 'bg-gray-200 text-gray-600 text-xs mx-auto text-center' :
                 msg.sender === 'ai-phase' ? 'bg-red-100 border-l-4 border-red-500' :
@@ -163,7 +163,7 @@ const Chatbot = ({ onClose, initialMessages, phase }) => {
         </div>
 
         {/* Input */}
-        <div className="flex items-center border rounded-full p-2">
+        <div className="flex items-center border rounded-full p-1 sm:p-2">
           <input
             type="file"
             ref={fileInputRef}
