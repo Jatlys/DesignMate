@@ -77,7 +77,7 @@ const Skillsets = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative overflow-hidden">
+    <div className="min-h-screen bg-white flex flex-col max-w-4xl mx-auto rounded-lg relative overflow-hidden">
       {/* Header */}
       <div className="w-full flex justify-between items-center px-4 pt-8 pb-4">
         <button onClick={handleBack} className="">
@@ -162,7 +162,7 @@ const Skillsets = () => {
       {/* Modal */}
       {modalSkill && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-sm w-full p-6">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-serif font-bold text-black">{modalSkill.name}</h3>
               <button onClick={closeModal}>

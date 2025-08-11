@@ -167,7 +167,7 @@ const Timeline2 = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative">
+    <div className="min-h-screen bg-white flex flex-col max-w-4xl mx-auto rounded-lg relative">
       {/* Header - Back button left, X button right */}
       <div className="w-full flex justify-between items-center px-4 pt-8 pb-4">
         <button onClick={handleBack} className="">

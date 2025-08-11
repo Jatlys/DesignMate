@@ -11,7 +11,7 @@ const LoginPage = () => {
     console.log('Logging in with:', { email, password });
   };
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg">
+        <div className="min-h-screen bg-white flex flex-col max-w-md mx-auto rounded-lg">
       {/* Main Content */}
       <form onSubmit={handleLogin} className="flex-1 flex flex-col items-center justify-center px-8 text-center">
         <h2 className="text-3xl font-serif text-black mb-8">LOG IN</h2>

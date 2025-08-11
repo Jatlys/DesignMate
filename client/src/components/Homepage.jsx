@@ -151,21 +151,21 @@ const Homepage = () => {
             <h2 className="text-xl sm:text-2xl font-serif text-black mb-3 sm:mb-4">Your Projects</h2>
             
             {/* Project Actions Grid */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 h-44 sm:h-52">
+                        <div className="grid grid-cols-2 gap-3 sm:gap-4 h-44 sm:h-52">
               {/* Create/Join Project */}
               <button
                 onClick={() => handleProjectAction('CREATE_JOIN')}
-                className="bg-gray-200 hover:bg-gray-300 rounded-xl sm:rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center transition-colors duration-200 relative"
+                className="bg-gray-200 hover:bg-gray-300 rounded-xl p-4 flex flex-col items-center justify-center transition-colors duration-200 relative"
                 style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}
               >
                 {/* Plus icon in gray area */}
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-3/4">
-                  <Plus className="w-10 h-10 sm:w-14 sm:h-14 text-black" strokeWidth={3} />
+                  <Plus className="w-12 h-12 text-black" strokeWidth={3} />
                 </div>
                 
                 {/* Cream rounded rectangle with text only */}
-                <div className="absolute bottom-1 left-1 right-1 h-16 sm:h-20 rounded-lg sm:rounded-xl flex flex-col items-center justify-center bg-white" style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}>
-                  <span className="text-black font-bold text-center text-xs sm:text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="absolute bottom-1 left-1 right-1 h-16 rounded-lg flex flex-col items-center justify-center bg-white" style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}>
+                  <span className="text-black font-bold text-center text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
                     Create/Join<br />Project
                   </span>
                 </div>
@@ -174,13 +174,13 @@ const Homepage = () => {
               {/* View All Projects */}
               <button
                 onClick={() => handleProjectAction('VIEW_ALL')}
-                className="bg-gray-200 hover:bg-gray-300 rounded-xl sm:rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center transition-colors duration-200 relative"
+                className="bg-gray-200 hover:bg-gray-300 rounded-xl p-4 flex flex-col items-center justify-center transition-colors duration-200 relative"
                 style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}
               >
                 {/* Cream rounded rectangle */}
-                <div className="absolute bottom-1 left-1 right-1 h-16 sm:h-20 rounded-lg sm:rounded-xl flex flex-col items-center justify-center bg-white" style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}>
-                  <Eye className="w-6 h-6 sm:w-8 sm:h-8 text-black mb-0.5" />
-                  <span className="text-black font-bold text-center text-xs sm:text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="absolute bottom-1 left-1 right-1 h-16 rounded-lg flex flex-col items-center justify-center bg-white" style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}>
+                  <Eye className="w-6 h-6 text-black mb-0.5" />
+                  <span className="text-black font-bold text-center text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
                     View All<br />Projects
                   </span>
                 </div>

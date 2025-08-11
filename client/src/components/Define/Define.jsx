@@ -11,7 +11,7 @@ const Define = () => {
 
   return (
     // Main container for the Define phase intro page.
-    <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto">
+        <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
 
 
       {/* Main content area with an illustration, title, and description for the Define phase. */}

@@ -72,7 +72,7 @@ const ViewAllProjects = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto">
+        <div className="min-h-screen bg-white flex flex-col max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex justify-between items-center p-6">
         <div className="flex items-center gap-4">

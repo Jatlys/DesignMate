@@ -28,7 +28,7 @@ const JoinedTeamPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative">
+        <div className="min-h-screen bg-white flex flex-col max-w-md mx-auto rounded-lg relative">
       {/* Header */}
       <div className="absolute top-0 left-0 p-4 mt-[33px]">
         <button onClick={handleClose}>

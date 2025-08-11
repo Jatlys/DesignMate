@@ -4,7 +4,7 @@ import { X, Send } from 'lucide-react';
 const Chatbot = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-sm relative">
+      <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md relative">
         {/* Close Button */}
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
           <X size={24} />
