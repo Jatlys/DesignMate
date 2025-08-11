@@ -78,7 +78,7 @@ const QuestionPage = () => {
   };
 
   return (
-    <div className="quiz-page max-w-sm mx-auto">
+    <div className="quiz-page max-w-4xl mx-auto">
       {showModal && <WrongAnswerModal explanation={modalExplanation} onRedo={handleRedo} />}
 
       {/* Header section with a close button and a chat icon. */}

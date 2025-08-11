@@ -67,7 +67,7 @@ const ProjectOverview = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col max-w-md mx-auto relative">
+    <div className="min-h-screen bg-gray-100 flex flex-col max-w-4xl mx-auto relative">
       {/* Header */}
       <div className="w-full flex justify-between items-center px-4 pt-6 pb-2 bg-gray-100">
         <button onClick={handleBack} className="">

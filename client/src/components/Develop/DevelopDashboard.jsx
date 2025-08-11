@@ -117,7 +117,7 @@ const DevelopDashboard = ({ completedLessons, setCompletedLessons }) => {
   const completionPercentage = lessons.length > 0 ? (completedDevelopLessons.length / lessons.length) * 100 : 0;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative">
+        <div className="min-h-screen bg-white flex flex-col p-4 max-w-4xl mx-auto relative">
       <header className="flex items-center justify-between mb-4">
         <button onClick={() => navigate('/')}>
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />

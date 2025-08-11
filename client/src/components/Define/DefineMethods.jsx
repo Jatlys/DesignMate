@@ -81,7 +81,7 @@ const Methods = ({ completedLessons }) => {
     };
 
     return (
-        <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative overflow-hidden">
+            <div className="h-screen bg-white flex flex-col p-4 max-w-4xl mx-auto relative overflow-hidden">
             {/* Header */}
             <header className="flex items-center justify-between mb-4">
                 <button onClick={() => navigate('/')} className="p-2">
