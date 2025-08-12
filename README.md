@@ -1,6 +1,8 @@
 # DesignMa+e
 
-A mobile-first web application to facilitate the design thinking and problem solving process.
+*This Project is a part of our Year 3 Human Computer Interactions and Artifical Intelligence course in Singapore University of Technology and Design.*
+
+DesignMa+e is amobile-first web application to facilitate the design thinking and problem solving process.
 
 DesignMa+e is a web application that helps users to create and manage their projects, with an AI enabled tool to help break down the problem, assist in time management, provide useful tools and resources, and provide feedback on the progress of the project.
 
@@ -16,6 +18,9 @@ We aim to assist beginners and professionals alike in their design thinking jour
 - **Resource Library:** Access to a library of useful tools and resources.
 - **Time Management:** AI assisted time allocation on each phase of the design process.
 - **Icebreakers:** Icebreakers to help you connect with new teammates.
+
+## Our Poster
+![Poster](/assets/Poster.png)
 
 ## 🛠️ Tech Stack
 
