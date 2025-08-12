@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import SprintManual from './components/SprintManual';
 import Homepage from './components/Homepage';
 import ViewAllProjects from './components/ViewAllProjects';
@@ -77,6 +77,46 @@ import GeneralChatbot from './components/GeneralChatbot';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const lessonPaths = [
+    '/discover/stakeholder-mapping',
+    '/discover/personas',
+    '/discover/scenarios',
+    '/discover/user-journey-mapping',
+    '/define/activity-diagram',
+    '/define/how-might-we',
+    '/define/affinity-analysis',
+    '/define/5-whys',
+    '/develop/c-sketching',
+    '/develop/moodboard',
+    '/develop/morph-matrix',
+    '/develop/real-win-worth',
+    '/deliver/mockups',
+    '/deliver/physical-model',
+    '/deliver/storyboarding',
+    '/deliver/wireframing',
+  ];
+
+  const currentLessonIndex = lessonPaths.indexOf(location.pathname);
+
+  const handleNextLesson = () => {
+    if (currentLessonIndex !== -1 && currentLessonIndex < lessonPaths.length - 1) {
+      navigate(lessonPaths[currentLessonIndex + 1]);
+    } else {
+      const currentPhase = location.pathname.split('/')[1];
+      navigate(`/${currentPhase}/dashboard`);
+    }
+  };
+
+  const handleBackLesson = () => {
+    if (currentLessonIndex > 0) {
+      navigate(lessonPaths[currentLessonIndex - 1]);
+    } else {
+      const currentPhase = location.pathname.split('/')[1];
+      navigate(`/${currentPhase}/dashboard`);
+    }
+  };
   const [completedLessons, setCompletedLessons] = useState(() => {
     const savedLessons = localStorage.getItem('completedLessons');
     return savedLessons ? new Set(JSON.parse(savedLessons)) : new Set();
@@ -146,7 +186,7 @@ const AppRoutes = () => {
       <Route path="/define/dashboard" element={<DefineDashboard completedLessons={completedLessons} setCompletedLessons={setCompletedLessons} />} />
       <Route path="/define/activity-diagram" element={<ActivityDiagramLesson onComplete={handleCompleteLesson} />} />
       <Route path="/define/how-might-we" element={<HowMightWeLesson onComplete={handleCompleteLesson} />} />
-      <Route path="/define/affinity-analysis" element={<AffinityAnalysisLesson onComplete={handleCompleteLesson} />} />
+            <Route path="/define/affinity-analysis" element={<AffinityAnalysisLesson onComplete={handleCompleteLesson} onNext={handleNextLesson} onBack={handleBackLesson} />} />
       <Route path="/define/5-whys" element={<FiveWhysLesson onComplete={handleCompleteLesson} />} />
       <Route path="/define/methods" element={<DefineMethods completedLessons={completedLessons} />} />
       

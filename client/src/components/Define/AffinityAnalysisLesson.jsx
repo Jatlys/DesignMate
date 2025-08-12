@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GeneralChatbot from '../GeneralChatbot';
+import BottomNav from '../BottomNav';
 
 const Section = ({ title, children, icon }) => (
   <div className="mb-6">
@@ -13,7 +14,7 @@ const Section = ({ title, children, icon }) => (
   </div>
 );
 
-const AffinityAnalysisLesson = ({ onComplete }) => {
+const AffinityAnalysisLesson = ({ onComplete, onNext, onBack }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
@@ -23,7 +24,8 @@ const AffinityAnalysisLesson = ({ onComplete }) => {
   };
 
   return (
-    <div className="h-screen bg-white flex flex-col p-4 max-w-4xl mx-auto relative overflow-hidden">
+        <div className="bg-white max-w-4xl mx-auto">
+      <div className="p-4">
       {/* Header */}
       <header className="flex items-center justify-between mb-4">
         <button onClick={() => navigate('/')} className="p-2">
@@ -49,7 +51,7 @@ const AffinityAnalysisLesson = ({ onComplete }) => {
       </p>
 
       {/* Main Content */}
-      <main className="flex-grow pb-16">
+      <main className="flex-grow pb-24">
         <Section title="Why?">
           <p>It allows you to organize, cluster and make sense of a large set of data such as user needs or ideas.</p>
         </Section>
@@ -90,6 +92,8 @@ const AffinityAnalysisLesson = ({ onComplete }) => {
       </main>
 
       {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
+      </div>
+      <BottomNav onNext={onNext} onBack={onBack} />
     </div>
   );
 }
