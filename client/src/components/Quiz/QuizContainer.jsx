@@ -134,7 +134,7 @@ const QuizContainer = () => {
   const progress = ((currentPhaseIndex + 1) / quizData.length) * 100;
 
   return (
-    <div className="quiz-container max-w-sm mx-auto">
+    <div className="quiz-container max-w-4xl mx-auto">
       <div className="quiz-header">
         <VscClose className="quiz-icon" onClick={() => navigate('/')} />
         <div className="progress-bar-container">

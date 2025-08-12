@@ -77,7 +77,7 @@ const IceBreakerQuestion3 = () => {
   }, [timeLeft, isRunning]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col max-w-sm mx-auto rounded-lg relative">
+    <div className="min-h-screen bg-white flex flex-col max-w-md mx-auto rounded-lg relative">
       {/* Header - X button moved further left */}
       <div className="w-full flex justify-start items-center px-4 pt-8 pb-4">
         <button onClick={handleBack} className="">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, HelpCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import GeneralChatbot from '../GeneralChatbot';
 
 const Section = ({ title, children, icon }) => (
@@ -55,21 +55,24 @@ function UserJourneyMappingLesson({ onComplete }) {
   };
 
   return (
-    <div className="h-screen bg-white flex flex-col p-4 max-w-sm mx-auto relative overflow-hidden">
+    <div className="h-screen bg-white flex flex-col p-4 max-w-4xl mx-auto relative overflow-hidden">
       {/* Header */}
       <header className="flex items-center justify-between mb-4">
         <button onClick={() => navigate('/')} className="p-2">
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
-        <div className="flex items-center">
-          <h2 className="text-2xl font-bold">User Journey Mapping</h2>
-          <button 
-            className="p-2 rounded-full hover:bg-gray-200 transition-colors duration-200"
-            onClick={() => setIsChatbotOpen(true)} 
-          >
-            <HelpCircle className="w-6 h-6 text-gray-600" />
-          </button>
-        </div>
+        <button 
+          onClick={() => setIsChatbotOpen(true)} 
+          className={`p-2 relative ${showPopup ? 'z-50' : ''}`}
+        >
+          <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-12 h-12" />
+          {showPopup && (
+            <div className="absolute inset-0 rounded-full border-4 border-blue-500 animate-pulse"></div>
+          )}
+          {showPopup && (
+            <div className="absolute inset-0 rounded-full border-8 border-blue-300 opacity-50 anime-ping"></div>
+          )}
+        </button>
       </header>
 
       {/* Progress Bar */}
@@ -149,7 +152,7 @@ function UserJourneyMappingLesson({ onComplete }) {
 
       {showPopup && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded-lg text-center max-w-sm mx-4">
+          <div className="bg-white p-8 rounded-lg text-center max-w-md mx-4">
             <p className="mb-4">If you have any questions after the end of the lesson, you may ask AI Mentor located here!</p>
             <button onClick={handlePopupOk} className="bg-gray-200 text-black font-semibold py-2 px-6 rounded-full">
               Ok!

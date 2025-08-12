@@ -38,9 +38,29 @@ const Homepage = () => {
       
       <div className="min-h-screen w-full flex flex-col mx-auto relative bg-white">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-100 bg-white">
-          {/* Search Bar */}
-          <div className="relative flex-1 mr-3 sm:mr-4">
+        <div className="p-4 sm:p-6 border-b border-gray-100 bg-white">
+          {/* Top Row - Logo and User Icon */}
+          <div className="flex items-center justify-between mb-4">
+            {/* Logo and Text */}
+            <div className="flex items-center gap-3">
+              <img src="/assets/logo.svg" alt="DesignMate" className="w-10 h-10 sm:w-12 sm:h-12" />
+              <div className="text-2xl sm:text-3xl font-bold tracking-wide" style={{ fontFamily: 'The Seasons, serif' }}>
+                <span className="text-black">DESIGN</span>
+                <span className="text-orange-600">m</span>
+                <span className="text-yellow-600">A</span>
+                <span style={{ color: '#777228' }}>+</span>
+                <span className="text-blue-500">E</span>
+              </div>
+            </div>
+            
+            {/* Profile Icon */}
+            <button onClick={() => navigate('/profile')} className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-300 rounded-full flex items-center justify-center">
+              <User className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
+            </button>
+          </div>
+          
+          {/* Search Bar Row */}
+          <div className="relative">
             <input
               type="text"
               placeholder="Search"
@@ -52,11 +72,6 @@ const Homepage = () => {
               </svg>
             </button>
           </div>
-          
-          {/* Profile Icon */}
-          <button onClick={() => navigate('/profile')} className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-300 rounded-full flex items-center justify-center">
-            <User className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
-          </button>
         </div>
 
         {/* Main Content */}
@@ -155,17 +170,17 @@ const Homepage = () => {
               {/* Create/Join Project */}
               <button
                 onClick={() => handleProjectAction('CREATE_JOIN')}
-                className="bg-gray-200 hover:bg-gray-300 rounded-xl sm:rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center transition-colors duration-200 relative"
-                style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}
+                className="hover:bg-gray-300 rounded-xl p-4 flex flex-col items-center justify-center transition-colors duration-200 relative"
+                style={{ backgroundColor: '#e5e7eb', boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}
               >
                 {/* Plus icon in gray area */}
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-3/4">
-                  <Plus className="w-10 h-10 sm:w-14 sm:h-14 text-black" strokeWidth={3} />
+                  <Plus className="w-12 h-12 text-black" strokeWidth={3} />
                 </div>
                 
-                {/* Cream rounded rectangle with text only */}
-                <div className="absolute bottom-1 left-1 right-1 h-16 sm:h-20 rounded-lg sm:rounded-xl flex flex-col items-center justify-center bg-white" style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}>
-                  <span className="text-black font-bold text-center text-xs sm:text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+                {/* White rounded rectangle with text only */}
+                <div className="absolute bottom-1 left-1 right-1 h-16 rounded-lg flex flex-col items-center justify-center bg-white" style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}>
+                  <span className="text-black text-sm sm:text-base opacity-90 font-bold text-center leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
                     Create/Join<br />Project
                   </span>
                 </div>
@@ -174,13 +189,13 @@ const Homepage = () => {
               {/* View All Projects */}
               <button
                 onClick={() => handleProjectAction('VIEW_ALL')}
-                className="bg-gray-200 hover:bg-gray-300 rounded-xl sm:rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center transition-colors duration-200 relative"
-                style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}
+                className="hover:bg-gray-300 rounded-xl p-4 flex flex-col items-center justify-center transition-colors duration-200 relative"
+                style={{ backgroundColor: '#e5e7eb', boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}
               >
-                {/* Cream rounded rectangle */}
-                <div className="absolute bottom-1 left-1 right-1 h-16 sm:h-20 rounded-lg sm:rounded-xl flex flex-col items-center justify-center bg-white" style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}>
-                  <Eye className="w-6 h-6 sm:w-8 sm:h-8 text-black mb-0.5" />
-                  <span className="text-black font-bold text-center text-xs sm:text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+                {/* White rounded rectangle */}
+                <div className="absolute bottom-1 left-1 right-1 h-16 rounded-lg flex flex-col items-center justify-center bg-white" style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)' }}>
+                  <Eye className="w-6 h-6 text-black mb-0.5" />
+                  <span className="text-black text-sm sm:text-base opacity-90 font-bold text-center leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
                     View All<br />Projects
                   </span>
                 </div>
@@ -192,14 +207,14 @@ const Homepage = () => {
         {/* Bottom Navigation */}
         <div className="fixed bottom-0 left-0 right-0 flex items-center justify-center py-4 sm:py-5 border-t border-gray-100 w-full bg-white">
           <div className="flex gap-8 sm:gap-10">
-            <button className="p-3 sm:p-4 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
-              <UserCircle className="w-6 h-6 sm:w-7 sm:h-7 text-gray-700" />
+            <button className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex items-center justify-center">
+              <User className="w-8 h-8 text-gray-700" />
             </button>
-            <button className="p-3 sm:p-4 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
-              <Home className="w-6 h-6 sm:w-7 sm:h-7 text-gray-700" />
+            <button className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex items-center justify-center">
+              <Home className="w-8 h-8 text-gray-700" />
             </button>
-            <button onClick={() => setIsChatbotOpen(true)} className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200">
-              <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-8 h-8" />
+            <button onClick={() => setIsChatbotOpen(true)} className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex items-center justify-center">
+              <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-10 h-10" />
             </button>
           </div>
         </div>

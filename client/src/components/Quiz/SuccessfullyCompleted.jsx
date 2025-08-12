@@ -19,7 +19,7 @@ const SuccessfullyCompleted = () => {
   
   
     return (
-        <div className="successfully-delivered-container max-w-sm mx-auto">
+        <div className="successfully-delivered-container max-w-2xl mx-auto">
             <div className="top-bar">
                 <img src="/assets/Home.svg" alt="Back" className="icon" onClick={() => navigate(-1)} />
                 <img src="/assets/Chatbot.svg" alt="Chatbot" className="icon w-12 h-12" onClick={toggleChatbot} />
