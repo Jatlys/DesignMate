@@ -1,42 +1,114 @@
 # DesignMa+e
 
 A mobile-first web application for user startup and design management, built as a prototype using modern web technologies.
-🚀 Tech Stack
-Frontend
 
-React - UI library for building user interfaces
-Vite - Fast build tool and development server
-Tailwind CSS - Utility-first CSS framework for styling
-React Router - Client-side routing
-Lucide React - Beautiful icons
+## 🚀 Features
 
-Backend
+- **Mobile-First Design:** Optimized for a seamless experience on mobile devices.
+- **User Onboarding:** A smooth and intuitive onboarding process for new users.
+- **Responsive UI:** A fully responsive interface that works on all device sizes.
+- **AI-Powered Chatbots:** Integrated LLMs to assist with the design process.
 
-Node.js - JavaScript runtime
-Express.js - Web application framework
-CORS - Cross-origin resource sharing
+## 🛠️ Tech Stack
 
-Authentication & Database
+### Frontend
 
-Firebase Authentication - User login and registration
-Firebase Firestore - NoSQL database for user data
+- **React:** A JavaScript library for building user interfaces.
+- **Vite:** A fast build tool and development server.
+- **Tailwind CSS:** A utility-first CSS framework for rapid styling.
+- **React Router:** For client-side routing.
+- **Lucide React:** A library of beautiful and consistent icons.
 
-📱 Features
+### Backend
 
-Mobile-first design - Optimized for mobile devices
-User onboarding - Smooth onboarding experience for new users
-Firebase authentication - Secure user login and registration
-Responsive UI - Works on all device sizes
-Real-time data - Firebase integration for live updates
+- **Node.js:** A JavaScript runtime for the main backend server.
+- **Express.js:** A web application framework for Node.js.
+- **Python:** Powers the LLM server.
+- **FastAPI:** A modern, fast web framework for building APIs with Python.
 
-🛠️ Installation & Setup
-Prerequisites
 
-Node.js (v16 or higher)
-Python (v3.8 or higher)
-Ollama (for running local LLMs)
 
-### 1. Frontend Setup
+## 📁 Project Structure
+
+```
+designmate/
+├── client/           # React frontend
+│   ├── src/
+│   │   ├── assets/       # Static assets like images and fonts
+│   │   ├── components/   # Reusable React components
+│   │   ├── App.jsx       # Main application component
+│   │   ├── main.jsx      # Application entry point
+│   │   └── firebase.js   # Firebase configuration
+│   ├── index.html      # Main HTML file
+│   └── vite.config.js  # Vite configuration
+├── server/           # Backend services
+│   ├── llm_server/     # Python-based LLM server
+│   │   ├── main.py     # FastAPI application
+│   │   └── ...
+│   └── server.js       # Node.js backend server
+├── Dockerfile        # Docker configuration
+├── cloudbuild.yaml   # Google Cloud Build configuration
+└── README.md         # Project documentation
+```
+
+## 🔧 Installation & Setup
+
+### Prerequisites
+
+- **Node.js** (v16 or higher)
+- **Python** (v3.8 or higher)
+- **Ollama:** For running local LLMs. Download it from the [official website](https://ollama.com/).
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Jatlys/DesignMate.git
+cd DesignMate
+```
+
+### 2. Setup the Backend
+
+#### Node.js Server
+
+```bash
+# Navigate to the server directory
+cd server
+
+# Install dependencies
+npm install
+
+# Create an environment file
+cp .env.example .env
+```
+
+Update the `.env` file with your environment variables.
+
+#### Python LLM Server
+
+1.  **Install Ollama and Models:**
+    -   Install Ollama from the [official website](https://ollama.com/) and ensure it's running.
+    -   Pull the required models:
+        ```bash
+        ollama pull llama2
+        ollama pull nomic-embed-text
+        ```
+
+2.  **Setup Python Environment:**
+
+    ```bash
+    # Navigate to the LLM server directory
+    cd server/llm_server
+
+    # Create and activate a virtual environment
+    python -m venv venv
+    # On Windows: .\venv\Scripts\activate
+    # On macOS/Linux: source venv/bin/activate
+
+    # Install dependencies
+    pip install -r requirements.txt
+    ```
+
+### 3. Setup the Frontend
 
 ```bash
 # Navigate to the client directory
@@ -44,238 +116,66 @@ cd client
 
 # Install dependencies
 npm install
-
-# Start the development server
-npm start
 ```
 
-### 2. Backend LLM & RAG Setup
+## 🚦 Running the Application
 
-These instructions are for the Python server that powers the chatbot's AI capabilities.
+1.  **Start the LLM Server:**
 
-**A. Install Ollama and Models**
-
-1.  **Install Ollama:** Download and install Ollama from the [official website](https://ollama.com/). After installation, ensure the Ollama application is running.
-2.  **Pull Required Models:** Open a terminal and run the following commands to download the necessary LLM and embedding models:
     ```bash
-    ollama pull llama2
-    ollama pull nomic-embed-text
+    # In server/llm_server directory
+    uvicorn main:app --host 0.0.0.0 --port 8000
     ```
 
-**B. Setup Python Environment**
+2.  **Start the Node.js Server:**
 
-```bash
-# Navigate to the LLM server directory
-cd server/llm_server
+    ```bash
+    # In server directory
+    npm run dev
+    ```
 
-# (Recommended) Create and activate a virtual environment
-python -m venv venv
-# On Windows
-.\venv\Scripts\activate
-# On macOS/Linux
-# source venv/bin/activate
+3.  **Start the Frontend Development Server:**
 
-# Install Python dependencies
-pip install -r requirements.txt
-```
+    ```bash
+    # In client directory
+    npm run dev
+    ```
 
-**C. Start the LLM Server**
+The application will be available at `http://localhost:5173` (or another port if 5173 is busy).
 
-Once the environment is set up, start the FastAPI server:
+## 🛣️ API Endpoints
 
-```bash
-# From the server/llm_server directory
-uvicorn main:app --host 0.0.0.0 --port 8000
-```
+### Node.js Server (Base URL: `http://localhost:5000`)
 
-### 3. Populating the RAG Knowledge Base
+-   `GET /`: Server status.
+-   `GET /api/test`: Test the backend connection.
+-   `GET /api/health`: Health check.
 
-To give the chatbots knowledge, you need to upload PDF documents to their respective knowledge bases. This is done via a `curl` command.
+### Python LLM Server (Base URL: `http://localhost:8000`)
 
-1.  Open a new terminal.
-2.  Navigate to the directory containing the PDF you want to upload.
-3.  Run the appropriate `curl` command below, replacing `your-file.pdf` with your actual file name.
+-   `POST /api/general/upload`: Upload a PDF to the Define chatbot's knowledge base.
 
-**Upload to Define Chatbot:**
-```bash
-cURL -X POST -F "file=@your-file.pdf" http://localhost:8000/api/define/upload
-```
 
-**Upload to Develop Chatbot:**
-```bash
-cURL -X POST -F "file=@your-file.pdf" http://localhost:8000/api/develop/upload
-```
+## 🚀 Deployment
 
-**Upload to Deliver Chatbot:**
-```bash
-cURL -X POST -F "file=@your-file.pdf" http://localhost:8000/api/deliver/upload
-```
+The project is configured for deployment using Docker and Google Cloud Build. Refer to the `Dockerfile` and `cloudbuild.yaml` for more details.
 
-**Note on Data Transfer:** The uploaded documents and their processed vector data are stored in `server/llm_server/knowledge_bases` and `server/llm_server/vector_stores` respectively. To move your setup to another machine, simply copy these two folders to the same location in the new project directory.
-npm or yarn
-Firebase account
+## 🤝 Contributing
 
-Clone the Repository
-bashgit clone <your-repo-url>
-cd designmate-app
-Frontend Setup
-bash# Navigate to client directory
-cd client
+Contributions are welcome! Please follow these steps:
 
-# Install dependencies
+1.  Fork the repository.
+2.  Create a new feature branch (`git checkout -b feature-name`).
+3.  Commit your changes (`git commit -m 'Add feature'`).
+4.  Push to the branch (`git push origin feature-name`).
+5.  Submit a pull request.
 
-npm install
+## 🐛 Troubleshooting
 
-# Start development server
+-   **Tailwind CSS styles not applying:** Ensure the `@tailwind` directives are in `index.css` and that Tailwind is correctly installed.
+-   **Firebase errors:** Double-check your Firebase configuration in `firebase.js` and ensure the required services are enabled in the Firebase console.
+-   **CORS errors:** Make sure the server's CORS policy is configured to allow requests from the frontend's URL.
 
-npm run dev
-Backend Setup
-bash# Navigate to server directory
-cd server
+## 📝 License
 
-# Install dependencies
-
-npm install
-
-# Create environment file
-
-cp .env.example .env
-
-# Start development server
-
-npm run dev
-🔧 Configuration
-Firebase Setup
-
-Create a Firebase project at https://console.firebase.google.com/
-Enable Authentication with Email/Password and Google providers
-Enable Firestore Database
-Copy your Firebase config to client/src/firebase.js
-
-Environment Variables
-Server (.env)
-envPORT=5000
-NODE_ENV=development
-Client (optional .env)
-envVITE_FIREBASE_API_KEY=your-api-key
-VITE_FIREBASE_AUTH_DOMAIN=your-auth-domain
-VITE_FIREBASE_PROJECT_ID=your-project-id
-🚦 Running the Application
-Development Mode
-
-Start the backend server:
-bashcd server
-npm run dev
-Server runs on http://localhost:5000
-Start the frontend (in new terminal):
-bashcd client
-npm run dev
-App runs on http://localhost:3000
-
-Production Build
-bashcd client
-npm run build
-📁 Project Structure
-designmate-app/
-├── client/ # React frontend
-│ ├── src/
-│ │ ├── components/ # React components
-│ │ │ └── OnboardingPage.jsx
-│ │ ├── firebase.js # Firebase configuration
-│ │ ├── App.jsx # Main app component
-│ │ ├── index.css # Global styles
-│ │ └── main.jsx # App entry point
-│ ├── public/ # Static assets
-│ ├── package.json # Frontend dependencies
-│ └── vite.config.js # Vite configuration
-├── server/ # Express backend
-│ ├── routes/ # API routes
-│ ├── middleware/ # Express middleware
-│ ├── server.js # Main server file
-│ ├── package.json # Backend dependencies
-│ └── .env # Environment variables
-└── README.md
-🛣️ API Endpoints
-Base URL: http://localhost:5000
-
-GET / - Server status
-GET /api/test - Backend connection test
-GET /api/health - Health check
-
-More endpoints will be added as features are developed
-🎨 UI Components
-Current Pages
-
-OnboardingPage - Initial user onboarding experience
-
-Planned Pages
-
-Login/Signup forms
-User dashboard
-Profile management
-Design tools interface
-
-🧪 Testing
-Frontend
-bashcd client
-npm run build # Test build process
-npm run preview # Preview production build
-Backend
-bashcd server
-curl http://localhost:5000/api/test # Test API endpoint
-🚀 Deployment
-Frontend (Vercel/Netlify)
-
-Build the client: npm run build
-Deploy the dist folder
-Set environment variables in your hosting platform
-
-Backend (Heroku/Railway)
-
-Deploy the server folder
-Set environment variables
-Update CORS origin to your frontend URL
-
-🤝 Contributing
-
-Fork the repository
-Create a feature branch: git checkout -b feature-name
-Commit changes: git commit -m 'Add feature'
-Push to branch: git push origin feature-name
-Submit a pull request
-
-📝 Development Notes
-For Flask Developers
-
-React components are like Flask templates
-.jsx files contain both HTML-like markup and JavaScript logic
-Tailwind classes replace traditional CSS
-State management replaces server-side sessions
-
-Mobile Development
-
-Uses max-w-sm for mobile-first design
-Responsive breakpoints with Tailwind
-Touch-friendly button sizes and spacing
-
-🐛 Troubleshooting
-Common Issues
-Tailwind styles not working:
-
-Check that @tailwind directives are in index.css
-Ensure Tailwind is installed: npm install -D tailwindcss
-
-Firebase errors:
-
-Verify Firebase config in firebase.js
-Check that Authentication is enabled in Firebase Console
-
-CORS errors:
-
-Ensure server CORS is configured for frontend URL
-Check that both servers are running
-
-Import errors:
-
-Verify file paths in import statements
-Check that components are exported correctly
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
