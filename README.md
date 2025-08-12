@@ -1,6 +1,6 @@
 # DesignMa+e
 
-A mobile-first web application for user startup and design management, built as a prototype using modern web technologies.
+A mobile-first web application to facilitate the design thinking and problem solving process. 
 
 ## 🚀 Features
 
