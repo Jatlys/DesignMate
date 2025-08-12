@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import GeneralChatbot from '../GeneralChatbot';
 
 const Section = ({ title, children, icon }) => (
@@ -16,21 +17,42 @@ const Section = ({ title, children, icon }) => (
 const RealWinWorthLesson = ({ onComplete }) => {
   const navigate = useNavigate();
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPopup(true);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleComplete = () => {
-    onComplete('Real-Win-Worth');
+    onComplete('Real, Win, Worth');
     navigate('/develop/dashboard');
   };
 
+  const handlePopupOk = () => {
+    setShowPopup(false);
+  };
+
   return (
-    <div className="min-h-screen bg-white flex flex-col p-4 max-w-4xl mx-auto">
+    <div className="h-screen bg-white flex flex-col p-4 max-w-4xl mx-auto relative overflow-hidden">
       {/* Header */}
       <header className="flex items-center justify-between mb-4">
         <button onClick={() => navigate('/')} className="p-2">
           <img src="/assets/Home.svg" alt="Home" className="w-8 h-8" />
         </button>
-        <button onClick={() => setIsChatbotOpen(true)} className="p-2">
+        <button 
+          onClick={() => setIsChatbotOpen(true)} 
+          className={`p-2 relative ${showPopup ? 'z-50' : ''}`}
+        >
           <img src="/assets/Chatbot.svg" alt="Chatbot" className="w-12 h-12" />
+          {showPopup && (
+            <div className="absolute inset-0 rounded-full border-4 border-blue-500 animate-pulse"></div>
+          )}
+          {showPopup && (
+            <div className="absolute inset-0 rounded-full border-8 border-blue-300 opacity-50 anime-ping"></div>
+          )}
         </button>
       </header>
 
@@ -49,7 +71,7 @@ const RealWinWorthLesson = ({ onComplete }) => {
       </p>
 
       {/* Main Content */}
-      <main className="flex-grow pb-16">
+      <main className="flex-grow overflow-y-auto pb-20">
         <Section title="How It Works">
           <ul className="list-disc list-inside space-y-2">
             <li><strong>Win:</strong> Does the idea have a "wow" factor? Is it desirable and likely to succeed in the market?</li>
@@ -75,15 +97,38 @@ const RealWinWorthLesson = ({ onComplete }) => {
           </ol>
         </Section>
 
-        <button 
-          onClick={handleComplete}
-          className="w-full bg-gray-200 text-black font-semibold py-3 px-6 rounded-full mt-4"
-        >
-          Complete Lesson
-        </button>
       </main>
 
+      {/* Footer Navigation */}
+      <footer className="absolute bottom-0 left-0 right-0 bg-white p-4 flex items-center">
+        <button onClick={() => navigate('/develop/dashboard')} className="p-2">
+          <ArrowLeft className="w-8 h-8 text-black" />
+        </button>
+        
+        <div className="flex-grow flex justify-center">
+          <button 
+            onClick={handleComplete}
+            className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-full"
+          >
+            Complete Lesson
+          </button>
+        </div>
+
+        <div className="w-12"></div>
+      </footer>
+
       {isChatbotOpen && <GeneralChatbot onClose={() => setIsChatbotOpen(false)} />}
+
+      {showPopup && (
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
+          <div className="bg-white p-8 rounded-lg text-center max-w-md mx-4">
+            <p className="mb-4">If you have any questions after the end of the lesson, you may ask AI Mentor located here!</p>
+            <button onClick={handlePopupOk} className="bg-gray-200 text-black font-semibold py-2 px-6 rounded-full">
+              Ok!
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
