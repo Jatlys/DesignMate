@@ -1,6 +1,10 @@
 # DesignMa+e
 
-A mobile-first web application to facilitate the design thinking and problem solving process. 
+A mobile-first web application to facilitate the design thinking and problem solving process.
+
+DesignMa+e is a web application that helps users to create and manage their projects, with an AI enabled tool to help break down the problem, assist in time management, provide useful tools and resources, and provide feedback on the progress of the project.
+
+We aim to assist beginners and professionals alike in their design thinking journey through providing a user-friendly interface and AI-powered tools to assist them in their brainstorming, pushing them to think outside the box, and helping them to create innovative solutions.
 
 ## 🚀 Features
 
@@ -8,6 +12,10 @@ A mobile-first web application to facilitate the design thinking and problem sol
 - **User Onboarding:** A smooth and intuitive onboarding process for new users.
 - **Responsive UI:** A fully responsive interface that works on all device sizes.
 - **AI-Powered Chatbots:** Integrated LLMs to assist with the design process.
+- **Progress Tracking:** Track the progress of your projects and receive feedback.
+- **Resource Library:** Access to a library of useful tools and resources.
+- **Time Management:** AI assisted time allocation on each phase of the design process.
+- **Icebreakers:** Icebreakers to help you connect with new teammates.
 
 ## 🛠️ Tech Stack
 
