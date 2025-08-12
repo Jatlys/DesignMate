@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, ArrowRight } from 'lucide-react';
+import { User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const JoinorCreatePage = () => {
@@ -36,17 +36,8 @@ const JoinorCreatePage = () => {
         </button>
       </div>
 
-      <div className="flex items-center justify-between p-4 bg-white mt-[94px]">
-        <div className="flex items-center gap-2 flex-grow">
-          <div className="h-1 bg-black w-1/4"></div>
-          <div className="h-1 bg-black w-1/4"></div>
-          <div className="h-1 bg-black w-1/4"></div>
-          <div className="h-1 bg-black w-1/4"></div>
-        </div>
-      </div>
-
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-8 text-center">
+      <div className="flex-1 flex flex-col items-center justify-center px-8 text-center mt-[94px]">
         <h2 className="text-3xl font-serif text-black mb-8">JOIN TEAM</h2>
         
         <div className="w-full">
@@ -66,16 +57,12 @@ const JoinorCreatePage = () => {
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between p-4">
-        <div className="w-6 h-6"></div> {/* Spacer */}
+      <div className="flex items-center justify-center p-4">
         <button
           onClick={handleSkip}
           className="font-semibold py-2 px-8 rounded-full bg-gray-200 text-black"
         >
           SKIP
-        </button>
-        <button onClick={handleSubmit}>
-          <ArrowRight className="w-6 h-6 text-black" />
         </button>
       </div>
     </div>
